@@ -1,3 +1,25 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<div id="app_home">
+    <div v-for="item in projects">
+        <h3>
+            {{item.title}}
+        </h3>
+        {{item.description}}
+        {{item.project_type}}
+    </div>
+</div>
+
+<script>
+    fetch('@Url.Action("GetProjects", "Home")')
+        .then(function (response) {
+            response.json().then(function (data) {
+                app_home._data.projects = data;
+                console.log(app_home._data.projects);
+            });
+        });
+    var app_home = new Vue({
+        el: '#app_home',
+        data: {
+            projects: null
+        }
+    });
+</script>
