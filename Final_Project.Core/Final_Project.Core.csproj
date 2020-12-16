@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="DBService\Implementation\" />
+    <Folder Include="DBService\Interface\" />
+  </ItemGroup>
+
 </Project>
