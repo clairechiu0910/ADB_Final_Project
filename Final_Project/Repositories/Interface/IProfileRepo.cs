@@ -8,8 +8,8 @@ namespace Final_Project.Repositories.Interface
 {
     public interface IProfileRepo
     {
-        IProfileRepo GetProfile(int id);
-        bool InsertProfile(Profile profile);
-        bool UpdateProfile(Profile profile);
+        Profile GetProfile(int id);
+        void InsertProfile(Profile profile);
+        void UpdateProfile(Profile profile);
     }
 }

@@ -4,11 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Final_Project.Models;
+using Final_Project.Repositories.Interface;
 
 namespace Final_Project.Controllers
 {
     public class ProfileController : Controller
     {
+        private readonly IProfileRepo _profileRepo;
+
+        public ProfileController(IProfileRepo profileRepo)
+        {
+            _profileRepo = profileRepo;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -23,6 +31,7 @@ namespace Final_Project.Controllers
         [HttpPost]
         public IActionResult EditProfile(Profile profile)
         {
+            _profileRepo.InsertProfile(profile);
             return RedirectToAction("Index");
         }
 
