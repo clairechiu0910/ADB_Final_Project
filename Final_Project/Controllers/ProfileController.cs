@@ -42,7 +42,7 @@ namespace Final_Project.Controllers
 
             var tmpList = new List<Tuple<string, string>>()
             {
-                new Tuple<string, string>("Username", profile.Username),
+                new Tuple<string, string>("Account", profile.Account),
                 new Tuple<string, string>("Name", profile.Name),
                 new Tuple<string, string>("Address", profile.Address),
                 new Tuple<string, string>("Phone", profile.Phone),
