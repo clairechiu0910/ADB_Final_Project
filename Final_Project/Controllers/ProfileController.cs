@@ -14,9 +14,16 @@ namespace Final_Project.Controllers
             return View();
         }
 
-        public IActionResult Register()
+        public IActionResult EditProfile()
         {
-            return View();
+            var profile = new Profile();
+            return View(profile);
+        }
+
+        [HttpPost]
+        public IActionResult EditProfile(Profile profile)
+        {
+            return RedirectToAction("Index");
         }
 
         public IActionResult GetProfile()
