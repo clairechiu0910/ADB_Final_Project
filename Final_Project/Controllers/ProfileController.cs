@@ -37,8 +37,8 @@ namespace Final_Project.Controllers
 
         public IActionResult GetProfile()
         {
-            var id = 0;
-            var profile = _profileRepo.GetProfile(id);
+            var account = "fake";
+            var profile = _profileRepo.GetProfile(account);
 
             var tmpList = new List<Tuple<string, string>>()
             {

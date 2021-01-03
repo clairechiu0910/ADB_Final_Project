@@ -8,7 +8,7 @@ namespace Final_Project.Repositories.Interface
 {
     public interface IProfileRepo
     {
-        Profile GetProfile(int id);
+        Profile GetProfile(string account);
         void InsertProfile(Profile profile);
         void UpdateProfile(Profile profile);
     }

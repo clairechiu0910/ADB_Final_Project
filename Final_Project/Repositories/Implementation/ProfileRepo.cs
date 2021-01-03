@@ -18,10 +18,10 @@ namespace Final_Project.Repositories.Implementation
             ProfileFilePath = Path.Combine(environment.WebRootPath, "ProfileJson.json");
         }
 
-        public Profile GetProfile(int id)
+        public Profile GetProfile(string account)
         {
             var profileList = GetJsonFileData();
-            var profile = profileList.First(s => s.Id == id);
+            var profile = profileList.First(s => s.Account == account);
             return profile;
         }
 
@@ -51,7 +51,7 @@ namespace Final_Project.Repositories.Implementation
             {
                 return new List<Profile>()
                 {
-                    new Profile(){ Id = 0 }
+                    new Profile(){ Account = "fake" }
                 };
             }
         }
