@@ -37,22 +37,16 @@ namespace Final_Project.Controllers
 
         public IActionResult GetProfile()
         {
-            var tmp = new Profile()
-            {
-                Username = "hello",
-                Name = "Mary",
-                Address = "hell, lkdfji, liseir",
-                Phone = "8881868",
-                Email = "abc@thii.ckd.com"
-            };
+            var id = 0;
+            var profile = _profileRepo.GetProfile(id);
 
             var tmpList = new List<Tuple<string, string>>()
             {
-                new Tuple<string, string>("Username", tmp.Username),
-                new Tuple<string, string>("Name", tmp.Name),
-                new Tuple<string, string>("Address", tmp.Address),
-                new Tuple<string, string>("Phone", tmp.Phone),
-                new Tuple<string, string>("Email", tmp.Email)
+                new Tuple<string, string>("Username", profile.Username),
+                new Tuple<string, string>("Name", profile.Name),
+                new Tuple<string, string>("Address", profile.Address),
+                new Tuple<string, string>("Phone", profile.Phone),
+                new Tuple<string, string>("Email", profile.Email)
             };
 
             return Json(tmpList);

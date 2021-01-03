@@ -2,9 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Hosting;
 using Final_Project.Repositories.Interface;
 using Final_Project.Models;
@@ -22,7 +20,9 @@ namespace Final_Project.Repositories.Implementation
 
         public Profile GetProfile(int id)
         {
-            throw new NotImplementedException();
+            var profileList = GetJsonFileData();
+            var profile = profileList.First(s => s.Id == id);
+            return profile;
         }
 
         public void InsertProfile(Profile profile)
