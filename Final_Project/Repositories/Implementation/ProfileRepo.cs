@@ -41,9 +41,19 @@ namespace Final_Project.Repositories.Implementation
 
         private List<Profile> GetJsonFileData()
         {
-            var fileJsonString = File.ReadAllText(ProfileFilePath);
-            var profileList = JsonSerializer.Deserialize<List<Profile>>(fileJsonString);
-            return profileList;
+            try
+            {
+                var fileJsonString = File.ReadAllText(ProfileFilePath);
+                var profileList = JsonSerializer.Deserialize<List<Profile>>(fileJsonString);
+                return profileList;
+            }
+            catch
+            {
+                return new List<Profile>()
+                {
+                    new Profile(){ Id = 0 }
+                };
+            }
         }
     }
 }
