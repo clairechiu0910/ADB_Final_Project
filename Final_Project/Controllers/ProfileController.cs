@@ -8,6 +8,11 @@ namespace Final_Project.Controllers
 {
     public class ProfileController : Controller
     {
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         public IActionResult Register()
         {
             return View();
