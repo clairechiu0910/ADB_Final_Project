@@ -1319,9 +1319,6 @@ mark,
 .text-center {
   text-align: center;
 }
-.text-justify {
-  text-align: justify;
-}
 .text-nowrap {
   white-space: nowrap;
 }
@@ -2073,7 +2070,7 @@ pre code {
     margin-left: 50%;
   }
   .col-md-offset-5 {
-    margin-left: 41.66666667%;
+    margin-left: 9.66666667%;
   }
   .col-md-offset-4 {
     margin-left: 33.33333333%;
@@ -3337,8 +3334,8 @@ fieldset[disabled] .btn-warning:focus,
 .btn-warning.disabled.focus,
 .btn-warning[disabled].focus,
 fieldset[disabled] .btn-warning.focus {
-  background-color: #f0ad4e;
-  border-color: #eea236;
+  background-color: #cca205;
+  border-color: ##b48e03;
 }
 .btn-warning .badge {
   color: #f0ad4e;

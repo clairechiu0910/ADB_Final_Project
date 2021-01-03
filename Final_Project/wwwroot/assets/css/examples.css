@@ -43,7 +43,7 @@
   color: #FFF; }
 
 .register-background {
-  background-image: url("../paper_img/landscape.jpg");
+  background-image: url("../paper_img/nebula.jpg");
   background-position: center center;
   background-size: cover;
   min-height: 100vh;
@@ -78,9 +78,9 @@
   color: #EB5E28; }
 
 .register-card {
-  background-color: #FF8F5E;
+  background-color: rgb(255 251 255 / 70%);
   border-radius: 8px;
-  color: #fff;
+  color: ##fffcf5;
   max-width: 350px;
   margin: 20px 0 70px;
   min-height: 400px;
@@ -90,7 +90,7 @@
   margin-top: 15px; }
 
 .register-card .title {
-  color: #B33C12;
+  color: #eb5e28;
   text-align: center; }
 
 .register-card .btn {
@@ -100,7 +100,7 @@
   text-align: center; }
 
 .profile-background {
-  background-image: url("../paper_img/lamp.jpg");
+  background-image: url("../paper_img/star_gaze.jpg");
   background-position: center center;
   background-size: cover;
   height: 300px;

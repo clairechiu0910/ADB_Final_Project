@@ -39,7 +39,7 @@ h3, .h3 {
 h4, .h4 {
   font-size: 1.5em;
   font-weight: 600;
-  line-height: 1.2em; }
+  line-height: 2.2em; }
 
 h5, .h5 {
   font-size: 1.25em;
@@ -468,8 +468,8 @@ input.ct-red + span + label + span.switch-right {
     border-top-color: #F3BB45; }
 
 .navbar .navbar-nav > li > a.btn-danger, .btn-danger {
-  border-color: #EB5E28;
-  color: #EB5E28; }
+  border-color: #eb5e28;
+  color: #eb5e28; }
   .navbar .navbar-nav > li > a.btn-danger:hover, .navbar .navbar-nav > li > a.btn-danger:focus, .navbar .navbar-nav > li > a.btn-danger:active, .navbar .navbar-nav > li > a.btn-danger.active, .open > .navbar .navbar-nav > li > a.btn-danger.dropdown-toggle, .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open > .btn-danger.dropdown-toggle {
     background-color: #EB5E28;
     color: rgba(255, 255, 255, 0.7);
