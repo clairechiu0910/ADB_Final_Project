@@ -1,21 +1,25 @@
 ﻿using System.Diagnostics;
-using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Final_Project.Models;
 using Final_Project.Repositories.Interface;
+using IAuthenticationService = Final_Project.Services.Interface.IAuthenticationService;
 
 namespace Final_Project.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IProjectsRepo _projectrepo;
+        private readonly IAuthenticationService _authenticationService;
 
-        public HomeController(IProjectsRepo projectRepo)
+        public HomeController(IProjectsRepo projectRepo, IAuthenticationService authenticationService)
         {
             _projectrepo = projectRepo;
+            _authenticationService = authenticationService;
         }
 
         public IActionResult Index()
@@ -30,8 +34,24 @@ namespace Final_Project.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(string account, string password, string returnUrl)
+        public async Task<IActionResult> Login(string account, string password, string returnUrl)
         {
+            if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(password))
+            {
+                ViewBag.errMsg = "Please input account or password";
+                return View("Login");
+            }
+
+            if (!_authenticationService.IsAuthentication(account, password))
+            {
+                ViewBag.errMsg = "Your account or password is wrong";
+                return View("Login");
+            }
+
+            await SetAuthentication(account);
+            SetLoginSession(account);
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl)) return Redirect(returnUrl);
             return RedirectToAction("Index");
         }
 
@@ -45,6 +65,24 @@ namespace Final_Project.Controllers
         {
             var projects = _projectrepo.GetAllProjects();
             return Json(projects);
+        }
+
+        private async Task SetAuthentication(string account)
+        {
+            var claims = new[] { new Claim("Account", account) };
+            var claimsIdentity =
+                new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(claimsIdentity);
+            await HttpContext.SignInAsync(principal,
+                           new AuthenticationProperties()
+                           {
+                               IsPersistent = false,
+                           });
+        }
+
+        private void SetLoginSession(string account)
+        {
+            HttpContext.Session.SetString("Account", account);
         }
     }
 }

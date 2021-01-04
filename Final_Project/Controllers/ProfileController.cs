@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Final_Project.Models;
 using Final_Project.Repositories.Interface;
 
@@ -17,11 +16,19 @@ namespace Final_Project.Controllers
             _profileRepo = profileRepo;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
 
+        public IActionResult Register()
+        {
+            var profile = new Profile();
+            return View("EditProfile", profile);
+        }
+
+        [Authorize]
         public IActionResult EditProfile()
         {
             var profile = new Profile();
@@ -35,6 +42,7 @@ namespace Final_Project.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult GetProfile()
         {
             var account = "fake";

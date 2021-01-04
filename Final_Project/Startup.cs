@@ -1,31 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Final_Project.Repositories.Implementation;
 using Final_Project.Repositories.Interface;
+using Final_Project.Repositories.Implementation;
+using Final_Project.Services.Interface;
+using Final_Project.Services.Implementation;
 
 namespace Final_Project
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var loginExpireMinute = _configuration.GetValue<double>("LoginExpireMinute");
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
+            {
+                option.LoginPath = new PathString("/Home/Login");
+                option.LogoutPath = new PathString("/Home/Logout");
+                option.ExpireTimeSpan = TimeSpan.FromMinutes(loginExpireMinute);//沒給預設14天
+            });
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -35,6 +42,7 @@ namespace Final_Project
 
             services.AddTransient<IProjectsRepo, ProjectsRepo>();
             services.AddTransient<IProfileRepo, ProfileRepo>();
+            services.AddTransient<IAuthenticationService, RepoAuthenticationService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSession();
@@ -55,7 +63,7 @@ namespace Final_Project
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            app.UseAuthentication();
             app.UseSession();
 
             app.UseMvc(routes =>

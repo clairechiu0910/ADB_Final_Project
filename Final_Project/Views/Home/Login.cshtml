@@ -64,8 +64,12 @@
                                 @Html.TextBox("Account", "", new { @class = "form-control" })
                                 <label>Password</label>
                                 @Html.Password("password", "", new { @class = "form-control" })
+                                <div class="card-description form-group text-danger">
+                                    @ViewBag.errMsg
+                                </div>
                                 <button type="submit" class="btn btn-danger btn-block">Login</button>
                             }
+                            <button class="btn btn-danger btn-block" onclick=toRegisterPage()>Register</button>
                         </div>
                     </div>
                 </div>
@@ -88,6 +92,12 @@
     <script src="../assets/js/bootstrap-datepicker.js"></script>
 
     <script src="../assets/js/ct-paper.js"></script>
+
+    <script>
+        function toRegisterPage() {
+            window.location.href = '@Url.Action("Register", "Profile")';
+        }
+    </script>
 </body>
 
 </html>
