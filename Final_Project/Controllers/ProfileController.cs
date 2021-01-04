@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Final_Project.Models;
 using Final_Project.Repositories.Interface;
@@ -45,7 +46,7 @@ namespace Final_Project.Controllers
         [Authorize]
         public IActionResult GetProfile()
         {
-            var account = "fake";
+            var account = HttpContext.Session.GetString("Account");
             var profile = _profileRepo.GetProfile(account);
 
             var tmpList = new List<Tuple<string, string>>()
