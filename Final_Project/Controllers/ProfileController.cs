@@ -26,13 +26,16 @@ namespace Final_Project.Controllers
         public IActionResult Register()
         {
             var profile = new Profile();
+            ViewBag.IsEdit = false;
             return View("EditProfile", profile);
         }
 
         [Authorize]
         public IActionResult EditProfile()
         {
-            var profile = new Profile();
+            var account = HttpContext.Session.GetString("Account");
+            var profile = _profileRepo.GetProfile(account);
+            ViewBag.IsEdit = true;
             return View(profile);
         }
 

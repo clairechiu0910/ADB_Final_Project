@@ -73,7 +73,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-md-offset-5 text-left">
-                            <btn class="btn"><i class="fa fa-cog"></i> Edit</btn>
+                            <btn class="btn" v-on:click="Edit()"><i class="fa fa-cog"></i> Edit</btn>
                         </div>
                     </div>
                 </div>
@@ -116,6 +116,11 @@
             el: '#app_profile',
             data: {
                 profile: null
+            },
+            methods: {
+                Edit: function (id) {
+                    location.href = '@Url.Action("EditProfile", "Profile")';
+                }
             }
         });
     </script>
