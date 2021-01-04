@@ -21,7 +21,7 @@ namespace Final_Project.Repositories.Implementation
         public Profile GetProfile(string account)
         {
             var profileList = GetJsonFileData();
-            var profile = profileList.First(s => s.Account == account);
+            var profile = profileList.FirstOrDefault(s => s.Account == account);
             return profile;
         }
 
@@ -49,10 +49,7 @@ namespace Final_Project.Repositories.Implementation
             }
             catch
             {
-                return new List<Profile>()
-                {
-                    new Profile(){ Account = "fake" }
-                };
+                return new List<Profile>(){};
             }
         }
     }

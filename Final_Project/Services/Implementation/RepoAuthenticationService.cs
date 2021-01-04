@@ -14,7 +14,12 @@ namespace Final_Project.Services.Implementation
         public bool IsAuthentication(string account, string password)
         {
             var profile = _profileRepo.GetProfile(account);
-            if(profile.Password == password)
+            if (profile == null)
+            {
+                return false;
+            }
+
+            if (profile.Password == password)
             {
                 return true;
             }
