@@ -27,8 +27,9 @@ namespace Final_Project.Controllers
             return View();
         }
 
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
+            await HttpContext.SignOutAsync();
             HttpContext.Session.Clear();
             return View();
         }
