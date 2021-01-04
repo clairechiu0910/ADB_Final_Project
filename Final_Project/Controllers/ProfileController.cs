@@ -42,7 +42,16 @@ namespace Final_Project.Controllers
         [HttpPost]
         public IActionResult EditProfile(Profile profile)
         {
-            _profileRepo.InsertProfile(profile);
+            if (profile.Account == null)
+            {
+                // Register
+                profile.Account = HttpContext.Session.GetString("Account");
+                _profileRepo.UpdateProfile(profile);
+            }
+            else
+            {
+                _profileRepo.InsertProfile(profile);
+            }
             return RedirectToAction("Index");
         }
 

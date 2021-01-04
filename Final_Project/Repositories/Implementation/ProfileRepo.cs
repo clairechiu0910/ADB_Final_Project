@@ -29,14 +29,25 @@ namespace Final_Project.Repositories.Implementation
         {
             var profileList = GetJsonFileData();
             profileList.Add(profile);
-            var jsonString = JsonSerializer.Serialize(profileList);
-            File.WriteAllText(ProfileFilePath, jsonString);
+            WriteJsonFile(profileList);
             return;
         }
 
         public void UpdateProfile(Profile profile)
         {
-            throw new NotImplementedException();
+            var profileList = GetJsonFileData();
+
+            var idx = profileList.FindIndex(s => s.Account == profile.Account);
+            profileList.RemoveAt(idx);
+            profileList.Add(profile);
+
+            WriteJsonFile(profileList);
+        }
+
+        private void WriteJsonFile(List<Profile> profileList)
+        {
+            var jsonString = JsonSerializer.Serialize(profileList);
+            File.WriteAllText(ProfileFilePath, jsonString);
         }
 
         private List<Profile> GetJsonFileData()
