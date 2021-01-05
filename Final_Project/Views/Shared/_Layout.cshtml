@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    var account = Context.Session.GetString("Account");
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -41,11 +46,20 @@
             <div class="collapse navbar-collapse" id="navigation-example-2">
                 <ul class="nav navbar-nav">
                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-controller="Profile" asp-action="Index">View Profile Page</a></li>
+                    <li><a asp-controller="Profile" asp-action="Index">My Profile</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a asp-controller="Home" asp-action="Login">Login</a></li>
-                    <li><a asp-controller="Home" asp-action="Logout">Logout</a></li>
+                    @{
+                        if (account == null)
+                        {
+
+                            <li><a asp-controller="Home" asp-action="Login">Login</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-controller="Home" asp-action="Logout">Logout</a></li>
+                        }
+                    }
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-->
