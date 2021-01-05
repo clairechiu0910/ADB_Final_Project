@@ -1,33 +1,38 @@
-﻿<div id="app_home">
-    <div id="my-tab-content" class="tab-content">
-        <div class="tab-pane active" id="follows">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                    <ul class="list-unstyled follows">
-                        <template v-for="item in projects">
-                            <hr />
-                            <li>
-                                <div class="row">
-                                    <h3>{{item.title}}</h3>
-                                    <div class="col-md-7 col-xs-4">
-                                        <span class="label label-default">{{item.project_type}}</span>
-                                        <small>{{item.description}}</small>
-                                    </div>
-                                    <div class="col-md-3 col-xs-2">
-                                        <div class="text-right text">
-                                            <button href="#fakelink" class="btn btn-xs">Join Project</button>
+﻿<div class="wrapper">
+    <div class="profile-background">
+        <div class="filter-black"></div>
+    </div>
+    <div id="app_home">
+        <div id="my-tab-content" class="tab-content">
+            <div class="tab-pane active" id="follows">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <ul class="list-unstyled follows">
+                            <template v-for="item in projects">
+                                <li>
+                                    <div class="row">
+                                        <h3>{{item.title}}</h3>
+                                        <div class="col-md-7 col-xs-4">
+                                            <span class="label label-default">{{item.project_type}}</span>
+                                            <small>{{item.description}}</small>
+                                        </div>
+                                        <div class="col-md-3 col-xs-2">
+                                            <div class="text-right text">
+                                                <button href="#fakelink" class="btn btn-xs">Join Project</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                        </template>
-                    </ul>
+                                </li>
+                                <hr />
+                            </template>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="tab-pane text-center" id="following">
-            <h3 class="text-muted">Not following anyone yet :(</h3>
-            <btn class="btn btn-warning btn-fill">Find artists</btn>
+            <div class="tab-pane text-center" id="following">
+                <h3 class="text-muted">Not following anyone yet :(</h3>
+                <btn class="btn btn-warning btn-fill">Find artists</btn>
+            </div>
         </div>
     </div>
 </div>
