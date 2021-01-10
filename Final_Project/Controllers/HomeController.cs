@@ -6,19 +6,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Final_Project.Models;
-using Final_Project.Repositories.Interface;
 using IAuthenticationService = Final_Project.Services.Interface.IAuthenticationService;
 
 namespace Final_Project.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProjectsRepo _projectrepo;
         private readonly IAuthenticationService _authenticationService;
 
-        public HomeController(IProjectsRepo projectRepo, IAuthenticationService authenticationService)
+        public HomeController(IAuthenticationService authenticationService)
         {
-            _projectrepo = projectRepo;
             _authenticationService = authenticationService;
         }
 
@@ -68,12 +65,6 @@ namespace Final_Project.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        public IActionResult GetProjects()
-        {
-            var projects = _projectrepo.GetAllProjects();
-            return Json(projects);
         }
 
         private async Task SetAuthentication(string account)

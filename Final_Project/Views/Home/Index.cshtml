@@ -38,7 +38,7 @@
 </div>
 
 <script>
-    fetch('@Url.Action("GetProjects", "Home")')
+    fetch('@Url.Action("GetProjects", "Projects")')
         .then(function (response) {
             response.json().then(function (data) {
                 app_home._data.projects = data;
