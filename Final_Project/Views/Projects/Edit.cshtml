@@ -1,1 +1,42 @@
-﻿edit project page
+﻿@model Final_Project.Models.Project
+
+<div class="register-background">
+    <div class="filter-black"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 ">
+                <div class="register-card">
+                    @if (Model.Id != 0)
+                    {
+                        <h3 class="title">Edit Project</h3>
+                    }
+                    else
+                    {
+                        <h3 class="title">Add New Project</h3>
+                    }
+                        <form asp-controller="Projects" asp-action="Edit" method="post" enctype="multipart/form-data" class="register-form">
+                            <input asp-for="Id" type="hidden" class="form-control" value="@Model.Id">
+
+                            <label>Title</label>
+                            <input asp-for="Title" type="text" class="form-control" placeholder="Project Title" value="@Model.Title">
+
+                            <label>Project Type</label>
+                            <input asp-for="Project_type" type="text" class="form-control" placeholder="regular or transient" value="@Model.Project_type" />
+
+                            <label>Description</label>
+                            <input asp-for="Description" type="text" class="form-control" placeholder="Description of this project" value="@Model.Description">
+
+                            <div class="card-description form-group text-danger">
+                                @ViewBag.errMsg
+                            </div>
+
+                            <button type="submit" class="btn btn-danger btn-block">Submit</button>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer register-footer text-center">
+        <h6>&copy; 2020 - Final_Project</h6>
+    </div>
+</div>

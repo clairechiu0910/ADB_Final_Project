@@ -20,20 +20,36 @@ namespace Final_Project.Controllers
         {
             return View();
         }
-        
+
         public IActionResult Add()
         {
-            return View("Edit");
+            return View("Edit", new Project());
         }
 
-        public IActionResult Edit()
+        public IActionResult Edit(int pid)
         {
-            return View();
+            var project = _projectsRepo.GetProjectById(pid);
+            return View(project);
         }
 
         [HttpPost]
-        public IActionResult Edit(Projects projects)
+        public IActionResult Edit(Project project)
         {
+            var valid = true;
+            if (project.Project_type != "regular" && project.Project_type != "transient")
+            {
+                ViewBag.errMsg = "Project type must be regular or transient.";
+                valid = false;
+            }
+            if (project.Title == null)
+            {
+                ViewBag.errMsg += "\nPlease input project title.";
+                valid = false;
+            }
+            if (!valid)
+            {
+                return View("Edit", project);
+            }
             return RedirectToAction("Index");
         }
 
