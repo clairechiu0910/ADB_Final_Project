@@ -10,6 +10,7 @@ using Final_Project.Repositories.Interface;
 using Final_Project.Repositories.Implementation;
 using Final_Project.Services.Interface;
 using Final_Project.Services.Implementation;
+using Final_Project.Repositories.Implementation_Neo4j;
 
 namespace Final_Project
 {
@@ -41,7 +42,7 @@ namespace Final_Project
             });
 
             services.AddTransient<IProjectsRepo, ProjectsRepo>();
-            services.AddTransient<IUserRepo, UserRepo>();
+            services.AddTransient<IUserRepo, UserRepoNeo4j>();
             services.AddTransient<IAuthenticationService, RepoAuthenticationService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

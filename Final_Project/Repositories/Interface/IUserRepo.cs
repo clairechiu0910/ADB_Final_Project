@@ -9,7 +9,7 @@ namespace Final_Project.Repositories.Interface
     public interface IUserRepo
     {
         User GetProfile(string account);
-        void InsertProfile(User profile);
-        void UpdateProfile(User profile);
+        void InsertProfile(User user);
+        void UpdateProfile(User user);
     }
 }
