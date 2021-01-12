@@ -39,7 +39,7 @@
 </footer>
 
 <script>
-    fetch('@Url.Action("GetProfile", "Profile")')
+    fetch('@Url.Action("GetUser", "User")')
         .then(function (response) {
             response.json().then(function (data) {
                 app_profile._data.profile = data;
@@ -53,7 +53,7 @@
         },
         methods: {
             Edit: function (id) {
-                location.href = '@Url.Action("EditProfile", "Profile")';
+                location.href = '@Url.Action("EditUser", "User")';
             }
         }
     });

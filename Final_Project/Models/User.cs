@@ -1,6 +1,6 @@
 ﻿namespace Final_Project.Models
 {
-    public class Profile
+    public class User
     {
         public string Account { get; set; }
         public string Password { get; set; }

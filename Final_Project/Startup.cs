@@ -41,7 +41,7 @@ namespace Final_Project
             });
 
             services.AddTransient<IProjectsRepo, ProjectsRepo>();
-            services.AddTransient<IProfileRepo, ProfileRepo>();
+            services.AddTransient<IUserRepo, UserRepo>();
             services.AddTransient<IAuthenticationService, RepoAuthenticationService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

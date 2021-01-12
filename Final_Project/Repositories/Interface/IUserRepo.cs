@@ -6,10 +6,10 @@ using Final_Project.Models;
 
 namespace Final_Project.Repositories.Interface
 {
-    public interface IProfileRepo
+    public interface IUserRepo
     {
-        Profile GetProfile(string account);
-        void InsertProfile(Profile profile);
-        void UpdateProfile(Profile profile);
+        User GetProfile(string account);
+        void InsertProfile(User profile);
+        void UpdateProfile(User profile);
     }
 }

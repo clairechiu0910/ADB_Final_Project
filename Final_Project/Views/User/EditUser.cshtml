@@ -1,4 +1,4 @@
-﻿@model Final_Project.Models.Profile
+﻿@model Final_Project.Models.User
 
 <div class="register-background">
     <div class="filter-black"></div>
@@ -14,7 +14,7 @@
                     {
                         <h3 class="title">Registration Form</h3>
                     }
-                    <form asp-controller="Profile" asp-action="EditProfile" method="post" enctype="multipart/form-data" class="register-form">
+                    <form asp-controller="User" asp-action="EditUser" method="post" enctype="multipart/form-data" class="register-form">
                         @if (!ViewBag.IsEdit)
                         {
                             <label>Account</label>

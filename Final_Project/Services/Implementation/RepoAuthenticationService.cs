@@ -5,8 +5,8 @@ namespace Final_Project.Services.Implementation
 {
     public class RepoAuthenticationService : IAuthenticationService
     {
-        private readonly IProfileRepo _profileRepo;
-        public RepoAuthenticationService(IProfileRepo profileRepo)
+        private readonly IUserRepo _profileRepo;
+        public RepoAuthenticationService(IUserRepo profileRepo)
         {
             _profileRepo = profileRepo;
         }
