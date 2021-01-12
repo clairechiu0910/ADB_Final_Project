@@ -12,16 +12,16 @@ namespace Final_Project.Repositories.Implementation
         {
             var allProjects = new List<Project>()
             {
-                new Project(){Id = 1, Title = "Observe galaxy 1", Project_type = "regulat", Description = "Observe galaxy 1 55 times"},
-                new Project(){Id = 2, Title = "Observe galaxy 2", Project_type = "regulat", Description = "Observe galaxy 2 97 times"},
-                new Project(){Id = 3, Title = "Observe galaxy 3", Project_type = "transient", Description = "Observe Supernova 1 96 time"}
+                new Project(){ PID = 1, Title = "Observe galaxy 1", Project_type = "regulat", Description = "Observe galaxy 1 55 times" },
+                new Project(){ PID = 2, Title = "Observe galaxy 2", Project_type = "regulat", Description = "Observe galaxy 2 97 times" },
+                new Project(){ PID = 3, Title = "Observe galaxy 3", Project_type = "transient", Description = "Observe Supernova 1 96 time" }
             };
             return allProjects;
         }
 
         public Project GetProjectById(int id)
         {
-            return new Project() { Id = 1, Title = "Observe galaxy 1", Project_type = "regulat", Description = "Observe galaxy 1 55 times" };
+            return new Project() { PID = 1, Title = "Observe galaxy 1", Project_type = "regulat", Description = "Observe galaxy 1 55 times" };
         }
     }
 }
