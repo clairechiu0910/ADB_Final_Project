@@ -4,8 +4,6 @@ namespace Final_Project.Models
 {
     public class User
     {
-        private string msg;
-
         public User()
         {
 
@@ -14,7 +12,7 @@ namespace Final_Project.Models
         public User(string msg)
         {
             var msgList = msg.Split(',');
-            UID = Int32.Parse(msgList[0]);
+            UID = msgList[0];
             Username = msgList[1];
             Password = msgList[2];
             Name = msgList[3];
@@ -24,7 +22,7 @@ namespace Final_Project.Models
             Country = msgList[7];
         }
 
-        public int UID { get; set; }
+        public string UID { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
