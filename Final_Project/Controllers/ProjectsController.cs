@@ -26,7 +26,7 @@ namespace Final_Project.Controllers
             return View("Edit", new Project());
         }
 
-        public IActionResult Edit(int pid)
+        public IActionResult Edit(string pid)
         {
             var project = _projectsRepo.GetProjectById(pid);
             return View(project);
