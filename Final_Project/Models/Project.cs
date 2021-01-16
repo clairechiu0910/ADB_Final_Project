@@ -24,19 +24,20 @@
             FoVLowerLimit = msgList[8];
 
             PixelScaleUpperLimit = msgList[9];
-            MountType = msgList[10];
-            CameraType_1 = msgList[11];
-            CameraType_2 = msgList[12];
+            PixelScaleLowerLimit = msgList[10];
+            MountType = msgList[11];
+            CameraType_1 = msgList[12];
+            CameraType_2 = msgList[13];
 
-            Johnson_B = msgList[13];
-            Johnson_V = msgList[14];
-            Johnson_R = msgList[15];
+            Johnson_B = msgList[14];
+            Johnson_V = msgList[15];
+            Johnson_R = msgList[16];
 
-            SDSS_u = msgList[16];
-            SDSS_g = msgList[17];
-            SDSS_r = msgList[18];
-            SDSS_i = msgList[19];
-            SDSS_z = msgList[20];
+            SDSS_u = msgList[17];
+            SDSS_g = msgList[18];
+            SDSS_r = msgList[19];
+            SDSS_i = msgList[20];
+            SDSS_z = msgList[21];
         }
 
         public string PID { get; set; }
