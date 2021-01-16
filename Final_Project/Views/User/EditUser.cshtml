@@ -18,7 +18,7 @@
                         @if (!ViewBag.IsEdit)
                         {
                             <label>Account</label>
-                            <input asp-for="Account" type="text" class="form-control" placeholder="Account" value="@Model.Account">
+                            <input asp-for="Username" type="text" class="form-control" placeholder="Account" value="@Model.Username">
                         }
                         <label>Password</label>
                         <input asp-for="Password" type="password" class="form-control" placeholder="Password" value="@Model.Password">
@@ -26,14 +26,17 @@
                         <label>Name</label>
                         <input asp-for="Name" type="text" class="form-control" placeholder="Name" value="@Model.Name">
 
-                        <label>Address</label>
-                        <input asp-for="Address" type="text" class="form-control" placeholder="Address" value="@Model.Address">
-
-                        <label>Phone</label>
-                        <input asp-for="Phone" type="text" class="form-control" placeholder="Phone" value="@Model.Phone">
-
                         <label>Email</label>
                         <input asp-for="Email" type="text" class="form-control" placeholder="Email" value="@Model.Email">
+
+                        <label>Country</label>
+                        <input asp-for="Country" type="text" class="form-control" placeholder="Email" value="@Model.Country">
+
+                        <label>Title</label>
+                        <input asp-for="Title" type="text" class="form-control" placeholder="Email" value="@Model.Title">
+
+                        <label>Affiliation</label>
+                        <input asp-for="Affiliation" type="text" class="form-control" placeholder="Email" value="@Model.Affiliation">
 
                         @if (ViewBag.IsEdit)
                         {

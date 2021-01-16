@@ -8,8 +8,9 @@ namespace Final_Project.Repositories.Interface
 {
     public interface IUserRepo
     {
-        User GetProfile(string account);
-        void InsertProfile(User user);
-        void UpdateProfile(User user);
+        User GetUser(int uid);
+        User GetUser(string username);
+        void InsertUser(User user);
+        void UpdateUser(User user);
     }
 }

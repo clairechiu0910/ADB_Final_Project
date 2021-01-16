@@ -34,7 +34,7 @@ namespace Final_Project.Controllers
         public IActionResult EditUser()
         {
             var account = HttpContext.Session.GetString("Account");
-            var user = _userRepo.GetProfile(account);
+            var user = _userRepo.GetUser(account);
             ViewBag.IsEdit = true;
             return View(user);
         }
@@ -42,15 +42,15 @@ namespace Final_Project.Controllers
         [HttpPost]
         public IActionResult EditUser(User user)
         {
-            if (user.Account == null)
+            if (user.Username == null)
             {
                 // Register
-                user.Account = HttpContext.Session.GetString("Account");
-                _userRepo.UpdateProfile(user);
+                user.Username = HttpContext.Session.GetString("Account");
+                _userRepo.UpdateUser(user);
             }
             else
             {
-                _userRepo.InsertProfile(user);
+                _userRepo.InsertUser(user);
             }
             return RedirectToAction("Index");
         }
@@ -59,15 +59,16 @@ namespace Final_Project.Controllers
         public IActionResult GetUser()
         {
             var account = HttpContext.Session.GetString("Account");
-            var user = _userRepo.GetProfile(account);
+            var user = _userRepo.GetUser(account);
 
             var tmpList = new List<Tuple<string, string>>()
             {
-                new Tuple<string, string>("Account", user?.Account),
+                new Tuple<string, string>("Username", user?.Username),
                 new Tuple<string, string>("Name", user?.Name),
-                new Tuple<string, string>("Address", user?.Address),
-                new Tuple<string, string>("Phone", user?.Phone),
-                new Tuple<string, string>("Email", user?.Email)
+                new Tuple<string, string>("Email", user?.Email),
+                new Tuple<string, string>("Country", user?.Country),
+                new Tuple<string, string>("Title", user?.Title),
+                new Tuple<string, string>("Affiliation", user?.Affiliation),
             };
 
             return Json(tmpList);

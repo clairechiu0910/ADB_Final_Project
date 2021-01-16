@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Final_Project.Repositories.Interface;
-using Final_Project.Repositories.Implementation;
 using Final_Project.Services.Interface;
 using Final_Project.Services.Implementation;
 using Final_Project.Repositories.Implementation_Neo4j;
@@ -41,7 +40,6 @@ namespace Final_Project
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddTransient<IProjectsRepo, ProjectsRepo>();
             services.AddTransient<IUserRepo, UserRepoNeo4j>();
             services.AddTransient<IAuthenticationService, RepoAuthenticationService>();
 

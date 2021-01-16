@@ -10,6 +10,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
     public class UserRepoNeo4j : IUserRepo
     {
         private readonly IDriver _driver;
+        private readonly ISession Session;
 
         public UserRepoNeo4j(IConfiguration configuration)
         {
@@ -17,37 +18,62 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             var user = configuration.GetValue<string>("Database:User");
             var password = configuration.GetValue<string>("Database:Password");
             _driver = GraphDatabase.Driver(url, AuthTokens.Basic(user, password));
+            Session = _driver.Session();
         }
 
-        public User GetProfile(string account)
+        public User GetUser(string username)
         {
-            throw new NotImplementedException();
+            var result = Session.Run(@"MATCH (u:User {username: $username}) 
+                                       RETURN u.UID +','+ u.username +','+ u.password +','+ u.name +','+ u.email +','+ u.affiliation +','+ u.title +','+ u.country",
+                                       new { username });
+            var msg = result.Single()[0].As<string>();
+            var user = new User(msg);
+            return user;
         }
 
-        public void InsertProfile(User user)
+        public User GetUser(int uid)
         {
-            using (var session = _driver.Session())
-            {
-                var log = session.WriteTransaction(tx =>
-                {
-                    var result = tx.Run("CREATE (a:User) " +
-                                        "SET a.Account = $account, a.Password = $password, a.Name = $name, a.Address = $address, a.Phone = $phone, a.Profile = $email " +
-                                        "RETURN a.Account + ', from node ' + id(a)",
-                        new {
-                            account = user.Account,
-                            password = user.Password, 
-                            name = user.Name,
-                            address = user.Address,
-                            phone = user.Phone,
-                            email = user.Email });
-                    return result;
-                });
-            }
+            var result = Session.Run(@"MATCH (u:User {UID: $UID}) 
+                                       RETURN u.UID +','+ u.username +','+ u.password +','+ u.name +','+ u.email +','+ u.affiliation +','+ u.title +','+ u.country",
+                                       new { UID = uid });
+            var msg = result.Single()[0].As<string>();
+            var user = new User(msg);
+            return user;
         }
 
-        public void UpdateProfile(User profile)
+        public void InsertUser(User user)
         {
-            throw new NotImplementedException();
+            var result = Session.Run(@"CREATE (u:User) 
+                                       SET u.UID = $UID, u.username = $username, u.password = $password, u.name = $name, u.email = $email, u.affiliation = $affiliation, u.title = $title, u.country = $country
+                                       RETURN u.username + ' Create'",
+                                       new {
+                                           UID = user.UID,
+                                           username =user.Username,
+                                           password = user.Password,
+                                           name = user.Name,
+                                           email = user.Email,
+                                           country = user.Country, 
+                                           title = user.Title,
+                                           affiliation = user.Affiliation
+                                       });
+        }
+
+        public void UpdateUser(User user)
+        {
+            var result = Session.Run(@"MATCH (u:User {username: $username}) 
+                                       SET u.UID = $UID, u.username = $username, u.password = $password, u.name = $name, u.email = $email, u.affiliation = $affiliation, u.title = $title, u.country = $country
+                                       RETURN u.username + ' Create'",
+                                       new
+                                       {
+                                           UID = user.UID,
+                                           username = user.Username,
+                                           password = user.Password,
+                                           name = user.Name,
+                                           email = user.Email,
+                                           country = user.Country,
+                                           title = user.Title,
+                                           affiliation = user.Affiliation
+                                       });
         }
     }
 }
