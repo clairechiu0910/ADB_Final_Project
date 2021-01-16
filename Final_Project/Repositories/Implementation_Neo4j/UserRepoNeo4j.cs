@@ -43,6 +43,9 @@ namespace Final_Project.Repositories.Implementation_Neo4j
 
         public void InsertUser(User user)
         {
+            var newID = CountNodes();
+            user.UID = newID.ToString();
+
             var result = Session.Run(@"CREATE (u:User) 
                                        SET u.UID = $UID, u.username = $username, u.password = $password, u.name = $name, u.email = $email, u.affiliation = $affiliation, u.title = $title, u.country = $country
                                        RETURN u.username + ' Create'",
@@ -62,7 +65,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
         {
             var result = Session.Run(@"MATCH (u:User {username: $username}) 
                                        SET u.UID = $UID, u.username = $username, u.password = $password, u.name = $name, u.email = $email, u.affiliation = $affiliation, u.title = $title, u.country = $country
-                                       RETURN u.username + ' Create'",
+                                       RETURN u.username + ' Update'",
                                        new
                                        {
                                            UID = user.UID,
@@ -74,6 +77,13 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                                            title = user.Title,
                                            affiliation = user.Affiliation
                                        });
+        }
+
+        public int CountNodes()
+        {
+            var result = Session.Run(@"MATCH (n:User) Return count(n)");
+            var msg = result.Single()[0].As<string>();
+            return Int32.Parse(msg);
         }
     }
 }

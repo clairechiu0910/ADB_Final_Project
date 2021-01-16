@@ -12,5 +12,6 @@ namespace Final_Project.Repositories.Interface
         User GetUser(string username);
         void InsertUser(User user);
         void UpdateUser(User user);
+        int CountNodes();
     }
 }
