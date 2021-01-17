@@ -8,6 +8,6 @@ namespace Final_Project.Repositories.Interface
 {
     public interface IEquipmentRepo
     {
-        Equipment GetUserToEquipmentByUID(int UID);
+        List<Equipment> GetUserEquipment(string username);
     }
 }
