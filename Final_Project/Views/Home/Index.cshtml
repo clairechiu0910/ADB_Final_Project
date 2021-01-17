@@ -3,8 +3,13 @@
         <div class="filter-black"></div>
     </div>
     <div id="app_projects">
-        <h3 v-if="projects === null" class="text-center">Please Login to Get Your Joined Projects</h3>
-        <h4 v-else="projects === null" class="text-center">Your Projects</h4>
+        <template v-if="IsLogin()">
+            <h3 v-if="projects.length === 0" class="text-center">You haven't joined any projects yet.</h3>
+            <h4 v-else="projects.length === 0" class="text-center">Your Projects</h4>
+        </template>
+        <template v-else>
+            <h3 v-if="projects === null" class="text-center">Please Login to Get Your Joined Projects</h3>
+        </template>
         <div id="my-tab-content" class="tab-content">
             <div class="tab-pane active" id="follows">
                 <div class="row">
@@ -43,15 +48,31 @@
                 console.log(app_projects._data.projects);
             });
         });
+
+    fetch('@Url.Action("GetUserName", "Home")')
+        .then(function (response) {
+            response.json().then(function (data) {
+                console.log(data);
+                app_projects._data.username = data;
+                console.log(app_projects._data.username);
+            });
+        });
+
     var app_projects = new Vue({
         el: '#app_projects',
         data: {
-            projects: null
+            projects: null,
+            username: null
         },
         methods: {
             ViewProject: function (pid) {
                 console.log(pid);
                 location.href = '@Url.Action("Project", "Projects", new { pid = "PID" })'.replace("PID", pid);
+            },
+            IsLogin: function () {
+                var isLogin = this.username != null;
+                console.log(isLogin);
+                return isLogin;
             }
         }
     });

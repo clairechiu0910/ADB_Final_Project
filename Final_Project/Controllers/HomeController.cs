@@ -1,11 +1,12 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
+﻿using Final_Project.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Final_Project.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using IAuthenticationService = Final_Project.Services.Interface.IAuthenticationService;
 
 namespace Final_Project.Controllers
@@ -51,6 +52,12 @@ namespace Final_Project.Controllers
 
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl)) return Redirect(returnUrl);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult GetUserName()
+        {
+            var username = HttpContext.Session.GetString("UserName");
+            return Json(username);
         }
 
         public async Task<IActionResult> Logout()
