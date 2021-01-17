@@ -42,6 +42,8 @@ namespace Final_Project
 
             services.AddTransient<IUserRepo, UserRepoNeo4j>();
             services.AddTransient<IProjectsRepo, ProjectsRepoNeo4j>();
+            services.AddTransient<IEquipmentRepo, EquipmentRepo>();
+
             services.AddTransient<IAuthenticationService, RepoAuthenticationService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
