@@ -13,12 +13,40 @@
                 <!--<div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">-->
                 <div class="Equipment Schedule">
                     <h4>UserName: @username<br /></h4>
-                    <h5>Equipment Details<br /></h5>
                 </div>
                 <!--</div>-->
                 <!--<div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">-->
-                <div style="overflow-x:auto;">
-                    <div id="app_user_equipments">
+                <div id="app_user_equipments">
+                    <h5>User Equipment Details<br /></h5>
+                    <div style="overflow-x:auto;">
+                        <table class="table2">
+                            <tr>
+                                <th>EID</th>
+                                <th>Site</th>
+                                <th>Longtitude</th>
+                                <th>Latitude</th>
+                                <th>Altitude</th>
+                                <th>Time_zone</th>
+                                <th>Daylight_saving</th>
+                                <th>Water_vapor</th>
+                                <th>Light_pollution(m/sas)</th>
+                            </tr>
+                            <tr v-for="item_1 in uHaveE">
+                                <td>{{item_1.eid}}</td>
+                                <td>{{item_1.site}}</td>
+                                <td>{{item_1.longitude}}</td>
+                                <td>{{item_1.latitude}}</td>
+                                <td>{{item_1.altitude}}</td>
+                                <td>{{item_1.timeZone}}</td>
+                                <td>{{item_1.daylightSaving}}</td>
+                                <td>{{item_1.waterVapor}}</td>
+                                <td>{{item_1.lightPollution}}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <h5>Equipment Details<br /></h5>
+                    <div style="overflow-x:auto;">
                         <table class="table2">
                             <tr>
                                 <th>EID</th>
@@ -91,12 +119,20 @@
                 console.log(app_user_equipments._data.equipments);
             });
         });
-  
+
+    fetch('@Url.Action("GetUHaveE", "UHaveE")')
+        .then(function (response) {
+            response.json().then(function (data) {
+                app_user_equipments._data.uHaveE = data;
+                console.log(app_user_equipments._data.uHaveE);
+            });
+        });
 
     var app_user_equipments = new Vue({
         el: '#app_user_equipments',
         data: {
-            equipments: null
+            equipments: null,
+            uHaveE: null
         }
     });
 </script>

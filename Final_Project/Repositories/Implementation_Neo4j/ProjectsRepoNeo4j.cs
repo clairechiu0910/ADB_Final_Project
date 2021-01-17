@@ -24,7 +24,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
 
         public List<Project> GetAllProjects()
         {
-            throw new NotImplementedException();
+            return new List<Project>();
         }
 
         public Project GetProjectById(string pid)
