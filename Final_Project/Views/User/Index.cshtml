@@ -1,15 +1,15 @@
-﻿<div class="wrapper">
-    <div class="profile-background">
-        <div class="filter-black"></div>
-    </div>
-    <div class="profile-content section-nude">
-        <div class="container">
-            <div class="row owner">
-                <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">
-                    <div class="avatar">
-                        <img src="~/assets/paper_img/Unknown.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                    </div>
-                    <div id="app_profile">
+﻿<div id="app_profile">
+    <div class="wrapper">
+        <div class="profile-background">
+            <div class="filter-black"></div>
+        </div>
+        <div class="profile-content section-nude">
+            <div class="container">
+                <div class="row owner">
+                    <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">
+                        <div class="avatar">
+                            <img src="~/assets/paper_img/Unknown.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                        </div>
                         <div class="name">
                             <h4>
                                 <template v-for="item in profile">
@@ -19,10 +19,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-md-offset-5 text-left">
-                    <btn class="btn" v-on:click="Edit()"><i class="fa fa-cog"></i> Edit</btn>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-5 text-left">
+                        <btn class="btn" v-on:click="Edit()"><i class="fa fa-cog"></i> Edit</btn>
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
             profile: null
         },
         methods: {
-            Edit: function (id) {
+            Edit: function () {
                 location.href = '@Url.Action("EditUser", "User")';
             }
         }
