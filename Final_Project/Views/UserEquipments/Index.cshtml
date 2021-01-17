@@ -48,25 +48,25 @@
                                 <th>Water_vapor</th>
                                 <th>Light_pollution(m/sas)</th>
                             </tr>
-                            <tr v-for="item in equipments">
-                                <td>{{item.eid}}</td>
-                                <td>{{item.aperture}}</td>
-                                <td>{{item.foV}}</td>
-                                <td>{{item.pixelScale}}</td>
-                                <td>{{item.trackingAccuracy}}</td>
-                                <td>{{item.limitingMagnitude}}</td>
-                                <td>{{item.elevationLimit}}</td>
-                                <td>{{item.mountType}}</td>
-                                <td>{{item.cameraType_1}}</td>
-                                <td>{{item.cameraType_2}}</td>
-                                <td>{{item.johnson_B}}</td>
-                                <td>{{item.johnson_V}}</td>
-                                <td>{{item.johnson_R}}</td>
-                                <td>{{item.sdsS_u}}</td>
-                                <td>{{item.sdsS_g}}</td>
-                                <td>{{item.sdsS_r}}</td>
-                                <td>{{item.sdsS_i}}</td>
-                                <td>{{item.sdsS_z}}</td>
+                            <tr v-for="item_1 in equipments">
+                                <td>{{item_1.eid}}</td>
+                                <td>{{item_1.aperture}}</td>
+                                <td>{{item_1.foV}}</td>
+                                <td>{{item_1.pixelScale}}</td>
+                                <td>{{item_1.trackingAccuracy}}</td>
+                                <td>{{item_1.limitingMagnitude}}</td>
+                                <td>{{item_1.elevationLimit}}</td>
+                                <td>{{item_1.mountType}}</td>
+                                <td>{{item_1.cameraType_1}}</td>
+                                <td>{{item_1.cameraType_2}}</td>
+                                <td>{{item_1.johnson_B}}</td>
+                                <td>{{item_1.johnson_V}}</td>
+                                <td>{{item_1.johnson_R}}</td>
+                                <td>{{item_1.sdsS_u}}</td>
+                                <td>{{item_1.sdsS_g}}</td>
+                                <td>{{item_1.sdsS_r}}</td>
+                                <td>{{item_1.sdsS_i}}</td>
+                                <td>{{item_1.sdsS_z}}</td>
                             </tr>
                         </table>
                     </div>
@@ -91,6 +91,8 @@
                 console.log(app_user_equipments._data.equipments);
             });
         });
+  
+
     var app_user_equipments = new Vue({
         el: '#app_user_equipments',
         data: {

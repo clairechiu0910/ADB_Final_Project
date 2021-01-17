@@ -37,6 +37,11 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                 equipmentsList.Add(newEquipment);
             }
 
+            equipmentsList.Sort(delegate (Equipment x, Equipment y)
+            {
+                return y.EID.CompareTo(x.EID);
+            });
+
             return equipmentsList;
         }
     }
