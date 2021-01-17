@@ -180,12 +180,52 @@ optgroup {
   font-weight: bold;
 }
 table {
-  border-spacing: 0;
+  width: 100%;
+  border-spacing: 40px;
   border-collapse: collapse;
+  border: 2px solid grey;
+  text-align: left
 }
+th,td  {
+	border: 2px solid grey;
+	border-bottom: 1px solid solid grey;
+}
+th {
+  background-color: #EB5E28;
+  color: white;
+}
+tr:hover {background-color:#e1d4b86e;}
 td,
 th {
-  padding: 0;
+  padding: 20px;
+}
+td, th {
+  white-space: nowrap;
+  overflow: hidden;
+}
+.table2 th{
+  table-layout:fixed;
+  width: 100%;
+  font-size:15px;
+  border-spacing: 50px;
+  border-collapse: collapse;
+  border: 2px solid grey;
+  text-align: center;
+  padding: 20px;
+  background-color: #eb9d28;
+  color: white;
+}
+.table2 td{
+  white-space: nowrap;
+  width: 100%;
+  font-size:15px;
+  border-spacing: 30px;
+  border-collapse: collapse;
+  border: 2px solid grey;
+  text-align: center;
+}
+.table2 th2,td2 {
+  padding: 5px;
 }
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
@@ -1122,7 +1162,7 @@ img {
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
   display: block;
-  max-width: 100%;
+  max-width: 15%;
   height: auto;
 }
 .img-rounded {
@@ -1965,7 +2005,7 @@ pre code {
     width: 25%;
   }
   .col-md-2 {
-    width: 16.66666667%;
+    width: 80.66666667%;
   }
   .col-md-1 {
     width: 8.33333333%;
