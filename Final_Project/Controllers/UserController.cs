@@ -33,8 +33,8 @@ namespace Final_Project.Controllers
         [Authorize]
         public IActionResult EditUser()
         {
-            var account = HttpContext.Session.GetString("UserName");
-            var user = _userRepo.GetUser(account);
+            var username = HttpContext.Session.GetString("UserName");
+            var user = _userRepo.GetUser(username);
             ViewBag.IsEdit = true;
             return View(user);
         }
@@ -58,8 +58,8 @@ namespace Final_Project.Controllers
         [Authorize]
         public IActionResult GetUser()
         {
-            var account = HttpContext.Session.GetString("UserName");
-            var user = _userRepo.GetUser(account);
+            var username = HttpContext.Session.GetString("UserName");
+            var user = _userRepo.GetUser(username);
 
             var tmpList = new List<Tuple<string, string>>()
             {
