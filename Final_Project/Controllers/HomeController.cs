@@ -69,7 +69,7 @@ namespace Final_Project.Controllers
 
         private async Task SetAuthentication(string account)
         {
-            var claims = new[] { new Claim("Account", account) };
+            var claims = new[] { new Claim("UserName", account) };
             var claimsIdentity =
                 new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(claimsIdentity);
@@ -82,7 +82,7 @@ namespace Final_Project.Controllers
 
         private void SetLoginSession(string account)
         {
-            HttpContext.Session.SetString("Account", account);
+            HttpContext.Session.SetString("UserName", account);
         }
     }
 }
