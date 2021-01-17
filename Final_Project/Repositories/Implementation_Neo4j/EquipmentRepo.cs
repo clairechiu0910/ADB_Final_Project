@@ -23,7 +23,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
 
         public List<Equipment> GetUserEquipment(string username)
         {
-            var result = Session.Run(@"MATCH p = ({username: $username})-[r:User_To_Equipment]->(e:Equipment)
+            var result = Session.Run(@"MATCH p = (u:User {username: $username})-[r:User_To_Equipment]->(e:Equipment)
                                        RETURN e.EID+', '+e.aperture+', '+e.FoV+', '+e.pixel_scale+', '+e.tracking_accuracy+', '+e.limiting_magnitude+', '+e.elevation_limit+', '+
                                               e.mount_type+', '+e.camera_t1+', '+e.camera_t2+', '+e.Johnson_B+', '+e.Johnson_V+', '+e.Johnson_R+', '+e.SDSS_u+', '+e.SDSS_g+', '+e.SDSS_r+', '+e.SDSS_i+', '+e.SDSS_z as msg",
                                       new { username });
