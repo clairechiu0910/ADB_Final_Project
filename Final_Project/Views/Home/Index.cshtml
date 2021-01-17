@@ -4,6 +4,7 @@
     </div>
     <div id="app_projects">
         <h3 v-if="projects === null" class="text-center">Please Login to Get Your Joined Projects</h3>
+        <h4 v-else="projects === null" class="text-center">Your Projects</h4>
         <div id="my-tab-content" class="tab-content">
             <div class="tab-pane active" id="follows">
                 <div class="row">
