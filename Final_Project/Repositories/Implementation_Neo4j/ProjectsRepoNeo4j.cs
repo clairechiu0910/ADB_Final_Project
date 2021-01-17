@@ -30,11 +30,11 @@ namespace Final_Project.Repositories.Implementation_Neo4j
         public Project GetProjectById(string pid)
         {
             var result = Session.Run(@"MATCH (p:Project {PID: $PID}) 
-                                       RETURN p.PID + ' , ' + p.title + ' , ' + p.project_type
-                                        + ' , ' +  p.PI + ' , ' + p.description + ' , ' + p.aperture_upper_limit
-                                        + ' , ' + p.aperture_lower_limit + ' , ' + p.FoV_upper_limit + ' , ' + p.FoV_lower_limit + ' , ' + p.pixel_scale_upper_limit + ' , ' + p.pixel_scale_lower_limit
-                                        + ' , ' + p.mount_type + ' , ' + p.camera_t1 + ' , ' + p.camera_t2 + ' , ' + p.Johnson_B
-                                        + ' , ' + p.Johnson_V + ' , ' + p.Johnson_R + ' , ' + p.SDSS_u + ' , ' + p.SDSS_g + ' , ' + p.SDSS_r + ' , ' + p.SDSS_i + ' , ' + p.SDSS_z",
+                                       RETURN p.PID + ',' + p.title + ',' + p.project_type
+                                        + ',' +  p.PI + ',' + p.description + ',' + p.aperture_upper_limit
+                                        + ',' + p.aperture_lower_limit + ',' + p.FoV_upper_limit + ',' + p.FoV_lower_limit + ',' + p.pixel_scale_upper_limit + ',' + p.pixel_scale_lower_limit
+                                        + ',' + p.mount_type + ',' + p.camera_t1 + ',' + p.camera_t2 + ',' + p.Johnson_B
+                                        + ',' + p.Johnson_V + ',' + p.Johnson_R + ',' + p.SDSS_u + ',' + p.SDSS_g + ',' + p.SDSS_r + ',' + p.SDSS_i + ',' + p.SDSS_z",
                                        new { PID = pid });
 
             var msg = result.Single()[0].As<string>();
