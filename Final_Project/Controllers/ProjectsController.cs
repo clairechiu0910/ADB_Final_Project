@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Final_Project.Models;
 using Final_Project.Repositories.Interface;
-using Final_Project.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Final_Project.Controllers
 {
@@ -19,6 +15,17 @@ namespace Final_Project.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Project(string pid)
+        {
+            var project = _projectsRepo.GetProjectById(pid);
+            return View(project);
+        }
+
+        public IActionResult Join(string pid)
+        {
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Add()
@@ -50,7 +57,19 @@ namespace Final_Project.Controllers
             {
                 return View("Edit", project);
             }
-            return RedirectToAction("Index");
+
+            if (project.PID == null)
+            {
+                //ADD
+                _projectsRepo.InsertProject(project);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                //EDIT
+                _projectsRepo.UpdateProject(project);
+                return RedirectToAction("Project", "Projects", new { pid = project.PID });
+            }
         }
 
         public IActionResult GetProjects()

@@ -25,6 +25,7 @@
 
             PixelScaleUpperLimit = msgList[9];
             PixelScaleLowerLimit = msgList[10];
+
             MountType = msgList[11];
             CameraType_1 = msgList[12];
             CameraType_2 = msgList[13];

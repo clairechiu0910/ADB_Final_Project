@@ -19,12 +19,66 @@
 
                             <label>Title</label>
                             <input asp-for="Title" type="text" class="form-control" placeholder="Project Title" value="@Model.Title">
-
                             <label>Project Type</label>
                             <input asp-for="Project_type" type="text" class="form-control" placeholder="regular or transient" value="@Model.Project_type" />
-
+                            <label>PI</label>
+                            <input asp-for="PI" type="text" class="form-control" value="@Model.PI">
                             <label>Description</label>
                             <input asp-for="Description" type="text" class="form-control" placeholder="Description of this project" value="@Model.Description">
+
+                            <br />
+
+                            <label>ApertureUpperLimit</label>
+                            <input asp-for="ApertureUpperLimit" type="text" class="form-control" value="@Model.ApertureUpperLimit">
+                            <label>ApertureLowerLimit</label>
+                            <input asp-for="ApertureLowerLimit" type="text" class="form-control" value="@Model.ApertureLowerLimit">
+
+                            <br />
+
+                            <label>FoVUpperLimit</label>
+                            <input asp-for="FoVUpperLimit" type="text" class="form-control" value="@Model.FoVUpperLimit">
+                            <label>FoVLowerLimit</label>
+                            <input asp-for="FoVLowerLimit" type="text" class="form-control" value="@Model.FoVLowerLimit">
+
+                            <br />
+
+                            <label>PixelScaleUpperLimit</label>
+                            <input asp-for="PixelScaleUpperLimit" type="text" class="form-control" value="@Model.PixelScaleUpperLimit">
+                            <label>PixelScaleLowerLimit</label>
+                            <input asp-for="PixelScaleLowerLimit" type="text" class="form-control" value="@Model.PixelScaleLowerLimit">
+                            <label>ApertureLowerLimit</label>
+                            <input asp-for="ApertureLowerLimit" type="text" class="form-control" value="@Model.ApertureLowerLimit">
+
+                            <br />
+
+                            <label>MountType</label>
+                            <input asp-for="MountType" type="text" class="form-control" value="@Model.MountType">
+                            <label>CameraType_1</label>
+                            <input asp-for="CameraType_1" type="text" class="form-control" value="@Model.CameraType_1">
+                            <label>CameraType_2</label>
+                            <input asp-for="CameraType_2" type="text" class="form-control" value="@Model.CameraType_2">
+
+                            <br />
+
+                            <label>Johnson_B</label>
+                            <input asp-for="Johnson_B" type="text" class="form-control" value="@Model.Johnson_B">
+                            <label>Johnson_V</label>
+                            <input asp-for="Johnson_V" type="text" class="form-control" value="@Model.Johnson_V">
+                            <label>Johnson_R</label>
+                            <input asp-for="Johnson_R" type="text" class="form-control" value="@Model.Johnson_R">
+
+                            <br />
+
+                            <label>SDSS_u</label>
+                            <input asp-for="SDSS_u" type="text" class="form-control" value="@Model.SDSS_u">
+                            <label>SDSS_g</label>
+                            <input asp-for="SDSS_g" type="text" class="form-control" value="@Model.SDSS_g">
+                            <label>SDSS_r</label>
+                            <input asp-for="SDSS_r" type="text" class="form-control" value="@Model.SDSS_r">
+                            <label>SDSS_i</label>
+                            <input asp-for="SDSS_i" type="text" class="form-control" value="@Model.SDSS_i">
+                            <label>SDSS_z</label>
+                            <input asp-for="SDSS_z" type="text" class="form-control" value="@Model.SDSS_z">
 
                             <div class="card-description form-group text-danger">
                                 @ViewBag.errMsg

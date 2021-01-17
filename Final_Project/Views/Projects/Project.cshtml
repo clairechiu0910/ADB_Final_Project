@@ -1,0 +1,99 @@
+﻿@using Final_Project.Models
+@model Final_Project.Models.Project
+
+<div class="wrapper">
+    <div class="project-background">
+        <div class="filter-black"></div>
+    </div>
+    <div class="profile-content section-nude">
+        <div class="container">
+            <div class="row owner">
+                <!--<div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">-->
+                <div class="Equipment Schedule">
+                    <h4>Project Detail<br /></h4>
+                </div>
+                <!--</div>-->
+                <!--<div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">-->
+                <div style="overflow-x:auto;">
+                    <table class="table2">
+                        <tr>
+                            <th>PID</th>
+                            <th>Title</th>
+                            <th>Project_Type</th>
+                            <th>PI</th>
+                            <th>Description</th>
+                            <th>Aperture_upper_limit</th>
+                            <th>Aperture_lower_limit</th>
+                            <th>FoV_upper_limit</th>
+                            <th>FoV_lower_limmit</th>
+                            <th>Pixel_scale_upper_limit_(/pix)</th>
+                            <th>Pixel_scale_lower_limit_(/pix)</th>
+                            <th>Mount type (german, fork, theodolite)</th>
+                            <th>Camera type (colored, mono)</th>
+                            <th>Camera type (cooled, uncooled)	</th>
+                            <th>Johnson B</th>
+                            <th>Johnson V</th>
+                            <th>Johnson R</th>
+                            <th>SDSS u</th>
+                            <th>SDSS g</th>
+                            <th>SDSS r</th>
+                            <th>SDSS i</th>
+                            <th>SDSS z</th>
+                        </tr>
+                        <tr>
+                            <td>@Model.PID</td>
+                            <td>@Model.Title</td>
+                            <td>@Model.Project_type</td>
+                            <td>@Model.PI</td>
+                            <td>@Model.Description</td>
+
+                            <td>@Model.ApertureUpperLimit</td>
+                            <td>@Model.ApertureLowerLimit</td>
+
+                            <td>@Model.FoVUpperLimit</td>
+                            <td>@Model.FoVLowerLimit</td>
+
+                            <td>@Model.PixelScaleUpperLimit</td>
+                            <td>@Model.PixelScaleLowerLimit</td>
+                            <td>@Model.MountType</td>
+                            <td>@Model.CameraType_1</td>
+                            <td>@Model.CameraType_2</td>
+
+                            <td>@Model.Johnson_B</td>
+                            <td>@Model.Johnson_V</td>
+                            <td>@Model.Johnson_R</td>
+
+                            <td>@Model.SDSS_u</td>
+                            <td>@Model.SDSS_g</td>
+                            <td>@Model.SDSS_r</td>
+                            <td>@Model.SDSS_i</td>
+                            <td>@Model.SDSS_z</td>
+                        </tr>
+                    </table>
+                </div>
+                <br />
+                <button onclick="Join()" class="btn btn-fill">Join</button>
+                <button onclick="Edit()" class="btn btn-fill btn-info">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer-demo section-nude">
+    <div class="container">
+        <div class="copyright text-center">
+            &copy; 2020 - Final_Project
+        </div>
+    </div>
+</footer>
+
+<script>
+    function Join() {
+        console.log("in join");
+        location.href = '@Url.Action("Join", "Projects", new { pid = Model.PID })';
+    }
+
+    function Edit() {
+        console.log("in edit");
+        location.href = '@Url.Action("Edit", "Projects", new { pid = Model.PID })';
+    }
+</script>
