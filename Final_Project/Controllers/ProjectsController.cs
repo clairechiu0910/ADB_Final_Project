@@ -1,5 +1,7 @@
 ﻿using Final_Project.Models;
 using Final_Project.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Final_Project.Controllers
@@ -7,9 +9,12 @@ namespace Final_Project.Controllers
     public class ProjectsController : Controller
     {
         private readonly IProjectsRepo _projectsRepo;
-        public ProjectsController(IProjectsRepo projectRepo)
+        private readonly IUHavePRepo _uHavePRepo;
+
+        public ProjectsController(IProjectsRepo projectRepo, IUHavePRepo uHavePRepo)
         {
             _projectsRepo = projectRepo;
+            _uHavePRepo = uHavePRepo;
         }
 
         public IActionResult Index()
@@ -23,8 +28,11 @@ namespace Final_Project.Controllers
             return View(project);
         }
 
+        [Authorize]
         public IActionResult Join(string pid)
         {
+            var username = HttpContext.Session.GetString("UserName");
+            _uHavePRepo.JoinProject(username, pid);
             return RedirectToAction("Index", "Home");
         }
 
