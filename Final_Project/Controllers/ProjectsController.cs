@@ -85,5 +85,13 @@ namespace Final_Project.Controllers
             var projects = _projectsRepo.GetAllProjects();
             return Json(projects);
         }
+
+        [Authorize]
+        public IActionResult GetProjectsByUsername()
+        {
+            var username = HttpContext.Session.GetString("UserName");
+            var projects = _projectsRepo.GetProjectsByUsername(username);
+            return Json(projects);
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace Final_Project.Repositories.Interface
     public interface IProjectsRepo
     {
         List<Project> GetAllProjects();
+        List<Project> GetProjectsByUsername(string uid);
         Project GetProjectById(string pid);
         void InsertProject(Project project);
         void UpdateProject(Project project);

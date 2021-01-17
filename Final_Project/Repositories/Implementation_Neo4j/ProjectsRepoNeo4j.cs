@@ -2,9 +2,9 @@
 using Final_Project.Repositories.Interface;
 using Microsoft.Extensions.Configuration;
 using Neo4j.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace Final_Project.Repositories.Implementation_Neo4j
 {
@@ -21,10 +21,31 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             _driver = GraphDatabase.Driver(url, AuthTokens.Basic(user, password));
             Session = _driver.Session();
         }
-        
+
         public List<Project> GetAllProjects()
         {
+
             return new List<Project>();
+        }
+
+
+        public List<Project> GetProjectsByUsername(string username)
+        {
+            var result = Session.Run(@"MATCH (u:User {username: $username})-[r:User_To_Project]->(p: Project)
+                                       RETURN p.PID + ',' + p.title + ',' + p.project_type
+                                        + ',' +  p.PI + ',' + p.description + ',' + p.aperture_upper_limit
+                                        + ',' + p.aperture_lower_limit + ',' + p.FoV_upper_limit + ',' + p.FoV_lower_limit + ',' + p.pixel_scale_upper_limit + ',' + p.pixel_scale_lower_limit
+                                        + ',' + p.mount_type + ',' + p.camera_t1 + ',' + p.camera_t2 + ',' + p.Johnson_B
+                                        + ',' + p.Johnson_V + ',' + p.Johnson_R + ',' + p.SDSS_u + ',' + p.SDSS_g + ',' + p.SDSS_r + ',' + p.SDSS_i + ',' + p.SDSS_z as msg",
+                                       new { username });
+            
+            var projectList = new List<Project>();
+            foreach (var record in result)
+            {
+                var msg = record["msg"].ToString();
+                projectList.Add(new Project(msg));
+            }
+            return projectList;
         }
 
         public Project GetProjectById(string pid)
