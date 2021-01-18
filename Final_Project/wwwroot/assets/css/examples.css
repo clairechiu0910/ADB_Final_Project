@@ -78,7 +78,7 @@
   color: #EB5E28; }
 
 .register-card {
-  background-color: rgb(255 251 255 / 70%);
+  background-color: rgba(255,251,255,0.7);
   border-radius: 8px;
   color: ##fffcf5;
   max-width: 350px;

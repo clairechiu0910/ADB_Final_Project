@@ -43,14 +43,14 @@
                             <tr v-for="item_1 in uHaveE">
                                 <td>{{item_1.eid}}</td>
                                 <td>{{item_1.site}}</td>
-                                <td>{{item_1.longitude}}</td>
-                                <td>{{item_1.latitude}}</td>
-                                <td>{{item_1.altitude}}</td>
+                                <td class="text-right number">{{item_1.longitude}}</td>
+                                <td class="text-right number">{{item_1.latitude}}</td>
+                                <td class="text-right number">{{item_1.altitude}}</td>
                                 <td>{{item_1.timeZone}}</td>
                                 <td>{{item_1.daylightSaving}}</td>
-                                <td>{{item_1.waterVapor}}</td>
-                                <td>{{item_1.lightPollution}}</td>
-                                <td>{{item_1.declinationLimit}}</td>
+                                <td class="text-right number">{{item_1.waterVapor}}</td>
+                                <td class="text-right number">{{item_1.lightPollution}}</td>
+                                <td class="text-right number">{{item_1.declinationLimit}}</td>
                             </tr>
                         </table>
                     </div>
@@ -89,12 +89,12 @@
                             </tr>
                             <tr v-for="item_1 in equipments">
                                 <td>{{item_1.eid}}</td>
-                                <td>{{item_1.aperture}}</td>
-                                <td>{{item_1.foV}}</td>
-                                <td>{{item_1.pixelScale}}</td>
-                                <td>{{item_1.trackingAccuracy}}</td>
-                                <td>{{item_1.limitingMagnitude}}</td>
-                                <td>{{item_1.elevationLimit}}</td>
+                                <td class="text-right number">{{item_1.aperture}}</td>
+                                <td class="text-right number">{{item_1.foV}}</td>
+                                <td class="text-right number">{{item_1.pixelScale}}</td>
+                                <td class="text-right number">{{item_1.trackingAccuracy}}</td>
+                                <td class="text-right number">{{item_1.limitingMagnitude}}</td>
+                                <td class="text-right number">{{item_1.elevationLimit}}</td>
                                 <td>{{item_1.mountType}}</td>
                                 <td>{{item_1.cameraType_1}}</td>
                                 <td>{{item_1.cameraType_2}}</td>

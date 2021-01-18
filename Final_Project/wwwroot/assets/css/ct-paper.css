@@ -1380,11 +1380,13 @@ textarea.form-control {
 [class*="navbar-ct"] .navbar-nav > .active > a:focus:not(.btn),
 [class*="navbar-ct"] .navbar-nav > li > a:hover:not(.btn),
 [class*="navbar-ct"] .navbar-nav > li > a:focus:not(.btn) {
-  background-color: transparent;
-  border-radius: 3px;
-  color: #FFFFFF;
-  opacity: 1;
-  filter: alpha(opacity=100); }
+    background-color: transparent;
+    border-radius: 3px;
+    color: #FFFFFF;
+    opacity: 1;
+    filter: alpha(opacity=100);
+    font-weight: bold;
+}
 .navbar-transparent .navbar-nav .nav > li > a.btn:hover, [class*="navbar-ct"] .navbar-nav .nav > li > a.btn:hover {
   background-color: transparent; }
 .navbar-transparent .navbar-nav > .dropdown > a .caret,
@@ -2729,3 +2731,10 @@ textarea.form-control {
 .datepicker-months thead {
   padding: 0 0 3px;
   display: block; }
+td.text-right.number{
+    text-align: right;
+}
+table.table2 td{
+    text-align:left;
+    padding:15px;
+}
