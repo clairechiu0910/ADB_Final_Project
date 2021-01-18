@@ -69,6 +69,8 @@ namespace Final_Project.Controllers
             if (project.PID == null)
             {
                 //ADD
+                var uid = HttpContext.Session.GetString("UID");
+                project.PI = uid;
                 _projectsRepo.InsertProject(project);
                 return RedirectToAction("Project", "Projects", new { pid = project.PID });
             }
