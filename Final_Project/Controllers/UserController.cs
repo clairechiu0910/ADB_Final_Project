@@ -73,5 +73,13 @@ namespace Final_Project.Controllers
 
             return Json(tmpList);
         }
+
+        [Authorize]
+        public IActionResult GetRelatedUser()
+        {
+            var username = HttpContext.Session.GetString("UserName");
+            var relatedUserList = _userRepo.GetRelatedUser(username);
+            return Json(relatedUserList);
+        }
     }
 }
