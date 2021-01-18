@@ -22,6 +22,11 @@ namespace Final_Project.Controllers
 
         public IActionResult Index()
         {
+            var username = HttpContext.Session.GetString("UserName");
+            if (username == null)
+            {
+                return RedirectToAction("Login");
+            }
             return View();
         }
 

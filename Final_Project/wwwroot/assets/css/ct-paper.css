@@ -2108,7 +2108,7 @@ textarea.form-control {
     content: "";
     display: inline-block;
     position: absolute;
-    right: 12px;
+    left: 12px;
     top: -11px; }
 
   .navbar-nav > li > .dropdown-menu:after {
@@ -2118,7 +2118,7 @@ textarea.form-control {
     content: "";
     display: inline-block;
     position: absolute;
-    right: 12px;
+    left: 12px;
     top: -10px; }
 
   .navbar-nav.navbar-right > li > .dropdown-menu:before {
