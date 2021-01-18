@@ -3,6 +3,7 @@ using Final_Project.Repositories.Interface;
 using Microsoft.Extensions.Configuration;
 using Neo4j.Driver;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Final_Project.Repositories.Implementation_Neo4j
@@ -84,6 +85,26 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             var result = Session.Run(@"MATCH (n:User) Return count(n)");
             var msg = result.Single()[0].As<string>();
             return Int32.Parse(msg);
+        }
+
+        public List<User> GetRelatedUser(string username)
+        {
+            var result = Session.Run(@"MATCH(a:User {username: $username})-[r:User_To_Project]-(b:Project)-[r2:User_To_Project]-(c:User)
+                                       WITH c, count(r2) as rel_count
+                                       RETURN c.UID +','+ c.username +','+ c.password +','+ c.name +','+ c.email +','+ c.affiliation +','+ c.title +','+ c.country +','+ rel_count as msg
+                                       ORDER BY rel_count DESC
+                                       LIMIT 10",
+                                      new { username });
+
+            var relatedUsers = new List<User>();
+
+            foreach (var record in result)
+            {
+                var msg = record["msg"].ToString();
+                relatedUsers.Add(new User(msg));
+            }
+
+            return relatedUsers;
         }
     }
 }

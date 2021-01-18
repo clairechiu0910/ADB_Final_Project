@@ -3,40 +3,40 @@
         <div class="filter-black"></div>
     </div>
     <div id="app_projects">
+        <template v-if="!IsLogin()">
+            <h3 v-if="join_projects === null" class="text-center">Please login to get your projects details.</h3>
+        </template>
         <template v-if="IsLogin()">
-            <h3 v-if="projects.length === 0" class="text-center">You haven't joined any projects yet.</h3>
-            <h4 v-else="projects.length === 0" class="text-center">Your Projects</h4>
-        </template>
-        <template v-else>
-            <h3 v-if="projects === null" class="text-center">Please Login to Get Your Joined Projects</h3>
-        </template>
-        <div id="my-tab-content" class="tab-content">
-            <div class="tab-pane active" id="follows">
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
-                        <ul class="list-unstyled follows">
-                            <template v-for="item in projects">
-                                <li>
-                                    <div class="row">
-                                        <h3>{{item.title}}</h3>
-                                        <div class="col-md-9 col-xs-8">
-                                            <span class="label label-default">{{item.project_type}}</span>
-                                            <small>{{item.description}}</small>
-                                        </div>
-                                        <div class="col-md-3 col-xs-4">
-                                            <div class="text-right text">
-                                                <button v-on:click="ViewProject(item.pid)" class="btn btn-xs">View Project Detail</button>
+            <h3 v-if="join_projects.length === 0" class="text-center">You haven't joined any projects yet.</h3>
+            <h4 v-else="join_projects.length === 0" class="text-center">Projects you have joined.</h4>
+            <div id="my-tab-content" class="tab-content">
+                <div class="tab-pane active" id="follows">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <ul class="list-unstyled follows">
+                                <template v-for="item in join_projects">
+                                    <li>
+                                        <div class="row">
+                                            <h3>{{item.title}}</h3>
+                                            <div class="col-md-9 col-xs-8">
+                                                <span class="label label-default">{{item.project_type}}</span>
+                                                <small>{{item.description}}</small>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="text-right text">
+                                                    <button v-on:click="ViewProject(item.pid)" class="btn btn-xs">View Project Detail</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <hr />
-                            </template>
-                        </ul>
+                                    </li>
+                                    <hr />
+                                </template>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </template>
     </div>
 </div>
 
@@ -44,8 +44,8 @@
     fetch('@Url.Action("GetProjectsByUsername", "Projects")')
         .then(function (response) {
             response.json().then(function (data) {
-                app_projects._data.projects = data;
-                console.log(app_projects._data.projects);
+                app_projects._data.join_projects = data;
+                console.log(app_projects._data.join_projects);
             });
         });
 
@@ -61,7 +61,7 @@
     var app_projects = new Vue({
         el: '#app_projects',
         data: {
-            projects: null,
+            join_projects: null,
             username: null
         },
         methods: {

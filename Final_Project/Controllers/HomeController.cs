@@ -1,7 +1,7 @@
 ﻿using Final_Project.Models;
+using Final_Project.Repositories.Interface;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -14,10 +14,12 @@ namespace Final_Project.Controllers
     public class HomeController : Controller
     {
         private readonly IAuthenticationService _authenticationService;
+        private readonly IUserRepo _userRepo;
 
-        public HomeController(IAuthenticationService authenticationService)
+        public HomeController(IAuthenticationService authenticationService, IUserRepo userRepo)
         {
             _authenticationService = authenticationService;
+            _userRepo = userRepo;
         }
 
         public IActionResult Index()
@@ -94,7 +96,9 @@ namespace Final_Project.Controllers
 
         private void SetLoginSession(string account)
         {
+            var uid = _userRepo.GetUser(account).UID;
             HttpContext.Session.SetString("UserName", account);
+            HttpContext.Session.SetString("UID", uid);
         }
     }
 }

@@ -16,13 +16,12 @@
                     }
                         <form asp-controller="Projects" asp-action="Edit" method="post" enctype="multipart/form-data" class="register-form">
                             <input asp-for="PID" type="hidden" class="form-control" value="@Model.PID">
+                            <input asp-for="PI" type="hidden" class="form-control" value="@Model.PI">
 
                             <label>Title</label>
                             <input asp-for="Title" type="text" class="form-control" placeholder="Project Title" value="@Model.Title">
                             <label>Project Type</label>
                             <input asp-for="Project_type" type="text" class="form-control" placeholder="regular or transient" value="@Model.Project_type" />
-                            <label>PI</label>
-                            <input asp-for="PI" type="text" class="form-control" value="@Model.PI">
                             <label>Description</label>
                             <input asp-for="Description" type="text" class="form-control" placeholder="Description of this project" value="@Model.Description">
 
