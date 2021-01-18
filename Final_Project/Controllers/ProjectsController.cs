@@ -28,6 +28,15 @@ namespace Final_Project.Controllers
             var project = _projectsRepo.GetProjectById(pid);
             return View(project);
         }
+        public IActionResult YourProjects()
+        {
+            var uid = HttpContext.Session.GetString("UID");
+            if (uid == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
 
         [Authorize]
         public IActionResult Join(string pid)
@@ -99,6 +108,12 @@ namespace Final_Project.Controllers
         {
             var username = HttpContext.Session.GetString("UserName");
             var projects = _projectsRepo.GetProjectsByUsername(username);
+            return Json(projects);
+        }
+        public IActionResult GetYourProjects()
+        {
+            var uid = HttpContext.Session.GetString("UID");
+            var projects = _projectsRepo.GetYourProjects(uid);
             return Json(projects);
         }
     }

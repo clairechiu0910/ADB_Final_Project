@@ -85,7 +85,8 @@
                             </tr>
                         </table>
                     </div>
-                    <br />
+                    <h4>Project Targets</h4>
+                    
                     <div style="overflow-x:auto;">
                         <table class="table2">
                             <tr>
@@ -94,7 +95,7 @@
                                 <th>RA</th>
                                 <th>Dec</th>
                             </tr>
-                            <tr v-for="target in targets">
+                            <tr v-for="target in targets" :key="target.tid">
                                 <td>{{target.tid}}</td>
                                 <td>{{target.name}}</td>
                                 <td class="text-right number">{{target.ra}}</td>
@@ -129,6 +130,7 @@
             targets: null
         }
     });
+
     function Join() {
         console.log("in join");
         location.href = '@Url.Action("Join", "Projects", new { pid = Model.PID })';
