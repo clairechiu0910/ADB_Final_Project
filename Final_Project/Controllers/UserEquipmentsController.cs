@@ -25,6 +25,11 @@ namespace Final_Project.Controllers
             return View();
         }
 
+        public IActionResult EquipmentSchedule()
+        {
+            return View();
+        }
+
         public IActionResult GetUserEquipments()
         {
             var username = HttpContext.Session.GetString("UserName");
