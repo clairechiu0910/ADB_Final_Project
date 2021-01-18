@@ -10,11 +10,13 @@ namespace Final_Project.Controllers
     {
         private readonly IProjectsRepo _projectsRepo;
         private readonly IUHavePRepo _uHavePRepo;
+        private readonly IEquipmentRepo _equipmentRepo;
 
-        public ProjectsController(IProjectsRepo projectRepo, IUHavePRepo uHavePRepo)
+        public ProjectsController(IProjectsRepo projectRepo, IUHavePRepo uHavePRepo, IEquipmentRepo equipmentRepo)
         {
             _projectsRepo = projectRepo;
             _uHavePRepo = uHavePRepo;
+            _equipmentRepo = equipmentRepo;
         }
 
         public IActionResult Index()
@@ -33,6 +35,7 @@ namespace Final_Project.Controllers
         {
             var username = HttpContext.Session.GetString("UserName");
             _uHavePRepo.JoinProject(username, pid);
+            //_equipmentRepo.CreateInterest(username, pid);
             return RedirectToAction("Index", "Home");
         }
 
