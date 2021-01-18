@@ -70,7 +70,7 @@ namespace Final_Project.Controllers
             {
                 //ADD
                 _projectsRepo.InsertProject(project);
-                return RedirectToAction("Index");
+                return RedirectToAction("Project", "Projects", new { pid = project.PID });
             }
             else
             {

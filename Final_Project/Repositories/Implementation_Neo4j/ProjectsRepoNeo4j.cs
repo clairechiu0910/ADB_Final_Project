@@ -144,7 +144,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
 
         public int CountNodes()
         {
-            var result = Session.Run(@"MATCH (n:User) Return count(n)");
+            var result = Session.Run(@"MATCH (n:Project) Return count(n)");
             var msg = result.Single()[0].As<string>();
             return Int32.Parse(msg);
         }
