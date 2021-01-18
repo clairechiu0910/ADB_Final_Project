@@ -142,6 +142,23 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                                        });
         }
 
+        public List<Target> GetTargetsByProject(string pid)
+        {
+            string PID = pid;
+            var targets = Session.Run(@"MATCH p = (a:Project{PID:$PID})-[:Project_To_Target]->(t:Target)
+                                       RETURN COALESCE(t.TID,'') + ',' + COALESCE(t.Name,'') + ',' + COALESCE(t.RA,'') + ',' + COALESCE(t.Dec,'') as msg",
+                           new { PID });
+
+            var targetList = new List<Target>(); 
+            foreach (var record in targets)
+            {
+                var msg = record["msg"].ToString();
+                var newTarget = new Target(msg);
+                targetList.Add(newTarget);
+            }
+            return targetList;
+        }
+
         public int CountNodes()
         {
             var result = Session.Run(@"MATCH (n:Project) Return count(n)");

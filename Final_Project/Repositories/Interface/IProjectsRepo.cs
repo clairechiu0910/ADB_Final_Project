@@ -9,6 +9,7 @@ namespace Final_Project.Repositories.Interface
         List<Project> GetAllProjects();
         List<Project> GetProjectsByUsername(string uid);
         Project GetProjectById(string pid);
+        List<Target> GetTargetsByProject(string pid);
         void InsertProject(Project project);
         void UpdateProject(Project project);
         int CountNodes();

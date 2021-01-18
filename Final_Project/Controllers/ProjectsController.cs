@@ -11,7 +11,6 @@ namespace Final_Project.Controllers
         private readonly IProjectsRepo _projectsRepo;
         private readonly IUHavePRepo _uHavePRepo;
         private readonly IEquipmentRepo _equipmentRepo;
-
         public ProjectsController(IProjectsRepo projectRepo, IUHavePRepo uHavePRepo, IEquipmentRepo equipmentRepo)
         {
             _projectsRepo = projectRepo;
@@ -90,7 +89,11 @@ namespace Final_Project.Controllers
             var projects = _projectsRepo.GetAllProjects();
             return Json(projects);
         }
-
+        public IActionResult GetProjectTargets(string pid)
+        {
+            var projects = _projectsRepo.GetTargetsByProject(pid);
+            return Json(projects);
+        }
         [Authorize]
         public IActionResult GetProjectsByUsername()
         {
