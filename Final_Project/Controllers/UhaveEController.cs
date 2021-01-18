@@ -24,5 +24,11 @@ namespace Final_Project.Controllers
             var uHaveEList = _uHaveERepo.GetUHaveE(username);
             return Json(uHaveEList);
         }
+        public IActionResult Compute()
+        {
+            var username = HttpContext.Session.GetString("UserName");
+            _uHaveERepo.ComputeDeclination(username);
+            return RedirectToAction("Index", "UserEquipments");
+        }
     }
 }

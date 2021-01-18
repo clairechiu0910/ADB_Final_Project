@@ -18,6 +18,14 @@
                 <!--<div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">-->
                 <div id="app_user_equipments">
                     <h5>User Equipment Details<br /></h5>
+                    <ul>
+                        <li>
+                            # If low_dec < 0, the observable declination range is +90 ~ low_dec.
+                        </li>
+                        <li>
+                            # If low_dec > 0, the observable declination range is low_dec ~ -90.
+                        </li>
+                    </ul>
                     <div style="overflow-x:auto;">
                         <table class="table2">
                             <tr>
@@ -30,6 +38,7 @@
                                 <th>Daylight_saving</th>
                                 <th>Water_vapor</th>
                                 <th>Light_pollution(m/sas)</th>
+                                <th>Declination Limit</th>
                             </tr>
                             <tr v-for="item_1 in uHaveE">
                                 <td>{{item_1.eid}}</td>
@@ -41,10 +50,11 @@
                                 <td>{{item_1.daylightSaving}}</td>
                                 <td>{{item_1.waterVapor}}</td>
                                 <td>{{item_1.lightPollution}}</td>
+                                <td>{{item_1.declinationLimit}}</td>
                             </tr>
                         </table>
                     </div>
-
+                    <button onclick="Compute()" class="btn btn-fill">Compute Declination</button>
                     <h5>Equipment Details<br /></h5>
                     <div style="overflow-x:auto;">
                         <table class="table2">
@@ -135,4 +145,8 @@
             uHaveE: null
         }
     });
+    function Compute() {
+        console.log("in join");
+        location.href = '@Url.Action("Compute", "UHaveE")';
+    }
 </script>
