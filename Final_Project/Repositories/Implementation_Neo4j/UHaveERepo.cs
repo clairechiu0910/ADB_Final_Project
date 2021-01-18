@@ -26,7 +26,8 @@ namespace Final_Project.Repositories.Implementation_Neo4j
         public List<UHaveE> GetUHaveE(string username)
         {
             var result = Session.Run(@"MATCH p = ({username: $username})-[r:User_To_Equipment]->()
-                                       RETURN r.UhaveE_ID +', '+ r.UID +', '+ r.EID +', '+ r.altitude+', '+r.daylight_saving+', '+r.latitude+', '+r.longitude+', '+r.site+', '+r.time_zone+', '+r.water_vapor +', '+ r.light_pollution as msg",
+                                       RETURN COALESCE(r.UhaveE_ID,'') + ',' + COALESCE(r.UID,'') + ',' + COALESCE(r.EID,'') + ',' + COALESCE(r.altitude,'') + ',' + COALESCE(r.daylight_saving,'') + ',' + 
+                                       COALESCE(r.latitude,'') +','+ COALESCE(r.longitude,'') +','+ COALESCE(r.site,'') +','+ COALESCE(r.time_zone,'') +','+ COALESCE(r.water_vapor,'') + ',' + COALESCE(r.light_pollution,'') as msg",
                                        new { username });
 
             var uHaveEList = new List<UHaveE>();
