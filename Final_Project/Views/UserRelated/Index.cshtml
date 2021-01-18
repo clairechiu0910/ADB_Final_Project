@@ -1,0 +1,52 @@
+﻿<div id="app_related_user">
+    <div class="wrapper">
+        <div class="profile-background">
+            <div class="filter-black"></div>
+        </div>
+        <h4 class="text-center">Your Recommended Users</h4>
+        <div id="my-tab-content" class="tab-content">
+            <div class="tab-pane active" id="follows">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <ul class="list-unstyled follows">
+                            <template v-for="item in related_users">
+                                <li>
+                                    <div class="row">
+                                        <h3>{{item.name}}</h3>
+                                        <span class="label label-default">Email</span>
+                                        <small>{{item.email}}</small>
+                                        <span class="label label-default">Country</span>
+                                        <small>{{item.country}}</small>
+                                        <span class="label label-default">Title</span>
+                                        <small>{{item.title}}</small>
+                                        <span class="label label-default">Affiliation</span>
+                                        <small>{{item.affiliation}}</small>
+                                    </div>
+                                </li>
+                                <hr />
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    fetch('@Url.Action("GetRelatedUser", "User")')
+        .then(function (response) {
+            response.json().then(function (data) {
+                console.log(data);
+                app_related_user._data.related_users = data;
+                console.log(app_related_user._data.related_users);
+            })
+        })
+
+    var app_related_user = new Vue({
+        el: '#app_related_user',
+        data: {
+            related_users: null
+        }
+    });
+</script>
