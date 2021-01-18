@@ -23,7 +23,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
         {
             var result = Session.Run(@"MATCh(a: User), (b: Project)
                                        WHERE a.username = $username AND b.PID = $PID
-                                       CREATE(a) -[r: User_To_Project]-> (b)",
+                                       MERGE(a) -[r: User_To_Project]-> (b)",
                                        new { username, PID });
         }
     }
