@@ -64,7 +64,16 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li><a asp-controller="Home" asp-action="Login">Login</a></li> -->
                     <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "User" ? "active" : "")"><a asp-controller="User" asp-action="Index">Profile</a></li>
-                    <li><a asp-controller="Home" asp-action="Logout">Logout</a></li>
+                    @{
+                        if (account == null)
+                        {
+                            <li><a asp-controller="Home" asp-action="Login">Login</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-controller="Home" asp-action="Logout">Logout</a></li>
+                        }
+                    }
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-->
