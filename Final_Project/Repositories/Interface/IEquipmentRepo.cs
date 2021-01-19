@@ -19,5 +19,6 @@ namespace Final_Project.Repositories.Interface
         void ComputeDeclination(string username);
         List<string[]> GetEquipmentSchedule(string username);
         List<Equipment> GetProjectEquipmentSchedule(string pid, string username);
+        List<string[]> GetDetailedSchedule(string username);
     }
 }
