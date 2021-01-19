@@ -22,6 +22,11 @@ namespace Final_Project.Models
             Country = msgList[7];
         }
 
+        public void RemovePrivateData()
+        {
+            UID = Username = Password = null;
+        }
+
         public string UID { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }

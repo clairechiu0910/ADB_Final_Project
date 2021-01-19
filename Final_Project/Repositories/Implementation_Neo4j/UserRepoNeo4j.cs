@@ -32,7 +32,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             return user;
         }
 
-        public User GetUser(int uid)
+        public User GetUserByUID(string uid)
         {
             var result = Session.Run(@"MATCH (u:User {UID: $UID}) 
                                        RETURN u.UID +','+ u.username +','+ u.password +','+ u.name +','+ u.email +','+ u.affiliation +','+ u.title +','+ u.country",

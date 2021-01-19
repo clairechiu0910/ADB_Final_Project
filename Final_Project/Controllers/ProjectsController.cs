@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Final_Project.Controllers
 {
+    [Authorize]
     public class ProjectsController : Controller
     {
         private readonly IProjectsRepo _projectsRepo;
@@ -28,17 +29,13 @@ namespace Final_Project.Controllers
             var project = _projectsRepo.GetProjectById(pid);
             return View(project);
         }
+
         public IActionResult YourProjects()
         {
             var uid = HttpContext.Session.GetString("UID");
-            if (uid == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
             return View();
         }
 
-        [Authorize]
         public IActionResult Join(string pid)
         {
             var username = HttpContext.Session.GetString("UserName");
@@ -46,12 +43,14 @@ namespace Final_Project.Controllers
             //_equipmentRepo.CreateInterest(username, pid);
             return RedirectToAction("Index", "Home");
         }
+
         public IActionResult InterestAllTargets(string pid)
         {
             var username = HttpContext.Session.GetString("UserName");
             _equipmentRepo.CreateInterest(username, pid);
             return RedirectToAction("Index", "Home");
         }
+
         public IActionResult InterestTarget(string pid, string tid)
         {
             var username = HttpContext.Session.GetString("UserName");
@@ -67,6 +66,10 @@ namespace Final_Project.Controllers
         public IActionResult Edit(string pid)
         {
             var project = _projectsRepo.GetProjectById(pid);
+            if (project.PI != HttpContext.Session.GetString("UID"))
+            {
+                return RedirectToAction("Project", new { pid = pid });
+            }
             return View(project);
         }
 
@@ -104,26 +107,27 @@ namespace Final_Project.Controllers
                 return RedirectToAction("Project", "Projects", new { pid = project.PID });
             }
         }
-        [Authorize]
+
         public IActionResult GetProjectTargets(string pid, string uid)
         {
             var projects = _projectsRepo.GetTargetsByProject(pid, uid);
             return Json(projects);
         }
-        [Authorize]
+
         public IActionResult GetRecommendedProjects()
         {
             var uid = HttpContext.Session.GetString("UID");
             var projects = _projectsRepo.GetRecommendedProjects(uid);
             return Json(projects);
         }
-        [Authorize]
+
         public IActionResult GetProjectsByUsername()
         {
             var username = HttpContext.Session.GetString("UserName");
             var projects = _projectsRepo.GetProjectsByUsername(username);
             return Json(projects);
         }
+
         public IActionResult GetYourProjects()
         {
             var uid = HttpContext.Session.GetString("UID");

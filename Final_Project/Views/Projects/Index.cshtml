@@ -19,17 +19,21 @@
                                     <div class="row">
                                         <h3>{{item.title}}</h3>
                                         <div class="col-md-9 col-xs-8">
-                                            <span class="label label-default">{{item.project_type}}</span>
+
+                                            <span class="label label-default">Compatibility Score</span>
+                                            <small>{{item.score}}</small>
+                                        </div>
+                                        <div class="col-md-9 col-xs-8">
+                                            <span class="label label-default">Project Type</span>
+                                            <small>{{item.project_type}}</small>
+                                        </div>
+                                        <div class="col-md-9 col-xs-8">
+                                            <span class="label label-default">Description</span>
                                             <small>{{item.description}}</small>
-                                            </div>
-                                            <div class="col-md-9 col-xs-8">
-                                                <span class="label label-default">Compatibility Score</span>
-                                                <small>{{item.score}}</small>
-                                            </div>
-                                            <div class="col-md-3 col-xs-4">
-                                                <div class="text-right text">
-                                                    <button v-on:click="ViewProject(item.pid)" class="btn btn-xs">View Project Detail</button>
-                                                </div>
+                                        </div>
+                                        <div class="col-md-3 col-xs-4">
+                                            <div class="text-right text">
+                                                <button v-on:click="ViewProject(item.pid)" class="btn btn-xs">View Project Detail</button>
                                             </div>
                                         </div>
                                 <hr />
