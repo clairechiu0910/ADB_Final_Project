@@ -91,18 +91,20 @@
 
                     <div style="overflow-x:auto;">
                         <table class="table2">
-                            <tr>
-                                <th>TID</th>
+                            <tr class="d-flex">
+                                <th style="width:20px;!important">TID</th>
                                 <th>Name</th>
                                 <th>RA</th>
                                 <th>Dec</th>
+                                <th>Equipment <br />Compatible</th>
                                 <th>Interest</th>
                             </tr>
-                            <tr v-for="target in targets" :key="target.tid">
-                                <td>{{target.tid}}</td>
+                            <tr v-for="(target, index) in targets" :key="target.tid">
+                                <td style="width:20px;!important">{{target.tid}}</td>
                                 <td>{{target.name}}</td>
                                 <td class="text-right number">{{target.ra}}</td>
                                 <td class="text-right number">{{target.dec}}</td>
+                                <td>Yes</td>
                                 <td>
                                     <button v-on:click="InterestTarget(target.tid)" class="btn btn-success">Interested</button>
                                 </td>
