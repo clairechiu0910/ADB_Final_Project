@@ -21,6 +21,7 @@
                         @{
                             if (uid == Model.PI)
                             {
+                                <button style="margin-right:10px;" onclick="ViewEquipments()" class="btn btn-Primary">View Equipments</button>
                                 <button onclick="Edit()" class="btn btn-info">Edit</button>
                             }
                         }
@@ -140,7 +141,7 @@
                 console.log(app_projects._data.targets);
             });
         });
-    
+
     fetch('@Html.Raw(Url.Action("GetProjectManager", "User", new { uid = Model.PI }))')
         .then(function (response) {
             response.json().then(function (data) {
@@ -171,6 +172,11 @@
     function Edit() {
         console.log("in edit");
         location.href = '@Url.Action("Edit", "Projects", new { pid = Model.PID })';
+    }
+
+    function ViewEquipments() {
+        console.log("in edit");
+        location.href = '@Url.Action("ProjectEquipment", "Projects", new { pid = Model.PID })';
     }
 
     function InterestAllTargets() {

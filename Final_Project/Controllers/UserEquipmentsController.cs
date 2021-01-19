@@ -30,12 +30,7 @@ namespace Final_Project.Controllers
         {
             return View("Edit", new Equipment());
         }
-        public IActionResult GetEquipmentSchedule()
-        {
-            var username = HttpContext.Session.GetString("UserName");
-            var schedule = _equipmentRepo.GetEquipmentSchedule(username);
-            return Json(schedule);
-        }
+
 
         public IActionResult Edit(string eid)
         {
@@ -78,5 +73,12 @@ namespace Final_Project.Controllers
             var equipments = _equipmentRepo.GetUserEquipment(username);
             return Json(equipments);
         }
+        public IActionResult GetEquipmentSchedule()
+        {
+            var username = HttpContext.Session.GetString("UserName");
+            var schedule = _equipmentRepo.GetEquipmentSchedule(username);
+            return Json(schedule);
+        }
+
     }
 }

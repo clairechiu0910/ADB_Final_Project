@@ -479,5 +479,62 @@ namespace Final_Project.Repositories.Implementation_Neo4j
 
             return output;
         }
+
+        public List<Equipment> GetProjectEquipmentSchedule(string pid, string username)
+        {
+            var result = Session.Run(@"MATCH (t:Target)-[:Interested{PID:$pid}]-(e:Equipment)
+                                       RETURN DISTINCT(e),
+                                       COALESCE(e.UID,'') + ',' + 
+                                       COALESCE(e.EID,'') + ',' + 
+                                       COALESCE(e.UhaveE_ID,'') + ',' + 
+
+                                       COALESCE(e.site,'') + ',' + 
+                                       COALESCE(e.longitude,'') + ',' + 
+                                       COALESCE(e.latitude,'') + ',' + 
+                                       COALESCE(e.altitude,'') + ',' + 
+
+                                       COALESCE(e.time_zone,'') + ',' + 
+                                       COALESCE(e.daylight_saving,'') + ',' + 
+                                       COALESCE(e.water_vapor,'') + ',' + 
+                                       COALESCE(e.light_pollution,'') + ',' + 
+                                        
+                                       COALESCE(e.aperture,'') + ',' + 
+                                       COALESCE(e.FoV,'') + ',' + 
+                                       COALESCE(e.pixel_scale,'') + ',' + 
+                                       COALESCE(e.tracking_accuracy,'') + ',' + 
+
+                                       COALESCE(e.limiting_magnitude,'') + ',' + 
+                                       COALESCE(e.elevation_limit,'') + ',' + 
+                                       COALESCE(e.mount_type,'') + ',' + 
+
+                                       COALESCE(e.camera_t1,'') + ',' + 
+                                       COALESCE(e.camera_t2,'') + ',' + 
+                                       
+                                       COALESCE(e.Johnson_B,'') + ',' + 
+                                       COALESCE(e.Johnson_V,'') + ',' + 
+                                       COALESCE(e.Johnson_R,'') + ',' + 
+
+                                       COALESCE(e.SDSS_u,'') + ',' + 
+                                       COALESCE(e.SDSS_g,'') + ',' + 
+                                       COALESCE(e.SDSS_r,'') + ',' + 
+                                       COALESCE(e.SDSS_i,'') + ',' + 
+                                       COALESCE(e.SDSS_z,'')+ ',' + 
+
+                                       COALESCE(e.declination_limit,'')    
+                                       as msg",
+                                      new { pid });
+
+            var equipmentsList = new List<Equipment>();
+
+            foreach (var record in result)
+            {
+                var msg = record["msg"].ToString();
+                var newEquipment = new Equipment(msg);
+                equipmentsList.Add(newEquipment);
+            }
+
+
+            return equipmentsList;
+        }
     }
 }

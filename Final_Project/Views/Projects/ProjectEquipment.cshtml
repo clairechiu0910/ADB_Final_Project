@@ -1,0 +1,125 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Final_Project.Models
+@model Final_Project.Models.Project
+<div class="wrapper">
+    <div class="profile-background">
+        <div class="filter-black"></div>
+    </div>
+    <div class="profile-content section-nude">
+        <div class="container-fluid">
+            <div id="app_projects" class="row owner">
+                <div class="col-md-offset-2 col-md-8">
+                    <div class="Equipment Schedule">
+                        <h4>@Model.Title<br /></h4>
+                        <h5>Equipments<br /></h5>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table class="table2">
+                            <tr>
+                                <th>Edit</th>
+                                <th>EID</th>
+
+                                <th>Site</th>
+                                <th>Longtitude</th>
+                                <th>Latitude</th>
+                                <th>Altitude</th>
+
+                                <th>Time_zone</th>
+                                <th>Daylight_saving</th>
+                                <th>Water_vapor</th>
+                                <th>Light_pollution(m/sas)</th>
+
+                                <th>Declination Limit</th>
+
+                                <th>Aperture</th>
+                                <th>FoV</th>
+                                <th>Pixel scale ("/pix)</th>
+                                <th>Tracking accuracy</th>
+
+                                <th>Limiting magnitude (mag)</th>
+                                <th>Elevation limit (deg)</th>
+                                <th>Mount type (german, fork, theodolite)</th>
+
+                                <th>Camera type (colored, mono)</th>
+                                <th>Camera type (cooled, uncooled)</th>
+
+                                <th>Johnson B</th>
+                                <th>Johnson V</th>
+                                <th>Johnson R</th>
+
+                                <th>SDSS u</th>
+                                <th>SDSS g</th>
+                                <th>SDSS r</th>
+                                <th>SDSS i</th>
+                                <th>SDSS z</th>
+                            </tr>
+
+                            <tr v-for="item in equipments">
+                                <td><button v-on:click="Edit(item.eid)" class="btn btn-warning btn-sm">Edit</button></td>
+                                <td>{{item.eid}}</td>
+
+                                <td>{{item.site}}</td>
+                                <td class="text-right number">{{item.longitude}}</td>
+                                <td class="text-right number">{{item.latitude}}</td>
+                                <td class="text-right number">{{item.altitude}}</td>
+
+                                <td>{{item.timeZone}}</td>
+                                <td>{{item.daylightSaving}}</td>
+                                <td class="text-right number">{{item.waterVapor}}</td>
+                                <td class="text-right number">{{item.lightPollution}}</td>
+
+                                <td class="text-right number">{{item.declinationLimit}}</td>
+
+                                <td class="text-right number">{{item.aperture}}</td>
+                                <td class="text-right number">{{item.foV}}</td>
+                                <td class="text-right number">{{item.pixelScale}}</td>
+                                <td class="text-right number">{{item.trackingAccuracy}}</td>
+                                <td class="text-right number">{{item.limitingMagnitude}}</td>
+                                <td class="text-right number">{{item.elevationLimit}}</td>
+                                <td>{{item.mountType}}</td>
+                                <td>{{item.cameraType_1}}</td>
+                                <td>{{item.cameraType_2}}</td>
+                                <td>{{item.johnson_B}}</td>
+                                <td>{{item.johnson_V}}</td>
+                                <td>{{item.johnson_R}}</td>
+                                <td>{{item.sdsS_u}}</td>
+                                <td>{{item.sdsS_g}}</td>
+                                <td>{{item.sdsS_r}}</td>
+                                <td>{{item.sdsS_i}}</td>
+                                <td>{{item.sdsS_z}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer-demo section-nude">
+    <div class="container">
+        <div class="copyright text-center">
+            &copy; 2020 - Final_Project
+        </div>
+    </div>
+</footer>
+
+<script>
+    fetch('@Url.Action("GetProjectEquipmentSchedule", "Projects", new { pid = Model.PID })')
+        .then(function (response) {
+            response.json().then(function (data) {
+                app_projects._data.equipments = data;
+                console.log(app_projects._data.equipments);
+            });
+        });
+
+    var app_projects = new Vue({
+        el: '#app_projects',
+        data: {
+            equipments: null,
+        }
+    });
+</script>

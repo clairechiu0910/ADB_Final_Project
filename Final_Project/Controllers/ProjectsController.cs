@@ -134,5 +134,16 @@ namespace Final_Project.Controllers
             var projects = _projectsRepo.GetYourProjects(uid);
             return Json(projects);
         }
+        public IActionResult ProjectEquipment(string pid)
+        {
+            var project = _projectsRepo.GetProjectById(pid);
+            return View(project);
+        }
+        public IActionResult GetProjectEquipmentSchedule(string pid)
+        {
+            var username = HttpContext.Session.GetString("UserName");
+            var schedule = _equipmentRepo.GetProjectEquipmentSchedule(pid, username);
+            return Json(schedule);
+        }
     }
 }
