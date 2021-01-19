@@ -86,6 +86,16 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             var msg = result.Single()[0].As<string>();
             return Int32.Parse(msg);
         }
+        public bool IfUserNameExist(string username)
+        {
+            var ifexist = Session.Run(@"MATCH (u:User {username:$username})
+                                        RETURN EXISTS(u.username)",
+                                     new
+                                     {
+                                         username = username
+                                     }).Single()[0].As<bool>();
+            return ifexist;
+        }
 
         public List<User> GetRelatedUser(string username)
         {
@@ -106,5 +116,6 @@ namespace Final_Project.Repositories.Implementation_Neo4j
 
             return relatedUsers;
         }
+
     }
 }

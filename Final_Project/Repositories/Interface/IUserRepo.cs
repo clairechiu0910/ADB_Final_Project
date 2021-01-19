@@ -13,6 +13,7 @@ namespace Final_Project.Repositories.Interface
         void InsertUser(User user);
         void UpdateUser(User user);
         int CountNodes();
+        bool IfUserNameExist(string username);
 
         List<User> GetRelatedUser(string username);
     }
