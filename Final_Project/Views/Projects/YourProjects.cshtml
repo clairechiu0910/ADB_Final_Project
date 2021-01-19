@@ -19,11 +19,16 @@
                                     <div class="row">
                                         <h3>{{item.title}}</h3>
                                         <div class="col-md-9 col-xs-8">
-                                            <span class="label label-default">{{item.project_type}}</span>
+                                            <span class="label label-default">Project Type</span>
+                                            <small>{{item.project_type}}</small>
+                                        </div>
+                                        <div class="col-md-9 col-xs-8">
+                                            <span class="label label-default">Description</span>
                                             <small>{{item.description}}</small>
                                         </div>
                                         <div class="col-md-3 col-xs-4">
                                             <div class="text-right text">
+                                                <button v-on:click="Edit(item.pid)" class="btn btn-xs btn-info">Edit</button>
                                                 <button v-on:click="ViewProject(item.pid)" class="btn btn-xs">View Project Detail</button>
                                             </div>
                                         </div>
@@ -59,6 +64,9 @@
             ViewProject: function (pid) {
                 console.log(pid);
                 location.href = '@Url.Action("Project", "Projects", new { pid = "PID" })'.replace("PID", pid);
+            },
+            Edit: function (pid) {
+                location.href = '@Url.Action("Edit", "Projects", new { pid = "PID" })'.replace("PID", pid);
             }
         }
     });
