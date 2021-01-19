@@ -17,7 +17,7 @@
                     <h4 style="display:inline-block;">Project Detail<br /></h4>
                     <span style="float: right;margin: 30px 0 15px;">
                         <button style="margin-right:10px;" onclick="Join()" class="btn btn-fill">Join</button>
-                        <button style="margin-right:10px;" onclick="Join()" class="btn btn-danger">Interested in All Targets</button>
+                        <button style="margin-right:10px;" onclick="InterestAllTargets()" class="btn btn-danger">Interested in All Targets</button>
                         @{
                             if (uid == Model.PI)
                             {
@@ -104,7 +104,7 @@
                                 <td class="text-right number">{{target.ra}}</td>
                                 <td class="text-right number">{{target.dec}}</td>
                                 <td>
-                                    <button onclick="Join()" class="btn btn-success">Interested</button>
+                                    <button v-on:click="InterestTarget(target.tid)" class="btn btn-success">Interested</button>
                                 </td>
                             </tr>
                         </table>
@@ -135,16 +135,28 @@
         el: '#app_projects',
         data: {
             targets: null
+        },
+        methods: {
+            InterestTarget: function (tid) {
+                console.log(tid);
+                location.href = '@Html.Raw(Url.Action("InterestTarget", "Projects", new { pid = Model.PID, tid = "TID" }))'.replace("TID", tid);
+            }
         }
     });
 
     function Join() {
         console.log("in join");
-        location.href = '@Url.Action("Join", "Projects", new { pid = Model.PID })';
+        location.href = '@Url.Action("Join", "Projects", new { pid = Model.PID})';
     }
 
     function Edit() {
         console.log("in edit");
         location.href = '@Url.Action("Edit", "Projects", new { pid = Model.PID })';
+    }
+
+
+    function InterestAllTargets() {
+        console.log("in all targets");
+        location.href = '@Url.Action("InterestAllTargets", "Projects", new { pid = Model.PID })';
     }
 </script>
