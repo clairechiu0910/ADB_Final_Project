@@ -99,6 +99,12 @@
                     </div>
                     <h4>Project Targets</h4>
                     <div style="overflow-x:auto;">
+                        @{
+                            if (uid == Model.PI)
+                            {
+                                <button onclick="AddTarget()" class="btn btn-warning btn-sm" style="margin-bottom:1%">Add Other Target</button>
+                            }
+                        }
                         <table class="table2">
                             <tr class="d-flex">
                                 <th style="width:20px!important;">TID</th>
@@ -182,5 +188,10 @@
     function InterestAllTargets() {
         console.log("in all targets");
         location.href = '@Url.Action("InterestAllTargets", "Projects", new { pid = Model.PID })';
+    }
+
+    function AddTarget() {
+        console.log("in add targets");
+        location.href = '@Url.Action("SelectTargets", "Targets", new { pid = Model.PID })';
     }
 </script>

@@ -253,5 +253,32 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             var msg = result.Single()[0].As<string>();
             return Int32.Parse(msg);
         }
+
+        public void AddTargetToProject(string pid, string tid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveTargetFromProject(string pid, string tid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Target> GetTargetsInRange(int RA_Lower, int RA_Upper, int DEC_Lower, int DEC_Upper)
+        {
+            var result = Session.Run(@"MATCH (n:Target) 
+                                       WITH n
+                                       WHERE toFloat(n.RA) > $RA_Lower AND toFloat(n.RA) < $RA_Upper AND toFloat(n.Dec) > $DEC_Lower  AND toFloat(n.Dec) < $DEC_Upper
+                                       RETURN n.TID +','+ n.Name +','+ n.RA +','+ n.Dec as msg", 
+                                       new { RA_Lower, RA_Upper, DEC_Lower, DEC_Upper });
+
+            var targetList = new List<Target>();
+            foreach (var record in result)
+            {
+                var msg = record["msg"].ToString();
+                targetList.Add(new Target(msg));
+            }
+            return targetList;
+        }
     }
 }
