@@ -21,7 +21,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             _driver = GraphDatabase.Driver(url, AuthTokens.Basic(user, password));
             Session = _driver.Session();
         }
-        
+
         public List<Project> GetProjectsByUsername(string username)
         {
             var result = Session.Run(@"MATCH (u:User {username: $username})-[r:User_To_Project]->(p: Project)
@@ -31,7 +31,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                                         + ',' + p.mount_type + ',' + p.camera_t1 + ',' + p.camera_t2 + ',' + p.Johnson_B
                                         + ',' + p.Johnson_V + ',' + p.Johnson_R + ',' + p.SDSS_u + ',' + p.SDSS_g + ',' + p.SDSS_r + ',' + p.SDSS_i + ',' + p.SDSS_z as msg",
                                        new { username });
-            
+
             var projectList = new List<Project>();
             foreach (var record in result)
             {
@@ -40,9 +40,10 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             }
             return projectList;
         }
+
         public List<Project> GetYourProjects(string uid)
         {
-            var result = Session.Run(@"MATCH (p: Project {PI:$uid})
+            var result = Session.Run(@"MATCH (u:User {UID: $uid})-[r:User_Manage_Project]->(p:Project)
                                        RETURN p.PID + ',' + p.title + ',' + p.project_type
                                         + ',' +  p.PI + ',' + p.description + ',' + p.aperture_upper_limit
                                         + ',' + p.aperture_lower_limit + ',' + p.FoV_upper_limit + ',' + p.FoV_lower_limit + ',' + p.pixel_scale_upper_limit + ',' + p.pixel_scale_lower_limit
@@ -58,6 +59,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             }
             return projectList;
         }
+
         public Project GetProjectById(string pid)
         {
             var result = Session.Run(@"MATCH (p:Project {PID: $PID}) 
@@ -198,8 +200,8 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                                         WITH DISTINCT(t), MAX(s.total) as total_score
                                         RETURN COALESCE(t.TID, '') + ',' + COALESCE(t.Name, '') + ',' + COALESCE(t.RA, '') + ',' + COALESCE(t.Dec, '') as msg, total_score
                                         ORDER BY total_score DESC",
-                           new { PID , UID });
-            var targetList = new List<Target>(); 
+                           new { PID, UID });
+            var targetList = new List<Target>();
             foreach (var record in targets)
             {
                 var msg = record["msg"].ToString();
@@ -226,7 +228,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                                         WHERE total > 7
                                         MERGE(r) -[:Recommended_Project{ total: total}]->(u)
                                         RETURN u, r, total",
-                new{ UID } );
+                new { UID });
             var result = Session.Run(@"MATCH (u:User{UID:$UID})-[r:Recommended_Project]-(p:Project)
                                        RETURN p.PID + ',' + p.title + ',' + p.project_type
                                         + ',' +  p.PI + ',' + p.description + ',' + p.aperture_upper_limit
