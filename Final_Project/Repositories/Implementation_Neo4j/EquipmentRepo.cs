@@ -199,20 +199,22 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             string[] astroResults = astro.AstroplanCalculations(equipmentsList[i].Longitude, equipmentsList[i].Latitude, equipmentsList[i].Altitude, elevLimit[i], targ.RA, targ.Dec);
             string EID = equipmentsList[i].EID;
             //if not 2 meaning incompatible
-            if (astroResults.Length == 2)
+            if (astroResults.Length == 1 || astroResults[0] == "nan")
             {
 
+                var create = Session.Run(@"MATCH (e:Equipment {EID:$EID}), (t:Target {TID:$TID})
+                                               MERGE (e)-[:NotInterested {PID:$PID} ]->(t)", new { EID, TID, PID });
+                
+       
+            }
+            else
+            {
                 string start = astroResults[0];
-                string end = astroResults[1];
+                string end = astroResults[1].Trim();
                 var delete = Session.Run(@"MATCH (e:Equipment {EID:$EID})-[r:Interested]-(t:Target {TID:$TID})
                                                DELETE r", new { EID, TID });
                 var create = Session.Run(@"MATCH (e:Equipment {EID:$EID}), (t:Target {TID:$TID})
                                                MERGE (e)-[:Interested {PID:$PID,start:$start,end:$end} ]->(t)", new { EID, TID, PID, start, end });
-            }
-            else
-            {
-                var create = Session.Run(@"MATCH (e:Equipment {EID:$EID}), (t:Target {TID:$TID})
-                                               MERGE (e)-[:NotInterested {PID:$PID} ]->(t)", new { EID, TID, PID });
             }
         }
 
@@ -246,6 +248,49 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                 var insertDec = Session.Run(@"MATCH (r:Equipment{UhaveE_ID:$UhaveE_ID})
                                               SET r.declination_limit = $decLimit", new { UhaveE_ID, decLimit });
             }
+        }
+
+        public List<string[]> GetEquipmentSchedule(string username)
+        {
+            var result = Session.Run(@"MATCH (u:User{username:$username})-[:User_To_Equipment]-(e:Equipment)
+                                      RETURN e.UhaveE_ID as UhaveE_ID",
+                           new { username });
+            var UhaveE_IDList = new List<string>();
+            var userEquipmentSchedule = new List<string>();
+            foreach (var record in result)
+            {;
+                var eid = record["UhaveE_ID"].ToString();
+                UhaveE_IDList.Add(eid);
+                userEquipmentSchedule.Add(eid);
+            }
+            List<string[]> output = new List<string[]>();
+            for(int i = 0;  i< UhaveE_IDList.Count; i++)
+            {
+                string UhaveE_ID = UhaveE_IDList[i];
+                var schedule = Session.Run(@"MATCH (e:Equipment{UhaveE_ID:$UhaveE_ID})-[r:Interested]-(t:Target) 
+                                            WHERE r.start <> 'nan'
+                                            WITH e, r, t
+                                            WHERE(datetime() < datetime(r.start) AND datetime(r.start) < datetime() + duration('PT6H'))
+                                            OR(datetime() < datetime(r.end) AND datetime(r.end) < datetime() + duration('PT6H'))
+                                            return e.EID, r.PID,t.TID", 
+                                            new { UhaveE_ID });
+                foreach (var record in schedule)
+                {
+                    UhaveE_IDList[i] += ",Unavailable," + record["r.PID"] + "," + record["t.TID"];
+                }
+                if(UhaveE_IDList[i] == userEquipmentSchedule[i])
+                {
+                    string avail = UhaveE_IDList[i] + "," + "Available" + ",-,-";
+                    output.Add(avail.Split(','));
+                }
+                else
+                {
+                    string unavail = UhaveE_IDList[i];
+                    output.Add(unavail.Split(','));
+                }
+            }
+
+            return output;
         }
     }
 }

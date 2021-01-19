@@ -12,5 +12,6 @@ namespace Final_Project.Repositories.Interface
         void CreateInterest(string username, string PID);
         void CreateSingleInterest(string username, string PID, string TID);
         void ComputeDeclination(string username);
+        List<string[]> GetEquipmentSchedule(string username);
     }
 }

@@ -3,61 +3,60 @@
 }
 
 
-    <div class="wrapper">
-        <div class="profile-background">
-            <div class="filter-black"></div>
-        </div>
-        <div class="profile-content section-nude">
-            <div class="container">
-                <div class="row owner">
-                    <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">
-                        <div class="Equipment Schedule">
-                            <h4>Name<br /></h4>
-                            <h5>Time<br /></h5>
-                        </div>
+<div class="wrapper">
+    <div class="profile-background">
+        <div class="filter-black"></div>
+    </div>
+    <div class="profile-content section-nude">
+        <div class="container">
+            <div id="app_projects" class="row owner">
+                <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">
+                    <div class="Equipment Schedule">
+                        <h4>Name<br /></h4>
+                        <h5>Time<br /></h5>
                     </div>
-                    <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-center">
-                        <table class="table2">
-                            <tr>
-                                <th>Equipment ID</th>
-                                <th>Next 6 hrs</th>
-                                <th>Project ID</th>
-                                <th>Project Title</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Available</td>
-                                <td>-</td>
-                                <td>
-                                    -
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Unavailable</td>
-                                <td>2</td>
-                                <td>
-                                    Observe galaxy 3
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Available</td>
-                                <td>-</td>
-                                <td>
-                                    -
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-center">
+                    <table class="table2">
+                        <tr>
+                            <th>Equipment ID</th>
+                            <th>Next 6 hrs</th>
+                            <th>Project ID</th>
+                            <th>Target ID</th>
+                        </tr>
+                        <tr v-for="sched in schedule">
+                            <td>{{sched[0]}}</td>
+                            <td>{{sched[1]}}</td>
+                            <td>{{sched[2]}}</td>
+                            <td>{{sched[3]}}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-    <footer class="footer-demo section-nude">
-        <div class="container">
-            <div class="copyright text-center">
-                &copy; 2020 - Final_Project
-            </div>
+</div>
+<footer class="footer-demo section-nude">
+    <div class="container">
+        <div class="copyright text-center">
+            &copy; 2020 - Final_Project
         </div>
-    </footer>
+    </div>
+</footer>
+
+<script>
+    fetch('@Url.Action("GetEquipmentSchedule", "UserEquipments")')
+        .then(function (response) {
+            response.json().then(function (data) {
+                app_projects._data.schedule = data;
+                console.log(app_projects._data.schedule);
+            });
+        });
+
+    var app_projects = new Vue({
+        el: '#app_projects',
+        data: {
+            schedule: null,
+        }
+    });
+</script>
