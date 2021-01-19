@@ -48,14 +48,14 @@ namespace Final_Project.Controllers
         {
             var username = HttpContext.Session.GetString("UserName");
             _equipmentRepo.CreateInterest(username, pid);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Project", new { pid = pid });
         }
 
         public IActionResult InterestTarget(string pid, string tid)
         {
             var username = HttpContext.Session.GetString("UserName");
             _equipmentRepo.CreateSingleInterest(username, pid, tid);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Project", new { pid = pid });
         }
 
         public IActionResult Add()
