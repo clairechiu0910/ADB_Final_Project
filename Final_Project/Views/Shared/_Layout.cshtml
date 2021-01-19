@@ -30,7 +30,8 @@
 
 </head>
 <body class="section-nude">
-    <nav class="navbar navbar-ct-transparent navbar-fixed-top" role="navigation-demo" <!--id="register-navbar-->">
+    <!--id="register-navbar"-->
+    <nav class="navbar navbar-ct-transparent navbar-fixed-top" data-spy="affix" data-offset-top="150" role="navigation-demo">
         @{
             if (account != null)
             {
@@ -71,8 +72,8 @@
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-->
-                }
             }
+        }
     </nav>
     <partial name="_CookieConsentPartial" />
 

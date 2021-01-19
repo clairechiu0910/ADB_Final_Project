@@ -161,3 +161,10 @@
 
 .alert h5 {
   margin-bottom: 10px; }
+
+.navbar.affix {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
