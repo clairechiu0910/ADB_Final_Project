@@ -36,5 +36,12 @@ namespace Final_Project.Controllers
             var equipments = _equipmentRepo.GetUserEquipment(username);
             return Json(equipments);
         }
+
+        public IActionResult Compute()
+        {
+            var username = HttpContext.Session.GetString("UserName");
+            _equipmentRepo.ComputeDeclination(username);
+            return RedirectToAction("Index");
+        }
     }
 }

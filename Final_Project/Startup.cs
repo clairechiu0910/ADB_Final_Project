@@ -43,7 +43,6 @@ namespace Final_Project
             services.AddTransient<IUserRepo, UserRepoNeo4j>();
             services.AddTransient<IProjectsRepo, ProjectsRepoNeo4j>();
             services.AddTransient<IEquipmentRepo, EquipmentRepo>();
-            services.AddTransient<IUHaveERepo, UHaveERepo>();
             services.AddTransient<IUHavePRepo, UHavePRepo>();
 
             services.AddTransient<IAuthenticationService, RepoAuthenticationService>();

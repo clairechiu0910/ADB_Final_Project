@@ -215,5 +215,37 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                                                MERGE (e)-[:NotInterested {PID:$PID} ]->(t)", new { EID, TID, PID });
             }
         }
+
+        public void ComputeDeclination(string username)
+        {
+            var result = Session.Run(@"MATCH p = (u:User {username: $username})-[:User_To_Equipment]->(r:Equipment)
+                                       RETURN COALESCE(r.UhaveE_ID,'') + ',' + COALESCE(r.UID,'') + ',' + COALESCE(r.EID,'') + ',' + COALESCE(r.altitude,'') + ',' + COALESCE(r.daylight_saving,'') + ',' + 
+                                       COALESCE(r.latitude,'') +','+ COALESCE(r.longitude,'') +','+ COALESCE(r.site,'') +','+ COALESCE(r.time_zone,'') +','+ COALESCE(r.water_vapor,'') + ',' + COALESCE(r.light_pollution,'') as msg, r.elevation_limit as elev_limit",
+                         new { username });
+
+            var equipmentsList = new List<UHaveE>();
+            List<string> elevLimit = new List<string>();
+            foreach (var record in result)
+            {
+                var msg = record["msg"].ToString();
+                var newEquipment = new UHaveE(msg);
+                equipmentsList.Add(newEquipment);
+                elevLimit.Add(record["elev_limit"].ToString());
+            }
+
+            equipmentsList.Sort(delegate (UHaveE x, UHaveE y)
+            {
+                return y.EID.CompareTo(x.EID);
+            });
+
+            for (int i = 0; i < equipmentsList.Count; i++)
+            {
+                string decLimit, UhaveE_ID;
+                UhaveE_ID = equipmentsList[i].UhaveE_ID;
+                decLimit = astro.Declinationlimit(equipmentsList[i].Longitude, equipmentsList[i].Latitude, equipmentsList[i].Altitude, elevLimit[i]);
+                var insertDec = Session.Run(@"MATCH (r:Equipment{UhaveE_ID:$UhaveE_ID})
+                                              SET r.declination_limit = $decLimit", new { UhaveE_ID, decLimit });
+            }
+        }
     }
 }
