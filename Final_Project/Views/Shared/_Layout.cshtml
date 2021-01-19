@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" href="~/assets/paper_img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Paper Kit by Creative Tim</title>
+    <title>Astrophysics ADB</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -30,44 +30,49 @@
 
 </head>
 <body class="section-nude">
-    <nav class="navbar navbar-ct-transparent navbar-fixed-top" role="navigation-demo" id="register-navbar">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
+    <nav class="navbar navbar-ct-transparent navbar-fixed-top" role="navigation-demo" <!--id="register-navbar-->">
+        @{
+            if (account != null)
+            {
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="navigation-example-2">
-                <ul class="nav navbar-nav">
-                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-controller="Projects" asp-action="Index">Suggested Projects</a></li>
-                    <li><a asp-controller="UserRelated" asp-action="Index">Suggested Users</a></li>
-                    <li><a asp-controller="Projects" asp-action="Add">Add New Project</a></li>
-                    <li><a asp-controller="Projects" asp-action="Project" asp-route-pid="1">Project Detail</a></li>
-                    <li><a asp-controller="User" asp-action="Index">Your Profile</a></li>
-                    <li><a asp-controller="UserEquipments" asp-action="Index">Your Equipments</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    @{
-                        if (account == null)
-                        {
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="navigation-example-2">
+                        <ul class="nav navbar-nav">
+                            <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a asp-controller="UserRelated" asp-action="Index">Suggested Users</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a asp-controller="Projects" asp-action="YourProjects">Your Projects</a></li>
+                                    <li><a asp-controller="Projects" asp-action="Project" asp-route-pid="1">View Detail Projects</a></li>
+                                    <li><a asp-controller="Projects" asp-action="Add">Create New Project</a></li>
+                                    <li><a asp-controller="Projects" asp-action="Index">Suggested Projects</a></li>
+                                </ul>
+                            </li>
 
-                            <li><a asp-controller="Home" asp-action="Login">Login</a></li>
-                        }
-                        else
-                        {
+                            <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "UserEquipments" ? "active" : "")"><a asp-controller="UserEquipments" asp-action="Index">Equipments</a></li>
+
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <!-- <li><a asp-controller="Home" asp-action="Login">Login</a></li> -->
+                            <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "User" ? "active" : "")"><a asp-controller="User" asp-action="Index">Profile</a></li>
                             <li><a asp-controller="Home" asp-action="Logout">Logout</a></li>
-                        }
-                    }
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-->
+
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-->
+                }
+            }
     </nav>
     <partial name="_CookieConsentPartial" />
 

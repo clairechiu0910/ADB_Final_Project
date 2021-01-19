@@ -11,7 +11,6 @@ namespace Final_Project.Controllers
         private readonly IProjectsRepo _projectsRepo;
         private readonly IUHavePRepo _uHavePRepo;
         private readonly IEquipmentRepo _equipmentRepo;
-
         public ProjectsController(IProjectsRepo projectRepo, IUHavePRepo uHavePRepo, IEquipmentRepo equipmentRepo)
         {
             _projectsRepo = projectRepo;
@@ -28,6 +27,15 @@ namespace Final_Project.Controllers
         {
             var project = _projectsRepo.GetProjectById(pid);
             return View(project);
+        }
+        public IActionResult YourProjects()
+        {
+            var uid = HttpContext.Session.GetString("UID");
+            if (uid == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
         }
 
         [Authorize]
@@ -90,12 +98,22 @@ namespace Final_Project.Controllers
             var projects = _projectsRepo.GetAllProjects();
             return Json(projects);
         }
-
+        public IActionResult GetProjectTargets(string pid)
+        {
+            var projects = _projectsRepo.GetTargetsByProject(pid);
+            return Json(projects);
+        }
         [Authorize]
         public IActionResult GetProjectsByUsername()
         {
             var username = HttpContext.Session.GetString("UserName");
             var projects = _projectsRepo.GetProjectsByUsername(username);
+            return Json(projects);
+        }
+        public IActionResult GetYourProjects()
+        {
+            var uid = HttpContext.Session.GetString("UID");
+            var projects = _projectsRepo.GetYourProjects(uid);
             return Json(projects);
         }
     }

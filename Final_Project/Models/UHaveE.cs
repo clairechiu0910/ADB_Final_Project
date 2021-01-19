@@ -22,6 +22,10 @@
             TimeZone = msgList[8];
             WaterVapor = msgList[9];
             LightPollution = msgList[10];
+            if (msgList.Length == 12)
+            {
+                DeclinationLimit = msgList[11];
+            }
         }
 
         public string UhaveE_ID { get; set; }
@@ -35,7 +39,7 @@
         public string TimeZone { get; set; }
         public string DaylightSaving { get; set; }
         public string WaterVapor { get; set; }
-
         public string LightPollution { get; set; }
+        public string DeclinationLimit { get; set; }
     }
 }

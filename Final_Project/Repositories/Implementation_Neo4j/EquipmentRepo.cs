@@ -22,12 +22,12 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             var url = configuration.GetValue<string>("Database:Url");
             var user = configuration.GetValue<string>("Database:User");
             var password = configuration.GetValue<string>("Database:Password");
+            _driver = GraphDatabase.Driver(url, AuthTokens.Basic(user, password));
+            Session = _driver.Session();
             pythonPath = configuration.GetValue<string>("Python:PythonPath");
             astroPath = configuration.GetValue<string>("Python:AstroPath");
             decPath = configuration.GetValue<string>("Python:DecPath");
-            _driver = GraphDatabase.Driver(url, AuthTokens.Basic(user, password));
             astro = new AstroCalculations(pythonPath, astroPath, decPath);
-            Session = _driver.Session();
         }
 
         public List<Equipment> GetUserEquipment(string username)
@@ -110,7 +110,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                         //create the log
                         System.Console.WriteLine("pythonPath does not exists");
                     }
-                    string[] astroResults = AstroplanCalculations(equipmentsList[i].Longitude, equipmentsList[i].Latitude, equipmentsList[i].Altitude, elevLimit[i], targ.RA,targ.Dec);
+                    string[] astroResults = astro.AstroplanCalculations(equipmentsList[i].Longitude, equipmentsList[i].Latitude, equipmentsList[i].Altitude, elevLimit[i], targ.RA,targ.Dec);
                     string EID = equipmentsList[i].EID;
                     string TID = targ.TID;
                     //if not 2 meaning incompatible
@@ -131,49 +131,6 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                 }
             }
 
-        }
-
-        private string RunCmd(string cmd, string args)
-        {
-            //ProcessStartInfo start = new ProcessStartInfo(@"C:\Windows\System32\cmd.exe");
-            ProcessStartInfo start = new ProcessStartInfo();
-            start.FileName = @"C:\Users\Me\AppData\Local\Programs\Python\Python37\python.exe";
-            start.Arguments = string.Format("\"{0}\" {1}", cmd, args);
-            start.UseShellExecute = false;
-            start.RedirectStandardOutput = true;
-            start.RedirectStandardError = true;
-            string result = "";
-            string error = "";
-            using (Process process = Process.Start(start))
-            {
-                using (StreamReader reader = process.StandardOutput)
-                {
-                    result += reader.ReadToEnd() + "\n";
-                }
-                using (StreamReader reader = process.StandardError)
-                {
-                    error += reader.ReadToEnd() + "\n";  
-                }
-            }
-            return result;
-        }
-        public string[] AstroplanCalculations(string userLong, string userLat, string userAlt, string userElev, string targetLong, string targetLat)
-        {
-            // requires user long,lat,alt,elev and target long targetlat.
-            string args = string.Format("{0} {1} {2} {3} {4} {5}", userLong, userLat, userAlt, userElev, targetLong, targetLat);
-            string result = RunCmd(@"D:\Downloads\Astroplan_calculations.py", args);
-            string[] results = result.Split(",");
-            // Console.WriteLine(results[0]); // start_time
-            // Console.WriteLine(results[1]); // end_time
-            return results;
-        }
-        public double Declinationlimit(string argLong, string argLat, string argAlt, string argElev)
-        {
-            // requires equipment long lat alt and elev
-            string args = string.Format("{0} {1} {2} {3}", argLong, argLat, argAlt, argElev);
-            string result = RunCmd("D:\\Downloads\\Declination_limit_of_location.py", args);
-            double decLimit = double.Parse(result);
-            return decLimit;
         }
     }
 }
