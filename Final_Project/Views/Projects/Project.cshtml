@@ -16,7 +16,8 @@
                 <div class="Equipment Schedule">
                     <h4 style="display:inline-block;">Project Detail<br /></h4>
                     <span style="float: right;margin: 30px 0 15px;">
-                        <button onclick="Join()" class="btn btn-fill">Join</button>
+                        <button style="margin-right:10px;" onclick="Join()" class="btn btn-fill">Join</button>
+                        <button style="margin-right:10px;" onclick="Join()" class="btn btn-danger">Interested in All Targets</button>
                         @{
                             if (uid == Model.PI)
                             {
@@ -95,12 +96,16 @@
                                 <th>Name</th>
                                 <th>RA</th>
                                 <th>Dec</th>
+                                <th>Interest</th>
                             </tr>
                             <tr v-for="target in targets" :key="target.tid">
                                 <td>{{target.tid}}</td>
                                 <td>{{target.name}}</td>
                                 <td class="text-right number">{{target.ra}}</td>
                                 <td class="text-right number">{{target.dec}}</td>
+                                <td>
+                                    <button onclick="Join()" class="btn btn-success">Interested</button>
+                                </td>
                             </tr>
                         </table>
                     </div>
