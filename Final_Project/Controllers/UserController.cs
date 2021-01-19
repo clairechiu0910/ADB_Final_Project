@@ -79,5 +79,12 @@ namespace Final_Project.Controllers
 
             return Json(tmpList);
         }
+
+        public IActionResult GetProjectManager(string uid)
+        {
+            var manager = _userRepo.GetUserByUID(uid);
+            manager.RemovePrivateData();
+            return Json(manager);
+        }
     }
 }

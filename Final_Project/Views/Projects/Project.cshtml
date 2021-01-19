@@ -16,12 +16,12 @@
                 <div class="Equipment Schedule">
                     <h4 style="display:inline-block;">Project Detail<br /></h4>
                     <span style="float: right;margin: 30px 0 15px;">
-                        <button style="margin-right:10px;" onclick="Join()" class="btn btn-fill">Join</button>
+                        <button style="margin-right:10px;" onclick="Join()" class="btn">Join</button>
                         <button style="margin-right:10px;" onclick="InterestAllTargets()" class="btn btn-danger">Interested in All Targets</button>
                         @{
                             if (uid == Model.PI)
                             {
-                                <button onclick="Edit()" class="btn btn-fill btn-info">Edit</button>
+                                <button onclick="Edit()" class="btn btn-info">Edit</button>
                             }
                         }
                     </span>
@@ -87,8 +87,27 @@
                     </table>
                 </div>
                 <div id="app_projects">
-                    <h4>Project Targets</h4>
+                    <h4>Project Manager</h4>
+                    <div style="overflow-x:auto;">
+                        <table class="table2">
+                            <tr class="d-flex">
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Country</th>
+                                <th>Title</th>
+                                <th>Affiliation</th>
+                            </tr>
+                            <tr>
+                                <td>{{manager.name}}</td>
+                                <td>{{manager.email}}</td>
+                                <td>{{manager.country}}</td>
+                                <td>{{manager.title}}</td>
+                                <td>{{manager.affiliation}}</td>
+                            </tr>
+                        </table>
+                    </div>
 
+                    <h4>Project Targets</h4>
                     <div style="overflow-x:auto;">
                         <table class="table2">
                             <tr class="d-flex">
@@ -128,15 +147,24 @@
     fetch('@Html.Raw(Url.Action("GetProjectTargets", "Projects", new { pid = Model.PID, uid = uid}))')
         .then(function (response) {
             response.json().then(function (data) {
-                console.log(data);
                 app_projects._data.targets = data;
                 console.log(app_projects._data.targets);
             });
         });
+    
+    fetch('@Html.Raw(Url.Action("GetProjectManager", "User", new { uid = Model.PI }))')
+        .then(function (response) {
+            response.json().then(function (data) {
+                app_projects._data.manager = data;
+                console.log(app_projects._data.manager);
+            });
+        });
+
     var app_projects = new Vue({
         el: '#app_projects',
         data: {
-            targets: null
+            targets: null,
+            manager: null
         },
         methods: {
             InterestTarget: function (tid) {
@@ -155,7 +183,6 @@
         console.log("in edit");
         location.href = '@Url.Action("Edit", "Projects", new { pid = Model.PID })';
     }
-
 
     function InterestAllTargets() {
         console.log("in all targets");
