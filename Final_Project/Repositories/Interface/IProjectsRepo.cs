@@ -13,5 +13,6 @@ namespace Final_Project.Repositories.Interface
         void InsertProject(Project project);
         void UpdateProject(Project project);
         int CountNodes();
+        List<Project> GetRecommendedProjects(string uid);
     }
 }

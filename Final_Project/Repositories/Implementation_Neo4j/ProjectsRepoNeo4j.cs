@@ -209,7 +209,42 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             }
             return targetList;
         }
+        public List<Project> GetRecommendedProjects(string uid)
+        {
+            string UID = uid;
+            var projects = Session.Run(@"MATCH (u:User{UID:$UID})-[]-(e:Equipment),(r:Project)
+                                        WITH u, r,
+                                        CASE WHEN e.SDSS_g = r.SDSS_g  THEN 1 ELSE 0 END AS SDSS_g,
+                                        CASE WHEN e.SDSS_u = r.SDSS_u  THEN 1 ELSE 0 END AS SDSS_u,
+                                        CASE WHEN e.SDSS_r = r.SDSS_r  THEN 1 ELSE 0 END AS SDSS_r,
+                                        CASE WHEN e.SDSS_z = r.SDSS_z  THEN 1 ELSE 0 END AS SDSS_z,
+                                        CASE WHEN e.SDSS_i = r.SDSS_i  THEN 1 ELSE 0 END AS SDSS_i,
+                                        CASE WHEN e.Johnson_B = r.Johnson_B  THEN 1 ELSE 0 END AS Johnson_B,
+                                        CASE WHEN e.Johnson_R = r.Johnson_R  THEN 1 ELSE 0 END AS Johnson_R,
+                                        CASE WHEN e.Johnson_V = r.Johnson_V  THEN 1 ELSE 0 END AS Johnson_V
+                                        WITH u, r, MAX(SDSS_g + SDSS_u + SDSS_r + SDSS_z + SDSS_i + Johnson_B + Johnson_R + Johnson_V) as total
+                                        WHERE total > 7
+                                        MERGE(r) -[:Recommended_Project{ total: total}]->(u)
+                                        RETURN u, r, total",
+                new{ UID } );
+            var result = Session.Run(@"MATCH (u:User{UID:$UID})-[r:Recommended_Project]-(p:Project)
+                                       RETURN p.PID + ',' + p.title + ',' + p.project_type
+                                        + ',' +  p.PI + ',' + p.description + ',' + p.aperture_upper_limit
+                                        + ',' + p.aperture_lower_limit + ',' + p.FoV_upper_limit + ',' + p.FoV_lower_limit + ',' + p.pixel_scale_upper_limit + ',' + p.pixel_scale_lower_limit
+                                        + ',' + p.mount_type + ',' + p.camera_t1 + ',' + p.camera_t2 + ',' + p.Johnson_B
+                                        + ',' + p.Johnson_V + ',' + p.Johnson_R + ',' + p.SDSS_u + ',' + p.SDSS_g + ',' + p.SDSS_r + ',' + p.SDSS_i + ',' + p.SDSS_z as msg, r.total as score
+                                        ORDER BY score DESC",
+                           new { UID });
 
+            var projectList = new List<Project>();
+            foreach (var record in result)
+            {
+                var msg = record["msg"].ToString();
+                var score = record["score"].ToString();
+                projectList.Add(new Project(msg, score));
+            }
+            return projectList;
+        }
         public int CountNodes()
         {
             var result = Session.Run(@"MATCH (n:Project) Return count(n)");
