@@ -6,7 +6,6 @@ namespace Final_Project.Repositories.Interface
 {
     public interface IProjectsRepo
     {
-        List<Project> GetAllProjects();
         List<Project> GetProjectsByUsername(string uid);
         Project GetProjectById(string pid);
         List<Target> GetTargetsByProject(string pid);

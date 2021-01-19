@@ -21,14 +21,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             _driver = GraphDatabase.Driver(url, AuthTokens.Basic(user, password));
             Session = _driver.Session();
         }
-
-        public List<Project> GetAllProjects()
-        {
-
-            return new List<Project>();
-        }
-
-
+        
         public List<Project> GetProjectsByUsername(string username)
         {
             var result = Session.Run(@"MATCH (u:User {username: $username})-[r:User_To_Project]->(p: Project)

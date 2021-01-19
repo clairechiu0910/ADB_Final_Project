@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
-using Final_Project.Models;
+﻿using Final_Project.Models;
 using Final_Project.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace Final_Project.Controllers
 {
@@ -50,6 +50,12 @@ namespace Final_Project.Controllers
             }
             else
             {
+                if (_userRepo.IfUserNameExist(user.Username))
+                {
+                    ViewBag.errMsg = "This username have already exist.";
+                    ViewBag.IsEdit = false;
+                    return View("EditUser", user);
+                }
                 _userRepo.InsertUser(user);
             }
             return RedirectToAction("Index");

@@ -14,41 +14,45 @@
                     {
                         <h3 class="title">Registration Form</h3>
                     }
-                        <form asp-controller="User" asp-action="EditUser" method="post" enctype="multipart/form-data" class="register-form">
-                            @if (!ViewBag.IsEdit)
-                            {
+                    <form asp-controller="User" asp-action="EditUser" method="post" enctype="multipart/form-data" class="register-form">
+                        @if (!ViewBag.IsEdit)
+                        {
                             <label>Username</label>
-                                <input asp-for="Username" type="text" class="form-control" placeholder="Username" value="@Model.Username">
-                            }
-                            <input asp-for="UID" type="hidden" class="form-control" value="@Model.UID">
+                            <input asp-for="Username" type="text" class="form-control" placeholder="Username" value="@Model.Username">
+                        }
+                        <input asp-for="UID" type="hidden" class="form-control" value="@Model.UID">
 
-                            <label>Password</label>
-                            <input asp-for="Password" type="password" class="form-control" placeholder="Password" value="@Model.Password">
+                        <label>Password</label>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Password" value="@Model.Password">
 
-                            <label>Name</label>
-                            <input asp-for="Name" type="text" class="form-control" placeholder="Name" value="@Model.Name">
+                        <label>Name</label>
+                        <input asp-for="Name" type="text" class="form-control" placeholder="Name" value="@Model.Name">
 
-                            <label>Email</label>
-                            <input asp-for="Email" type="text" class="form-control" placeholder="Email" value="@Model.Email">
+                        <label>Email</label>
+                        <input asp-for="Email" type="text" class="form-control" placeholder="Email" value="@Model.Email">
 
-                            <label>Country</label>
-                            <input asp-for="Country" type="text" class="form-control" placeholder="Country" value="@Model.Country">
+                        <label>Country</label>
+                        <input asp-for="Country" type="text" class="form-control" placeholder="Country" value="@Model.Country">
 
-                            <label>Title</label>
-                            <input asp-for="Title" type="text" class="form-control" placeholder="Title" value="@Model.Title">
+                        <label>Title</label>
+                        <input asp-for="Title" type="text" class="form-control" placeholder="Title" value="@Model.Title">
 
-                            <label>Affiliation</label>
-                            <input asp-for="Affiliation" type="text" class="form-control" placeholder="Affiliation" value="@Model.Affiliation">
+                        <label>Affiliation</label>
+                        <input asp-for="Affiliation" type="text" class="form-control" placeholder="Affiliation" value="@Model.Affiliation">
 
-                            @if (ViewBag.IsEdit)
-                            {
-                                <button type="submit" class="btn btn-danger btn-block">Submit</button>
-                            }
-                            else
-                            {
-                                <button type="submit" class="btn btn-danger btn-block">Register</button>
-                            }
-                        </form>
+                        <div class="card-description form-group text-danger">
+                            @ViewBag.errMsg
+                        </div>
+
+                        @if (ViewBag.IsEdit)
+                        {
+                            <button type="submit" class="btn btn-danger btn-block">Submit</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-danger btn-block">Register</button>
+                        }
+                    </form>
                 </div>
             </div>
         </div>
