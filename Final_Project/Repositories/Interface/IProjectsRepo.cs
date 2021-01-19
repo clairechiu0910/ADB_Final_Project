@@ -8,7 +8,7 @@ namespace Final_Project.Repositories.Interface
     {
         List<Project> GetProjectsByUsername(string uid);
         Project GetProjectById(string pid);
-        List<Target> GetTargetsByProject(string pid);
+        List<Target> GetTargetsByProject(string pid, string uid);
         List<Project> GetYourProjects(string uid);
         void InsertProject(Project project);
         void UpdateProject(Project project);

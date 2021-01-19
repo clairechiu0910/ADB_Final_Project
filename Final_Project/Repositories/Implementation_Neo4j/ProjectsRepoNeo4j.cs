@@ -152,24 +152,59 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                                        });
         }
 
-        public List<Target> GetTargetsByProject(string pid)
+        public List<Target> GetTargetsByProject(string pid, string uid)
         {
             string PID = pid;
+            string UID = uid;
             /*
             var targets = Session.Run(@"MATCH p = (a:Project{PID:$PID})-[:Project_To_Target]->(t:Target)
                                        RETURN COALESCE(t.TID,'') + ',' + COALESCE(t.Name,'') + ',' + COALESCE(t.RA,'') + ',' + COALESCE(t.Dec,'') as msg",
                            new { PID });
             */
-            
-            var targets = Session.Run(@"MATCH p = (a:Project{PID:$PID})-[:Project_To_Target]->(t:Target)
-                                       RETURN COALESCE(t.TID,'') + ',' + COALESCE(t.Name,'') + ',' + COALESCE(t.RA,'') + ',' + COALESCE(t.Dec,'') as msg",
-               new { PID });
-
+            var recommend = Session.Run(@"MATCH p = (a:Project{PID:$PID})-[r:Project_To_Target]->(t:Target), (u:User{UID:$UID})-[r2:User_To_Equipment]-(e:Equipment)
+                                        WITH DISTINCT(t), e,
+                                        CASE WHEN e.SDSS_g = r.SDSS_g  THEN 1 ELSE 0 END AS SDSS_g,
+                                        CASE WHEN e.SDSS_u = r.SDSS_u  THEN 1 ELSE 0 END AS SDSS_u,
+                                        CASE WHEN e.SDSS_r = r.SDSS_r  THEN 1 ELSE 0 END AS SDSS_r,
+                                        CASE WHEN e.SDSS_z = r.SDSS_z  THEN 1 ELSE 0 END AS SDSS_z,
+                                        CASE WHEN e.SDSS_i = r.SDSS_i  THEN 1 ELSE 0 END AS SDSS_i,
+                                        CASE WHEN e.Johnson_B = r.Johnson_B  THEN 1 ELSE 0 END AS Johnson_B,
+                                        CASE WHEN e.Johnson_R = r.Johnson_R  THEN 1 ELSE 0 END AS Johnson_R,
+                                        CASE WHEN e.Johnson_V = r.Johnson_V  THEN 1 ELSE 0 END AS Johnson_V
+                                        WITH t, e, COALESCE(t.TID, '') + ',' + COALESCE(t.Name, '') + ',' + COALESCE(t.RA, '') + ',' + COALESCE(t.Dec, '') as msg,
+                                        MAX(SDSS_g + SDSS_u + SDSS_r + SDSS_z + SDSS_i + Johnson_B + Johnson_R + Johnson_V) as total
+                                        WHERE total >= 5
+                                        MERGE(e) -[:Recommend{total:total}]->(t)
+                                        RETURN t, e, total
+                                        ",
+                                        new { PID, UID });
+            var score = Session.Run(@"MATCH p = (a:Project{PID:$PID})-[r:Project_To_Target]->(t:Target), (u:User{UID:$UID})-[r2:User_To_Equipment]-(e:Equipment)
+                                        WITH DISTINCT(t), e,
+                                        CASE WHEN e.SDSS_g = r.SDSS_g  THEN 1 ELSE 0 END AS SDSS_g,
+                                        CASE WHEN e.SDSS_u = r.SDSS_u  THEN 1 ELSE 0 END AS SDSS_u,
+                                        CASE WHEN e.SDSS_r = r.SDSS_r  THEN 1 ELSE 0 END AS SDSS_r,
+                                        CASE WHEN e.SDSS_z = r.SDSS_z  THEN 1 ELSE 0 END AS SDSS_z,
+                                        CASE WHEN e.SDSS_i = r.SDSS_i  THEN 1 ELSE 0 END AS SDSS_i,
+                                        CASE WHEN e.Johnson_B = r.Johnson_B  THEN 1 ELSE 0 END AS Johnson_B,
+                                        CASE WHEN e.Johnson_R = r.Johnson_R  THEN 1 ELSE 0 END AS Johnson_R,
+                                        CASE WHEN e.Johnson_V = r.Johnson_V  THEN 1 ELSE 0 END AS Johnson_V
+                                        WITH t, e, COALESCE(t.TID, '') + ',' + COALESCE(t.Name, '') + ',' + COALESCE(t.RA, '') + ',' + COALESCE(t.Dec, '') as msg,
+                                        MAX(SDSS_g + SDSS_u + SDSS_r + SDSS_z + SDSS_i + Johnson_B + Johnson_R + Johnson_V) as total
+                                        MERGE(e) -[:Score{total:total}]->(t)
+                                        RETURN t, e, total
+                                        ",
+            new { PID, UID });
+            var targets = Session.Run(@"MATCH p = (a:Project{PID:$PID})-[:Project_To_Target]->(t:Target)<-[s:Score]-(e:Equipment)-[:User_To_Equipment]-(u:User{UID:$UID})
+                                        WITH DISTINCT(t), MAX(s.total) as total_score
+                                        RETURN COALESCE(t.TID, '') + ',' + COALESCE(t.Name, '') + ',' + COALESCE(t.RA, '') + ',' + COALESCE(t.Dec, '') as msg, total_score
+                                        ORDER BY total_score DESC",
+                           new { PID , UID });
             var targetList = new List<Target>(); 
             foreach (var record in targets)
             {
                 var msg = record["msg"].ToString();
-                var newTarget = new Target(msg);
+                var targetscore = record["total_score"].ToString();
+                var newTarget = new Target(msg, targetscore);
                 targetList.Add(newTarget);
             }
             return targetList;

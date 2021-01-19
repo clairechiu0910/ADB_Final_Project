@@ -96,7 +96,7 @@
                                 <th>Name</th>
                                 <th>RA</th>
                                 <th>Dec</th>
-                                <th>Equipment <br />Compatible</th>
+                                <th>Comptability<br />Score</th>
                                 <th>Interest</th>
                             </tr>
                             <tr v-for="(target, index) in targets" :key="target.tid">
@@ -104,7 +104,7 @@
                                 <td>{{target.name}}</td>
                                 <td class="text-right number">{{target.ra}}</td>
                                 <td class="text-right number">{{target.dec}}</td>
-                                <td>Yes</td>
+                                <td class="text-right number">{{target.score}}</td>
                                 <td>
                                     <button v-on:click="InterestTarget(target.tid)" class="btn btn-success">Interested</button>
                                 </td>
@@ -125,7 +125,7 @@
 </footer>
 
 <script>
-    fetch('@Url.Action("GetProjectTargets", "Projects", new { pid = Model.PID })')
+    fetch('@Html.Raw(Url.Action("GetProjectTargets", "Projects", new { pid = Model.PID, uid = uid}))')
         .then(function (response) {
             response.json().then(function (data) {
                 console.log(data);

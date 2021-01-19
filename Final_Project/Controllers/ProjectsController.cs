@@ -105,9 +105,9 @@ namespace Final_Project.Controllers
             }
         }
         
-        public IActionResult GetProjectTargets(string pid)
+        public IActionResult GetProjectTargets(string pid, string uid)
         {
-            var projects = _projectsRepo.GetTargetsByProject(pid);
+            var projects = _projectsRepo.GetTargetsByProject(pid, uid);
             return Json(projects);
         }
         [Authorize]
