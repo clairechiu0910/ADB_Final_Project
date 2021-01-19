@@ -15,29 +15,30 @@
             <div class="tab-pane active" id="follows">
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
-                            <template v-for="item in join_projects">
-                                    <div class="row">
-                                        <h3>{{item.title}}</h3>
-                                        <div class="col-md-9 col-xs-8">
+                        <template v-for="item in join_projects">
+                            <div class="row">
+                                <h3>{{item.title}}</h3>
+                                <div class="col-md-9 col-xs-8">
 
-                                            <span class="label label-default">Compatibility Score</span>
-                                            <small>{{item.score}}</small>
-                                        </div>
-                                        <div class="col-md-9 col-xs-8">
-                                            <span class="label label-default">Project Type</span>
-                                            <small>{{item.project_type}}</small>
-                                        </div>
-                                        <div class="col-md-9 col-xs-8">
-                                            <span class="label label-default">Description</span>
-                                            <small>{{item.description}}</small>
-                                        </div>
-                                        <div class="col-md-3 col-xs-4">
-                                            <div class="text-right text">
-                                                <button v-on:click="ViewProject(item.pid)" class="btn btn-xs">View Project Detail</button>
-                                            </div>
-                                        </div>
-                                <hr />
-                            </template>
+                                    <span class="label label-default">Compatibility Score</span>
+                                    <small>{{item.score}}</small>
+                                </div>
+                                <div class="col-md-9 col-xs-8">
+                                    <span class="label label-default">Project Type</span>
+                                    <small>{{item.project_type}}</small>
+                                </div>
+                                <div class="col-md-9 col-xs-8">
+                                    <span class="label label-default">Description</span>
+                                    <small>{{item.description}}</small>
+                                </div>
+                                <div class="col-md-3 col-xs-4">
+                                    <div class="text-right text">
+                                        <button v-on:click="ViewProject(item.pid)" class="btn btn-xs">View Project Detail</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        </template>
                     </div>
                 </div>
             </div>
