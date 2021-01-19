@@ -58,9 +58,9 @@ namespace Final_Project.Repositories.Implementation_Neo4j
 
         public void CreateInterest(string username, string PID)
         {
-            var result = Session.Run(@"MATCH p = (u:User {username: $username})-[r:User_To_Equipment]->(e:Equipment)
+            var result = Session.Run(@"MATCH p = (u:User {username: $username})-[:User_To_Equipment]->(r:Equipment)
                                        RETURN COALESCE(r.UhaveE_ID,'') + ',' + COALESCE(r.UID,'') + ',' + COALESCE(r.EID,'') + ',' + COALESCE(r.altitude,'') + ',' + COALESCE(r.daylight_saving,'') + ',' + 
-                                       COALESCE(r.latitude,'') +','+ COALESCE(r.longitude,'') +','+ COALESCE(r.site,'') +','+ COALESCE(r.time_zone,'') +','+ COALESCE(r.water_vapor,'') + ',' + COALESCE(r.light_pollution,'') as msg, e.elevation_limit",
+                                       COALESCE(r.latitude,'') +','+ COALESCE(r.longitude,'') +','+ COALESCE(r.site,'') +','+ COALESCE(r.time_zone,'') +','+ COALESCE(r.water_vapor,'') + ',' + COALESCE(r.light_pollution,'') as msg, r.elevation_limit as elev_limit",
                                       new { username });
 
             var equipmentsList = new List<UHaveE>();
@@ -70,7 +70,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                 var msg = record["msg"].ToString();
                 var newEquipment = new UHaveE(msg);
                 equipmentsList.Add(newEquipment);
-                elevLimit.Add(record["e.elevation_limit"].ToString());
+                elevLimit.Add(record["elev_limit"].ToString());
             }
 
             equipmentsList.Sort(delegate (UHaveE x, UHaveE y)
@@ -94,7 +94,62 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             {
                 foreach (Target targ in targetList)
                 {
-                    /*
+
+                    createInterestRelationship(targ.TID, PID, equipmentsList, elevLimit, targ, i);
+
+                }
+            }
+
+        }
+
+        public void CreateSingleInterest(string username, string PID, string TID)
+        {
+            var result = Session.Run(@"MATCH p = (u:User {username: $username})-[:User_To_Equipment]->(r:Equipment)
+                                       RETURN COALESCE(r.UhaveE_ID,'') + ',' + COALESCE(r.UID,'') + ',' + COALESCE(r.EID,'') + ',' + COALESCE(r.altitude,'') + ',' + COALESCE(r.daylight_saving,'') + ',' + 
+                                       COALESCE(r.latitude,'') +','+ COALESCE(r.longitude,'') +','+ COALESCE(r.site,'') +','+ COALESCE(r.time_zone,'') +','+ COALESCE(r.water_vapor,'') + ',' + COALESCE(r.light_pollution,'') as msg, COALESCE(r.elevation_limit,'') as elev_limit",
+                                      new { username });
+
+            var equipmentsList = new List<UHaveE>();
+            List<string> elevLimit = new List<string>();
+            foreach (var record in result)
+            {
+                var msg = record["msg"].ToString();
+                var newEquipment = new UHaveE(msg);
+                equipmentsList.Add(newEquipment);
+                elevLimit.  Add(record["elev_limit"].ToString());
+            }
+
+            equipmentsList.Sort(delegate (UHaveE x, UHaveE y)
+            {
+                return y.EID.CompareTo(x.EID);
+            });
+
+            var targets = Session.Run(@"MATCH p = (a:Project{PID:$PID})-[:Project_To_Target]->(t:Target{TID:$TID})
+                                       RETURN COALESCE(t.TID,'') + ',' + COALESCE(t.Name,'') + ',' + COALESCE(t.RA,'') + ',' + COALESCE(t.Dec,'') as msg",
+                                       new { PID,TID });
+
+            var targetList = new List<Target>();
+
+            foreach (var record in targets)
+            {
+                var msg = record["msg"].ToString();
+                var newTarget = new Target(msg);
+                targetList.Add(newTarget);
+            }
+            for (int i = 0; i < equipmentsList.Count; i++)
+            {
+                foreach (Target targ in targetList)
+                {
+                    createInterestRelationship(TID, PID, equipmentsList, elevLimit, targ, i);
+
+
+                }
+            }
+
+        }
+        private void createInterestRelationship(string TID, string PID, List<UHaveE> equipmentsList, List<string> elevLimit, Target targ, int i)
+        {
+            /*
                      * # - longitude (deg)
                     # - latitude (deg)
                     # - altitude (m)
@@ -105,32 +160,29 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                     # - RA (longitude) (deg)
                     # - Dec (latitude) (deg)
                     */
-                    if (!File.Exists(pythonPath))
-                    {
-                        //create the log
-                        System.Console.WriteLine("pythonPath does not exists");
-                    }
-                    string[] astroResults = astro.AstroplanCalculations(equipmentsList[i].Longitude, equipmentsList[i].Latitude, equipmentsList[i].Altitude, elevLimit[i], targ.RA,targ.Dec);
-                    string EID = equipmentsList[i].EID;
-                    string TID = targ.TID;
-                    //if not 2 meaning incompatible
-                    if (astroResults.Length == 2)
-                    {
-                       
-                        string start = astroResults[0];
-                        string end = astroResults[1];
-                        var create = Session.Run(@"MATCH (e:Equipment {EID:$EID}), (t:Target {TID:$TID})
-                                               CREATE (e)-[:Interested {PID:$PID,start:$start,end:$end} ]->(t)", new { EID, TID, PID, start, end });
-                    }
-                    else
-                    {
-                        var create = Session.Run(@"MATCH (e:Equipment {EID:$EID}), (t:Target {TID:$TID})
-                                               CREATE (e)-[:NotInterested {PID:$PID} ]->(t)", new { EID, TID, PID });
-                    }
-
-                }
+            if (!File.Exists(pythonPath))
+            {
+                //create the log
+                System.Console.WriteLine("pythonPath does not exists");
             }
+            string[] astroResults = astro.AstroplanCalculations(equipmentsList[i].Longitude, equipmentsList[i].Latitude, equipmentsList[i].Altitude, elevLimit[i], targ.RA, targ.Dec);
+            string EID = equipmentsList[i].EID;
+            //if not 2 meaning incompatible
+            if (astroResults.Length == 2)
+            {
 
+                string start = astroResults[0];
+                string end = astroResults[1];
+                var delete = Session.Run(@"MATCH (e:Equipment {EID:$EID})-[r:Interested]-(t:Target {TID:$TID})
+                                               DELETE r", new { EID, TID });
+                var create = Session.Run(@"MATCH (e:Equipment {EID:$EID}), (t:Target {TID:$TID})
+                                               MERGE (e)-[:Interested {PID:$PID,start:$start,end:$end} ]->(t)", new { EID, TID, PID, start, end });
+            }
+            else
+            {
+                var create = Session.Run(@"MATCH (e:Equipment {EID:$EID}), (t:Target {TID:$TID})
+                                               MERGE (e)-[:NotInterested {PID:$PID} ]->(t)", new { EID, TID, PID });
+            }
         }
     }
 }
