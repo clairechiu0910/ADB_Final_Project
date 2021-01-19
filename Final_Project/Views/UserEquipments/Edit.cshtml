@@ -1,0 +1,104 @@
+﻿@model Final_Project.Models.Equipment
+
+<div class="register-background">
+    <div class="filter-black"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 ">
+                <div class="register-card">
+                    @if (Model.EID != "")
+                    {
+                        <h3 class="title">Edit Equipment</h3>
+                    }
+                    else
+                    {
+                        <h3 class="title">Add New Equipment</h3>
+                    }
+                        <form asp-controller="UserEquipments" asp-action="Edit" method="post" enctype="multipart/form-data" class="register-form">
+                            <input asp-for="UID" type="hidden" class="form-control" value="@Model.UID">
+                            <input asp-for="EID" type="hidden" class="form-control" value="@Model.EID">
+                            <input asp-for="UhaveE_ID" type="hidden" class="form-control" value="@Model.UhaveE_ID">
+
+                            <label>Site</label>
+                            <input asp-for="Site" type="text" class="form-control" value="@Model.Site">
+                            <label>Longitude</label>
+                            <input asp-for="Longitude" type="text" class="form-control" value="@Model.Longitude" />
+                            <label>Latitude</label>
+                            <input asp-for="Latitude" type="text" class="form-control" value="@Model.Latitude">
+                            <label>Altitude</label>
+                            <input asp-for="Altitude" type="text" class="form-control" value="@Model.Altitude">
+
+                            <br />
+
+                            <label>Time_zone</label>
+                            <input asp-for="TimeZone" type="text" class="form-control" value="@Model.TimeZone">
+                            <label>Daylight_saving</label>
+                            <input asp-for="DaylightSaving" type="text" class="form-control" value="@Model.DaylightSaving">
+                            <label>Water_vapor</label>
+                            <input asp-for="WaterVapor" type="text" class="form-control" value="@Model.WaterVapor">
+                            <label>Light_pollution(m/sas)</label>
+                            <input asp-for="LightPollution" type="text" class="form-control" value="@Model.LightPollution">
+
+                            <br />
+
+                            <label>Aperture</label>
+                            <input asp-for="Aperture" type="text" class="form-control" value="@Model.Aperture">
+                            <label>FoV</label>
+                            <input asp-for="FoV" type="text" class="form-control" value="@Model.FoV">
+                            <label>Pixel scale ("/pix)</label>
+                            <input asp-for="PixelScale" type="text" class="form-control" value="@Model.PixelScale">
+                            <label>Tracking accuracy</label>
+                            <input asp-for="TrackingAccuracy" type="text" class="form-control" value="@Model.TrackingAccuracy">
+
+                            <br />
+
+                            <label>Limiting magnitude (mag)</label>
+                            <input asp-for="LimitingMagnitude" type="text" class="form-control" value="@Model.LimitingMagnitude">
+                            <label>Elevation limit (deg)</label>
+                            <input asp-for="ElevationLimit" type="text" class="form-control" value="@Model.ElevationLimit">
+                            <label>Mount type (german, fork, theodolite)</label>
+                            <input asp-for="MountType" type="text" class="form-control" value="@Model.MountType">
+
+                            <br />
+
+                            <label>Camera type (colored, mono)</label>
+                            <input asp-for="CameraType_1" type="text" class="form-control" value="@Model.CameraType_1">
+                            <label>Camera type (cooled, uncooled)</label>
+                            <input asp-for="CameraType_2" type="text" class="form-control" value="@Model.CameraType_2">
+
+                            <br />
+
+                            <label>Johnson_B</label>
+                            <input asp-for="Johnson_B" type="text" class="form-control" value="@Model.Johnson_B">
+                            <label>Johnson_V</label>
+                            <input asp-for="Johnson_V" type="text" class="form-control" value="@Model.Johnson_V">
+                            <label>Johnson_R</label>
+                            <input asp-for="Johnson_R" type="text" class="form-control" value="@Model.Johnson_R">
+
+                            <br />
+
+                            <label>SDSS_u</label>
+                            <input asp-for="SDSS_u" type="text" class="form-control" value="@Model.SDSS_u">
+                            <label>SDSS_g</label>
+                            <input asp-for="SDSS_g" type="text" class="form-control" value="@Model.SDSS_g">
+                            <label>SDSS_r</label>
+                            <input asp-for="SDSS_r" type="text" class="form-control" value="@Model.SDSS_r">
+                            <label>SDSS_i</label>
+                            <input asp-for="SDSS_i" type="text" class="form-control" value="@Model.SDSS_i">
+                            <label>SDSS_z</label>
+                            <input asp-for="SDSS_z" type="text" class="form-control" value="@Model.SDSS_z">
+
+                            <div class="card-description form-group text-danger">
+                                @ViewBag.errMsg
+                            </div>
+
+                            <button type="submit" class="btn btn-danger btn-block">Submit</button>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer register-footer text-center">
+        <h6>&copy; 2020 - Final_Project</h6>
+    </div>
+</div>

@@ -26,19 +26,14 @@
                             # If low_dec > 0, the observable declination range is low_dec ~ -90.
                         </li>
                     </ul>
-                    <div class="row">
-                        <div class="col-md-6">
-
-                            <h5>Equipment Details<br /></h5>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <button onclick="Compute()" class="btn btn-fill">Compute Declination</button>
-                        </div>
-                    </div>
+                    <button v-on:click="Compute()" class="btn btn-fill">Compute Declination</button>
+                    <h5>Equipment Details<br /></h5>
+                    <button style="margin-bottom:10px" v-on:click="Add()" class="btn btn-fill btn-success text">Add New Equipment</button>
 
                     <div style="overflow-x:auto;">
                         <table class="table2">
                             <tr>
+                                <th></th>
                                 <th>EID</th>
 
                                 <th>Site</th>
@@ -63,7 +58,7 @@
                                 <th>Mount type (german, fork, theodolite)</th>
 
                                 <th>Camera type (colored, mono)</th>
-                                <th>Camera type (cooled, uncooled)	</th>
+                                <th>Camera type (cooled, uncooled)</th>
 
                                 <th>Johnson B</th>
                                 <th>Johnson V</th>
@@ -75,38 +70,40 @@
                                 <th>SDSS i</th>
                                 <th>SDSS z</th>
                             </tr>
-                            <tr v-for="item_1 in equipments">
-                                <td>{{item_1.eid}}</td>
 
-                                <td>{{item_1.site}}</td>
-                                <td class="text-right number">{{item_1.longitude}}</td>
-                                <td class="text-right number">{{item_1.latitude}}</td>
-                                <td class="text-right number">{{item_1.altitude}}</td>
+                            <tr v-for="item in equipments">
+                                <td><button v-on:click="Edit(item.eid)">Edit</button></td>
+                                <td>{{item.eid}}</td>
 
-                                <td>{{item_1.timeZone}}</td>
-                                <td>{{item_1.daylightSaving}}</td>
-                                <td class="text-right number">{{item_1.waterVapor}}</td>
-                                <td class="text-right number">{{item_1.lightPollution}}</td>
+                                <td>{{item.site}}</td>
+                                <td class="text-right number">{{item.longitude}}</td>
+                                <td class="text-right number">{{item.latitude}}</td>
+                                <td class="text-right number">{{item.altitude}}</td>
 
-                                <td class="text-right number">{{item_1.declinationLimit}}</td>
+                                <td>{{item.timeZone}}</td>
+                                <td>{{item.daylightSaving}}</td>
+                                <td class="text-right number">{{item.waterVapor}}</td>
+                                <td class="text-right number">{{item.lightPollution}}</td>
 
-                                <td class="text-right number">{{item_1.aperture}}</td>
-                                <td class="text-right number">{{item_1.foV}}</td>
-                                <td class="text-right number">{{item_1.pixelScale}}</td>
-                                <td class="text-right number">{{item_1.trackingAccuracy}}</td>
-                                <td class="text-right number">{{item_1.limitingMagnitude}}</td>
-                                <td class="text-right number">{{item_1.elevationLimit}}</td>
-                                <td>{{item_1.mountType}}</td>
-                                <td>{{item_1.cameraType_1}}</td>
-                                <td>{{item_1.cameraType_2}}</td>
-                                <td>{{item_1.johnson_B}}</td>
-                                <td>{{item_1.johnson_V}}</td>
-                                <td>{{item_1.johnson_R}}</td>
-                                <td>{{item_1.sdsS_u}}</td>
-                                <td>{{item_1.sdsS_g}}</td>
-                                <td>{{item_1.sdsS_r}}</td>
-                                <td>{{item_1.sdsS_i}}</td>
-                                <td>{{item_1.sdsS_z}}</td>
+                                <td class="text-right number">{{item.declinationLimit}}</td>
+
+                                <td class="text-right number">{{item.aperture}}</td>
+                                <td class="text-right number">{{item.foV}}</td>
+                                <td class="text-right number">{{item.pixelScale}}</td>
+                                <td class="text-right number">{{item.trackingAccuracy}}</td>
+                                <td class="text-right number">{{item.limitingMagnitude}}</td>
+                                <td class="text-right number">{{item.elevationLimit}}</td>
+                                <td>{{item.mountType}}</td>
+                                <td>{{item.cameraType_1}}</td>
+                                <td>{{item.cameraType_2}}</td>
+                                <td>{{item.johnson_B}}</td>
+                                <td>{{item.johnson_V}}</td>
+                                <td>{{item.johnson_R}}</td>
+                                <td>{{item.sdsS_u}}</td>
+                                <td>{{item.sdsS_g}}</td>
+                                <td>{{item.sdsS_r}}</td>
+                                <td>{{item.sdsS_i}}</td>
+                                <td>{{item.sdsS_z}}</td>
                             </tr>
                         </table>
                     </div>
@@ -136,11 +133,20 @@
         el: '#app_user_equipments',
         data: {
             equipments: null,
+        },
+        methods: {
+            Compute: function () {
+                console.log("in join");
+                location.href = '@Url.Action("Compute", "UserEquipments")';
+            },
+            Add: function () {
+                console.log("add new equipment");
+                location.href = '@Url.Action("Add", "UserEquipments")';
+            },
+            Edit: function (eid) {
+                console.log("edit: ", eid);
+                location.href = '@Url.Action("Edit", "UserEquipments", new { eid = "EID" })'.replace("EID", eid);
+            }
         }
     });
-
-    function Compute() {
-        console.log("in join");
-        location.href = '@Url.Action("Compute", "UserEquipments")';
-    }
 </script>

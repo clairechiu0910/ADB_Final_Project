@@ -9,6 +9,11 @@ namespace Final_Project.Repositories.Interface
     public interface IEquipmentRepo
     {
         List<Equipment> GetUserEquipment(string username);
+        Equipment GetEquipmentByEID(string eid);
+
+        void AddEquipment(Equipment equipment);
+        void UpdateEquipment(Equipment equipment);
+
         void CreateInterest(string username, string PID);
         void CreateSingleInterest(string username, string PID, string TID);
         void ComputeDeclination(string username);
