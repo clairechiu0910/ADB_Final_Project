@@ -104,12 +104,7 @@ namespace Final_Project.Controllers
                 return RedirectToAction("Project", "Projects", new { pid = project.PID });
             }
         }
-
-        public IActionResult GetProjects()
-        {
-            var projects = _projectsRepo.GetAllProjects();
-            return Json(projects);
-        }
+        
         public IActionResult GetProjectTargets(string pid)
         {
             var projects = _projectsRepo.GetTargetsByProject(pid);
