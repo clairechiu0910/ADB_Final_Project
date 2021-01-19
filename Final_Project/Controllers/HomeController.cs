@@ -26,6 +26,12 @@ namespace Final_Project.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            // AUTHORIZE is not working when the app is opened for the fist time and did not logout last time
+            var username = HttpContext.Session.GetString("UserName");
+            if (username == null)
+            {
+                return RedirectToAction("Login");
+            }
             return View();
         }
 

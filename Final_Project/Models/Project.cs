@@ -39,8 +39,43 @@
             SDSS_r = msgList[19];
             SDSS_i = msgList[20];
             SDSS_z = msgList[21];
+            Score = "0";
         }
+        public Project(string msg, string score)
+        {
+            var msgList = msg.Split(',');
 
+            PID = msgList[0];
+            Title = msgList[1];
+            Project_type = msgList[2];
+            PI = msgList[3];
+            Description = msgList[4];
+
+            ApertureUpperLimit = msgList[5];
+            ApertureLowerLimit = msgList[6];
+
+            FoVUpperLimit = msgList[7];
+            FoVLowerLimit = msgList[8];
+
+            PixelScaleUpperLimit = msgList[9];
+            PixelScaleLowerLimit = msgList[10];
+
+            MountType = msgList[11];
+            CameraType_1 = msgList[12];
+            CameraType_2 = msgList[13];
+
+            Johnson_B = msgList[14];
+            Johnson_V = msgList[15];
+            Johnson_R = msgList[16];
+
+            SDSS_u = msgList[17];
+            SDSS_g = msgList[18];
+            SDSS_r = msgList[19];
+            SDSS_i = msgList[20];
+            SDSS_z = msgList[21];
+            Score = score;
+        }
+        public string Score { get; set; }
         public string PID { get; set; }
         public string Title { get; set; }
         public string Project_type { get; set; }

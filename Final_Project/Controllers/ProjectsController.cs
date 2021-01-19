@@ -104,10 +104,17 @@ namespace Final_Project.Controllers
                 return RedirectToAction("Project", "Projects", new { pid = project.PID });
             }
         }
-        
-        public IActionResult GetProjectTargets(string pid)
+        [Authorize]
+        public IActionResult GetProjectTargets(string pid, string uid)
         {
-            var projects = _projectsRepo.GetTargetsByProject(pid);
+            var projects = _projectsRepo.GetTargetsByProject(pid, uid);
+            return Json(projects);
+        }
+        [Authorize]
+        public IActionResult GetRecommendedProjects()
+        {
+            var uid = HttpContext.Session.GetString("UID");
+            var projects = _projectsRepo.GetRecommendedProjects(uid);
             return Json(projects);
         }
         [Authorize]
