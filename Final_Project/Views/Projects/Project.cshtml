@@ -5,88 +5,89 @@
     var uid = Context.Session.GetString("UID");
 }
 
-    <div class="wrapper">
-        <div class="project-background">
-            <div class="filter-black"></div>
-        </div>
-        <div class="profile-content section-nude">
-            <div class="container">
-                <div class="row owner">
-                    <!--<div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">-->
-                    <div class="Equipment Schedule">
-                        <h4 style="display:inline-block;">Project Detail<br /></h4>
-                        <span style="float: right;margin: 30px 0 15px;">
-                            <button onclick="Join()" class="btn btn-fill">Join</button>
-                            @{
-                                if (uid == Model.PI)
-                                {
-                                    <button onclick="Edit()" class="btn btn-fill btn-info">Edit</button>
-                                }
+<div class="wrapper">
+    <div class="project-background">
+        <div class="filter-black"></div>
+    </div>
+    <div class="profile-content section-nude">
+        <div class="container">
+            <div class="row owner">
+                <!--<div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">-->
+                <div class="Equipment Schedule">
+                    <h4 style="display:inline-block;">Project Detail<br /></h4>
+                    <span style="float: right;margin: 30px 0 15px;">
+                        <button onclick="Join()" class="btn btn-fill">Join</button>
+                        @{
+                            if (uid == Model.PI)
+                            {
+                                <button onclick="Edit()" class="btn btn-fill btn-info">Edit</button>
                             }
-                        </span>
-                    </div>
-                    <!--</div>-->
-                    <!--<div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">-->
-                    <br />
-                    <div style="overflow-x:auto;">
-                        <table class="table2">
-                            <tr>
-                                <th>PID</th>
-                                <th>Title</th>
-                                <th>Project_Type</th>
-                                <th>PI</th>
-                                <th>Description</th>
-                                <th>Aperture_upper_limit</th>
-                                <th>Aperture_lower_limit</th>
-                                <th>FoV_upper_limit</th>
-                                <th>FoV_lower_limmit</th>
-                                <th>Pixel_scale_upper_limit_(/pix)</th>
-                                <th>Pixel_scale_lower_limit_(/pix)</th>
-                                <th>Mount type (german, fork, theodolite)</th>
-                                <th>Camera type (colored, mono)</th>
-                                <th>Camera type (cooled, uncooled)	</th>
-                                <th>Johnson B</th>
-                                <th>Johnson V</th>
-                                <th>Johnson R</th>
-                                <th>SDSS u</th>
-                                <th>SDSS g</th>
-                                <th>SDSS r</th>
-                                <th>SDSS i</th>
-                                <th>SDSS z</th>
-                            </tr>
-                            <tr>
-                                <td>@Model.PID</td>
-                                <td>@Model.Title</td>
-                                <td>@Model.Project_type</td>
-                                <td>@Model.PI</td>
-                                <td>@Model.Description</td>
+                        }
+                    </span>
+                </div>
+                <!--</div>-->
+                <!--<div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">-->
+                <br />
+                <div style="overflow-x:auto;">
+                    <table class="table2">
+                        <tr>
+                            <th>PID</th>
+                            <th>Title</th>
+                            <th>Project_Type</th>
+                            <th>PI</th>
+                            <th>Description</th>
+                            <th>Aperture_upper_limit</th>
+                            <th>Aperture_lower_limit</th>
+                            <th>FoV_upper_limit</th>
+                            <th>FoV_lower_limmit</th>
+                            <th>Pixel_scale_upper_limit_(/pix)</th>
+                            <th>Pixel_scale_lower_limit_(/pix)</th>
+                            <th>Mount type (german, fork, theodolite)</th>
+                            <th>Camera type (colored, mono)</th>
+                            <th>Camera type (cooled, uncooled)	</th>
+                            <th>Johnson B</th>
+                            <th>Johnson V</th>
+                            <th>Johnson R</th>
+                            <th>SDSS u</th>
+                            <th>SDSS g</th>
+                            <th>SDSS r</th>
+                            <th>SDSS i</th>
+                            <th>SDSS z</th>
+                        </tr>
+                        <tr>
+                            <td>@Model.PID</td>
+                            <td>@Model.Title</td>
+                            <td>@Model.Project_type</td>
+                            <td>@Model.PI</td>
+                            <td>@Model.Description</td>
 
-                                <td>@Model.ApertureUpperLimit</td>
-                                <td>@Model.ApertureLowerLimit</td>
+                            <td>@Model.ApertureUpperLimit</td>
+                            <td>@Model.ApertureLowerLimit</td>
 
-                                <td>@Model.FoVUpperLimit</td>
-                                <td>@Model.FoVLowerLimit</td>
+                            <td>@Model.FoVUpperLimit</td>
+                            <td>@Model.FoVLowerLimit</td>
 
-                                <td>@Model.PixelScaleUpperLimit</td>
-                                <td>@Model.PixelScaleLowerLimit</td>
-                                <td>@Model.MountType</td>
-                                <td>@Model.CameraType_1</td>
-                                <td>@Model.CameraType_2</td>
+                            <td>@Model.PixelScaleUpperLimit</td>
+                            <td>@Model.PixelScaleLowerLimit</td>
+                            <td>@Model.MountType</td>
+                            <td>@Model.CameraType_1</td>
+                            <td>@Model.CameraType_2</td>
 
-                                <td>@Model.Johnson_B</td>
-                                <td>@Model.Johnson_V</td>
-                                <td>@Model.Johnson_R</td>
+                            <td>@Model.Johnson_B</td>
+                            <td>@Model.Johnson_V</td>
+                            <td>@Model.Johnson_R</td>
 
-                                <td>@Model.SDSS_u</td>
-                                <td>@Model.SDSS_g</td>
-                                <td>@Model.SDSS_r</td>
-                                <td>@Model.SDSS_i</td>
-                                <td>@Model.SDSS_z</td>
-                            </tr>
-                        </table>
-                    </div>
+                            <td>@Model.SDSS_u</td>
+                            <td>@Model.SDSS_g</td>
+                            <td>@Model.SDSS_r</td>
+                            <td>@Model.SDSS_i</td>
+                            <td>@Model.SDSS_z</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="app_projects">
                     <h4>Project Targets</h4>
-                    
+
                     <div style="overflow-x:auto;">
                         <table class="table2">
                             <tr>
@@ -107,6 +108,7 @@
             </div>
         </div>
     </div>
+</div>
 <footer class="footer-demo section-nude">
     <div class="container">
         <div class="copyright text-center">
