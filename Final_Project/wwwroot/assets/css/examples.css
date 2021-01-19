@@ -186,7 +186,7 @@ tr:nth-child(odd):hover {
     color: #66615b;
 }
 .stars-background {
-    background-image: url(https://img.freepik.com/free-vector/space-with-stars-universe-space-infinity-background_78474-99.jpg?size=626&ext=jpg&ga=GA1.2.189560331.1610668800);
+    background-image: url("../paper_img/stars.jpg");
     background-position: center center;
     background-size: contain;
     height: 200px;
