@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Final_Project.Controllers
 {
+    [Authorize]
     public class ProjectsController : Controller
     {
         private readonly IProjectsRepo _projectsRepo;
@@ -18,7 +19,6 @@ namespace Final_Project.Controllers
             _equipmentRepo = equipmentRepo;
         }
 
-        [Authorize]
         public IActionResult Index()
         {
             return View();
@@ -30,14 +30,12 @@ namespace Final_Project.Controllers
             return View(project);
         }
 
-        [Authorize]
         public IActionResult YourProjects()
         {
             var uid = HttpContext.Session.GetString("UID");
             return View();
         }
 
-        [Authorize]
         public IActionResult Join(string pid)
         {
             var username = HttpContext.Session.GetString("UserName");
@@ -45,12 +43,14 @@ namespace Final_Project.Controllers
             //_equipmentRepo.CreateInterest(username, pid);
             return RedirectToAction("Index", "Home");
         }
+
         public IActionResult InterestAllTargets(string pid)
         {
             var username = HttpContext.Session.GetString("UserName");
             _equipmentRepo.CreateInterest(username, pid);
             return RedirectToAction("Index", "Home");
         }
+
         public IActionResult InterestTarget(string pid, string tid)
         {
             var username = HttpContext.Session.GetString("UserName");
@@ -108,14 +108,12 @@ namespace Final_Project.Controllers
             }
         }
 
-        [Authorize]
         public IActionResult GetProjectTargets(string pid, string uid)
         {
             var projects = _projectsRepo.GetTargetsByProject(pid, uid);
             return Json(projects);
         }
 
-        [Authorize]
         public IActionResult GetRecommendedProjects()
         {
             var uid = HttpContext.Session.GetString("UID");
@@ -123,7 +121,6 @@ namespace Final_Project.Controllers
             return Json(projects);
         }
 
-        [Authorize]
         public IActionResult GetProjectsByUsername()
         {
             var username = HttpContext.Session.GetString("UserName");
