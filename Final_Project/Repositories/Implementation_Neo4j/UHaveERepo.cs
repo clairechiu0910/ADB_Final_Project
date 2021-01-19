@@ -34,7 +34,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
 
         public List<UHaveE> GetUHaveE(string username)
         {
-            var result = Session.Run(@"MATCH p = ({username: $username})-[r:User_To_Equipment]->()
+            var result = Session.Run(@"MATCH p = ({username: $username})-[:User_To_Equipment]->(r:Equipment)
                                        RETURN r.UhaveE_ID +','+ r.UID +','+ r.EID +','+ r.altitude+','+r.daylight_saving+','+r.latitude+','+r.longitude+','+r.site+','+r.time_zone+','+r.water_vapor +','+ r.light_pollution + ',' + COALESCE(r.declination_limit,'') as msg",
                                        new { username });
 
