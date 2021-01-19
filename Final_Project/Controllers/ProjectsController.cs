@@ -46,6 +46,18 @@ namespace Final_Project.Controllers
             //_equipmentRepo.CreateInterest(username, pid);
             return RedirectToAction("Index", "Home");
         }
+        public IActionResult InterestAllTargets(string pid)
+        {
+            var username = HttpContext.Session.GetString("UserName");
+            _equipmentRepo.CreateInterest(username, pid);
+            return RedirectToAction("Index", "Home");
+        }
+        public IActionResult InterestTarget(string pid, string tid)
+        {
+            var username = HttpContext.Session.GetString("UserName");
+            _equipmentRepo.CreateSingleInterest(username, pid, tid);
+            return RedirectToAction("Index", "Home");
+        }
 
         public IActionResult Add()
         {

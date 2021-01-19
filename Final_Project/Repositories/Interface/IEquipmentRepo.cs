@@ -10,5 +10,6 @@ namespace Final_Project.Repositories.Interface
     {
         List<Equipment> GetUserEquipment(string username);
         void CreateInterest(string username, string PID);
+        void CreateSingleInterest(string username, string PID, string TID);
     }
 }
