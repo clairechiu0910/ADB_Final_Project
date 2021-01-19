@@ -55,9 +55,9 @@ namespace Final_Project.Repositories.Implementation_Neo4j
         }
         public void ComputeDeclination(string username)
         {
-            var result = Session.Run(@"MATCH p = (u:User {username: $username})-[r:User_To_Equipment]->(e:Equipment)
+            var result = Session.Run(@"MATCH p = (u:User {username: $username})-[:User_To_Equipment]->(r:Equipment)
                                        RETURN COALESCE(r.UhaveE_ID,'') + ',' + COALESCE(r.UID,'') + ',' + COALESCE(r.EID,'') + ',' + COALESCE(r.altitude,'') + ',' + COALESCE(r.daylight_saving,'') + ',' + 
-                                       COALESCE(r.latitude,'') +','+ COALESCE(r.longitude,'') +','+ COALESCE(r.site,'') +','+ COALESCE(r.time_zone,'') +','+ COALESCE(r.water_vapor,'') + ',' + COALESCE(r.light_pollution,'') as msg, e.elevation_limit",
+                                       COALESCE(r.latitude,'') +','+ COALESCE(r.longitude,'') +','+ COALESCE(r.site,'') +','+ COALESCE(r.time_zone,'') +','+ COALESCE(r.water_vapor,'') + ',' + COALESCE(r.light_pollution,'') as msg, r.elevation_limit as elev_limit",
                           new { username });
 
             var equipmentsList = new List<UHaveE>();
@@ -67,7 +67,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                 var msg = record["msg"].ToString();
                 var newEquipment = new UHaveE(msg);
                 equipmentsList.Add(newEquipment);
-                elevLimit.Add(record["e.elevation_limit"].ToString());
+                elevLimit.Add(record["elev_limit"].ToString());
             }
 
             equipmentsList.Sort(delegate (UHaveE x, UHaveE y)
@@ -80,7 +80,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                 string decLimit, UhaveE_ID;
                 UhaveE_ID = equipmentsList[i].UhaveE_ID;
                 decLimit = astro.Declinationlimit(equipmentsList[i].Longitude, equipmentsList[i].Latitude, equipmentsList[i].Altitude, elevLimit[i]);
-                var insertDec = Session.Run(@"MATCH ()-[r:User_To_Equipment{UhaveE_ID:$UhaveE_ID}]-()
+                var insertDec = Session.Run(@"MATCH (r:Equipment{UhaveE_ID:$UhaveE_ID})
                                               SET r.declination_limit = $decLimit", new { UhaveE_ID, decLimit });
             }
         }
