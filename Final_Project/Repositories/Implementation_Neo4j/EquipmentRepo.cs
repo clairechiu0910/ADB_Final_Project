@@ -68,7 +68,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                                        COALESCE(e.SDSS_i,'') + ',' + 
                                        COALESCE(e.SDSS_z,'') + ',' + 
 
-                                       COALESCE(r.declination_limit,'')    
+                                       COALESCE(e.declination_limit,'')    
                                        as msg",
                                       new { username });
 

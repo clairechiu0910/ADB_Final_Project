@@ -14,7 +14,7 @@
             <div class="row owner">
                 <!--<div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">-->
                 <div class="Equipment Schedule">
-                    <h4 style="display:inline-block;">Project Detail<br /></h4>
+                    <h4 style="display:inline-block;">Project Details<br /></h4>
                     <span style="float: right;margin: 30px 0 15px;">
                         <button style="margin-right:10px;" onclick="Join()" class="btn">Join</button>
                         <button style="margin-right:10px;" onclick="InterestAllTargets()" class="btn btn-danger">Interested in All Targets</button>
@@ -28,85 +28,74 @@
                 </div>
                 <!--</div>-->
                 <!--<div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">-->
-                <br />
-                <div style="overflow-x:auto;">
-                    <table class="table2">
-                        <tr>
-                            <th>PID</th>
-                            <th>Title</th>
-                            <th>Project_Type</th>
-                            <th>PI</th>
-                            <th>Description</th>
-                            <th>Aperture_upper_limit</th>
-                            <th>Aperture_lower_limit</th>
-                            <th>FoV_upper_limit</th>
-                            <th>FoV_lower_limmit</th>
-                            <th>Pixel_scale_upper_limit_(/pix)</th>
-                            <th>Pixel_scale_lower_limit_(/pix)</th>
-                            <th>Mount type (german, fork, theodolite)</th>
-                            <th>Camera type (colored, mono)</th>
-                            <th>Camera type (cooled, uncooled)	</th>
-                            <th>Johnson B</th>
-                            <th>Johnson V</th>
-                            <th>Johnson R</th>
-                            <th>SDSS u</th>
-                            <th>SDSS g</th>
-                            <th>SDSS r</th>
-                            <th>SDSS i</th>
-                            <th>SDSS z</th>
-                        </tr>
-                        <tr>
-                            <td>@Model.PID</td>
-                            <td>@Model.Title</td>
-                            <td>@Model.Project_type</td>
-                            <td>@Model.PI</td>
-                            <td>@Model.Description</td>
 
-                            <td>@Model.ApertureUpperLimit</td>
-                            <td>@Model.ApertureLowerLimit</td>
-
-                            <td>@Model.FoVUpperLimit</td>
-                            <td>@Model.FoVLowerLimit</td>
-
-                            <td>@Model.PixelScaleUpperLimit</td>
-                            <td>@Model.PixelScaleLowerLimit</td>
-                            <td>@Model.MountType</td>
-                            <td>@Model.CameraType_1</td>
-                            <td>@Model.CameraType_2</td>
-
-                            <td>@Model.Johnson_B</td>
-                            <td>@Model.Johnson_V</td>
-                            <td>@Model.Johnson_R</td>
-
-                            <td>@Model.SDSS_u</td>
-                            <td>@Model.SDSS_g</td>
-                            <td>@Model.SDSS_r</td>
-                            <td>@Model.SDSS_i</td>
-                            <td>@Model.SDSS_z</td>
-                        </tr>
-                    </table>
-                </div>
+                
                 <div id="app_projects">
-                    <h4>Project Manager</h4>
+                    <h5>Project Manager</h5>
+
+                    <h6>Name: {{manager.name}}</h6>
+                    <h6>Email: {{manager.email}}</h6>
+                    <h6>Country: {{manager.country}}</h6>
+                    <h6>Title: {{manager.title}}</h6>
+                    <h6>Affiliation: {{manager.affiliation}}</h6>
+                    <br />
                     <div style="overflow-x:auto;">
                         <table class="table2">
-                            <tr class="d-flex">
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Country</th>
+                            <tr>
+                                <th>PID</th>
                                 <th>Title</th>
-                                <th>Affiliation</th>
+                                <th>Project_Type</th>
+                                <th>PI</th>
+                                <th>Description</th>
+                                <th>Aperture_upper_limit</th>
+                                <th>Aperture_lower_limit</th>
+                                <th>FoV_upper_limit</th>
+                                <th>FoV_lower_limmit</th>
+                                <th>Pixel_scale_upper_limit_(/pix)</th>
+                                <th>Pixel_scale_lower_limit_(/pix)</th>
+                                <th>Mount type (german, fork, theodolite)</th>
+                                <th>Camera type (colored, mono)</th>
+                                <th>Camera type (cooled, uncooled)	</th>
+                                <th>Johnson B</th>
+                                <th>Johnson V</th>
+                                <th>Johnson R</th>
+                                <th>SDSS u</th>
+                                <th>SDSS g</th>
+                                <th>SDSS r</th>
+                                <th>SDSS i</th>
+                                <th>SDSS z</th>
                             </tr>
                             <tr>
-                                <td>{{manager.name}}</td>
-                                <td>{{manager.email}}</td>
-                                <td>{{manager.country}}</td>
-                                <td>{{manager.title}}</td>
-                                <td>{{manager.affiliation}}</td>
+                                <td>@Model.PID</td>
+                                <td>@Model.Title</td>
+                                <td>@Model.Project_type</td>
+                                <td>@Model.PI</td>
+                                <td>@Model.Description</td>
+
+                                <td>@Model.ApertureUpperLimit</td>
+                                <td>@Model.ApertureLowerLimit</td>
+
+                                <td>@Model.FoVUpperLimit</td>
+                                <td>@Model.FoVLowerLimit</td>
+
+                                <td>@Model.PixelScaleUpperLimit</td>
+                                <td>@Model.PixelScaleLowerLimit</td>
+                                <td>@Model.MountType</td>
+                                <td>@Model.CameraType_1</td>
+                                <td>@Model.CameraType_2</td>
+
+                                <td>@Model.Johnson_B</td>
+                                <td>@Model.Johnson_V</td>
+                                <td>@Model.Johnson_R</td>
+
+                                <td>@Model.SDSS_u</td>
+                                <td>@Model.SDSS_g</td>
+                                <td>@Model.SDSS_r</td>
+                                <td>@Model.SDSS_i</td>
+                                <td>@Model.SDSS_z</td>
                             </tr>
                         </table>
                     </div>
-
                     <h4>Project Targets</h4>
                     <div style="overflow-x:auto;">
                         <table class="table2">
@@ -118,7 +107,7 @@
                                 <th>Comptability<br />Score</th>
                                 <th>Interest</th>
                             </tr>
-                            <tr v-for="(target, index) in targets" :key="target.tid">
+                            <tr v-for="target in targets" :key="target.tid">
                                 <td style="width:20px;!important">{{target.tid}}</td>
                                 <td>{{target.name}}</td>
                                 <td class="text-right number">{{target.ra}}</td>
