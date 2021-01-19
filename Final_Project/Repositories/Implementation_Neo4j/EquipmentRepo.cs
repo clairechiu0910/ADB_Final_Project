@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Neo4j.Driver;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Final_Project.Repositories.Implementation_Neo4j
 {
@@ -81,12 +82,198 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                 equipmentsList.Add(newEquipment);
             }
 
-            equipmentsList.Sort(delegate (Equipment x, Equipment y)
-            {
-                return y.EID.CompareTo(x.EID);
-            });
-
             return equipmentsList;
+        }
+
+        public Equipment GetEquipmentByEID(string eid)
+        {
+            var result = Session.Run(@"MATCH (e:Equipment {EID: $eid})
+                                       RETURN 
+                                       COALESCE(e.UID,'') + ',' + 
+                                       COALESCE(e.EID,'') + ',' + 
+                                       COALESCE(e.UhaveE_ID,'') + ',' + 
+
+                                       COALESCE(e.site,'') + ',' + 
+                                       COALESCE(e.longitude,'') + ',' + 
+                                       COALESCE(e.latitude,'') + ',' + 
+                                       COALESCE(e.altitude,'') + ',' + 
+
+                                       COALESCE(e.time_zone,'') + ',' + 
+                                       COALESCE(e.daylight_saving,'') + ',' + 
+                                       COALESCE(e.water_vapor,'') + ',' + 
+                                       COALESCE(e.light_pollution,'') + ',' + 
+                                        
+                                       COALESCE(e.aperture,'') + ',' + 
+                                       COALESCE(e.FoV,'') + ',' + 
+                                       COALESCE(e.pixel_scale,'') + ',' + 
+                                       COALESCE(e.tracking_accuracy,'') + ',' + 
+
+                                       COALESCE(e.limiting_magnitude,'') + ',' + 
+                                       COALESCE(e.elevation_limit,'') + ',' + 
+                                       COALESCE(e.mount_type,'') + ',' + 
+
+                                       COALESCE(e.camera_t1,'') + ',' + 
+                                       COALESCE(e.camera_t2,'') + ',' + 
+                                       
+                                       COALESCE(e.Johnson_B,'') + ',' + 
+                                       COALESCE(e.Johnson_V,'') + ',' + 
+                                       COALESCE(e.Johnson_R,'') + ',' + 
+
+                                       COALESCE(e.SDSS_u,'') + ',' + 
+                                       COALESCE(e.SDSS_g,'') + ',' + 
+                                       COALESCE(e.SDSS_r,'') + ',' + 
+                                       COALESCE(e.SDSS_i,'') + ',' + 
+                                       COALESCE(e.SDSS_z,'')",
+                                     new { eid });
+
+            var msg = result.Single()[0].As<string>();
+            var equipment = new Equipment(msg);
+
+            return equipment;
+        }
+
+        public void AddEquipment(Equipment equipment)
+        {
+            equipment.EID = Session.Run(@"MATCH (e:Equipment)
+                                    RETURN count(e)").Single()[0].As<string>();
+
+            equipment.UhaveE_ID = Session.Run(@"MATCH (ue:Equipment) RETURN count(ue)").Single()[0].As<string>();
+
+            var result = Session.Run(@"MATCH (u:User {UID: $UID})
+                                       MERGE (u)-[r:User_To_Equipment {UhaveE_ID:$UhaveE_ID}]->(e:Equipment {EID:$EID,
+                                                                                                             UID: $UID,
+                                                                                                             UhaveE_ID: $UhaveE_ID,
+                                                                                                             aperture:$aperture,
+                                                                                                             FoV:$FoV,
+                                                                                                             pixel_scale:$pixel_scale,
+                                                                                                             tracking_accuracy:$tracking_accuracy,
+                                                                                                             limiting_magnitude:$limiting_magnitude,
+                                                                                                             elevation_limit:$elevation_limit,
+                                                                                                             mount_type:$mount_type,
+                                                                                                             camera_t1:$camera_t1,
+                                                                                                             camera_t2:$camera_t2,
+                                                                                                             Johnson_B:$Johnson_B,
+                                                                                                             Johnson_V:$Johnson_V,
+                                                                                                             Johnson_R:$Johnson_R,
+                                                                                                             SDSS_u:$SDSS_u,
+                                                                                                             SDSS_g:$SDSS_g,
+                                                                                                             SDSS_r:$SDSS_r,
+                                                                                                             SDSS_i:$SDSS_i, 
+                                                                                                             SDSS_z:$SDSS_z,
+                                                                                               site:$site,
+                                                                                                             longitude:$longitude,
+                                                                                                            latitude:$latitude,
+                                                                                                            altitude:$altitude,
+                                                                                                           time_zone:$time_zone,
+                                                                                                             daylight_saving:$daylight_saving,
+                                                                                                          water_vapor:$water_vapor,
+                                                                                        light_pollution:$light_pollution
+                                                                                                })
+                                       RETURN e.EID + ',' + r.UhaveE_ID + ',' + u.username as msg",
+
+                                      new
+                                      {
+                                          UID = equipment.UID,
+                                          EID = equipment.EID,
+                                          UhaveE_ID = equipment.UhaveE_ID,
+                                          aperture = equipment.Aperture,
+                                          FoV = equipment.FoV,
+                                          pixel_scale = equipment.PixelScale,
+                                          tracking_accuracy = equipment.TrackingAccuracy,
+                                          limiting_magnitude = equipment.LimitingMagnitude,
+                                          elevation_limit = equipment.ElevationLimit,
+                                          mount_type = equipment.MountType,
+                                          camera_t1 = equipment.CameraType_1,
+                                          camera_t2 = equipment.CameraType_2,
+                                          Johnson_B = equipment.Johnson_B,
+                                          Johnson_V = equipment.Johnson_V,
+                                          Johnson_R = equipment.Johnson_R,
+                                          SDSS_u = equipment.SDSS_u,
+                                          SDSS_g = equipment.SDSS_g,
+                                          SDSS_r = equipment.SDSS_r,
+                                          SDSS_i = equipment.SDSS_i,
+                                          SDSS_z = equipment.SDSS_z,
+                                          site = equipment.Site,
+                                          longitude = equipment.Longitude,
+                                          latitude = equipment.Latitude,
+                                          altitude = equipment.Altitude,
+                                          time_zone = equipment.TimeZone,
+                                          daylight_saving = equipment.DaylightSaving,
+                                          water_vapor = equipment.WaterVapor,
+                                          light_pollution = equipment.LightPollution
+                                      });
+        }
+
+        public void UpdateEquipment(Equipment equipment)
+        {
+            var result = Session.Run(@"MATCH (u:Equipment {EID: $EID})
+                                       SET u.UID = $UID,
+                                           u.EID = $EID,
+                                           u.UhaveE_ID = $UhaveE_ID,
+                                           u.aperture = $aperture,
+                                           u.FoV = $FoV,
+                                           u.pixel_scale = $pixel_scale,
+                                           u.tracking_accuracy = $tracking_accuracy,
+                                           u.limiting_magnitude = $limiting_magnitude,
+                                           u.elevation_limit = $elevation_limit,
+                                           u.mount_type = $mount_type,
+                                           u.camera_t1 = $camera_t1,
+                                           u.camera_t2 = $camera_t2,
+                                           u.Johnson_B = $Johnson_B,
+                                           u.Johnson_V = $Johnson_V,
+                                           u.Johnson_R = $Johnson_R,
+                                           u.SDSS_u = $SDSS_u,
+                                           u.SDSS_g = $SDSS_g,
+                                           u.SDSS_r = $SDSS_r,
+                                           u.SDSS_i = $SDSS_i, 
+                                           u.SDSS_z = $SDSS_z,
+                                           u.site = $site,
+                                           u.longitude = $longitude,
+                                           u.latitude = $latitude,
+                                           u.altitude = $altitude,
+                                           u.time_zone = $time_zone,
+                                           u.daylight_saving = $daylight_saving,
+                                           u.water_vapor = $water_vapor,
+                                           u.light_pollution = $light_pollution",
+                                      new
+                                      {
+                                          UID = equipment.UID,
+                                          EID = equipment.EID,
+                                          UhaveE_ID = equipment.UhaveE_ID,
+
+                                          aperture = equipment.Aperture,
+                                          FoV = equipment.FoV,
+                                          pixel_scale = equipment.PixelScale,
+                                          tracking_accuracy = equipment.TrackingAccuracy,
+
+                                          limiting_magnitude = equipment.LimitingMagnitude,
+                                          elevation_limit = equipment.ElevationLimit,
+                                          mount_type = equipment.MountType,
+
+                                          camera_t1 = equipment.CameraType_1,
+                                          camera_t2 = equipment.CameraType_2,
+
+                                          Johnson_B = equipment.Johnson_B,
+                                          Johnson_V = equipment.Johnson_V,
+                                          Johnson_R = equipment.Johnson_R,
+
+                                          SDSS_u = equipment.SDSS_u,
+                                          SDSS_g = equipment.SDSS_g,
+                                          SDSS_r = equipment.SDSS_r,
+                                          SDSS_i = equipment.SDSS_i,
+                                          SDSS_z = equipment.SDSS_z,
+
+                                          site = equipment.Site,
+                                          longitude = equipment.Longitude,
+                                          latitude = equipment.Latitude,
+                                          altitude = equipment.Altitude,
+
+                                          time_zone = equipment.TimeZone,
+                                          daylight_saving = equipment.DaylightSaving,
+                                          water_vapor = equipment.WaterVapor,
+                                          light_pollution = equipment.LightPollution
+                                      });
+            
         }
 
         public void CreateInterest(string username, string PID)
@@ -176,8 +363,8 @@ namespace Final_Project.Repositories.Implementation_Neo4j
 
                 }
             }
-
         }
+
         private void createInterestRelationship(string TID, string PID, List<UHaveE> equipmentsList, List<string> elevLimit, Target targ, int i)
         {
             /*

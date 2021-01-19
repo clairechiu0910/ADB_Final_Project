@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Final_Project.Repositories.Interface;
+using Final_Project.Models;
 
 
 namespace Final_Project.Controllers
@@ -25,9 +26,9 @@ namespace Final_Project.Controllers
             return View();
         }
 
-        public IActionResult EquipmentSchedule()
+        public IActionResult Add()
         {
-            return View();
+            return View("Edit", new Equipment());
         }
         public IActionResult GetEquipmentSchedule()
         {
@@ -36,11 +37,32 @@ namespace Final_Project.Controllers
             return Json(schedule);
         }
 
-        public IActionResult GetUserEquipments()
+        public IActionResult Edit(string eid)
         {
-            var username = HttpContext.Session.GetString("UserName");
-            var equipments = _equipmentRepo.GetUserEquipment(username);
-            return Json(equipments);
+            var equipment = _equipmentRepo.GetEquipmentByEID(eid);
+            return View(equipment);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Equipment equipment)
+        {
+            equipment.UID = HttpContext.Session.GetString("UID");
+            if(equipment.EID == null)
+            {
+                //ADD
+                _equipmentRepo.AddEquipment(equipment);
+            }
+            else
+            {
+                //Edit
+                _equipmentRepo.UpdateEquipment(equipment);
+            }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult EquipmentSchedule()
+        {
+            return View();
         }
 
         public IActionResult Compute()
@@ -48,6 +70,13 @@ namespace Final_Project.Controllers
             var username = HttpContext.Session.GetString("UserName");
             _equipmentRepo.ComputeDeclination(username);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult GetUserEquipments()
+        {
+            var username = HttpContext.Session.GetString("UserName");
+            var equipments = _equipmentRepo.GetUserEquipment(username);
+            return Json(equipments);
         }
     }
 }

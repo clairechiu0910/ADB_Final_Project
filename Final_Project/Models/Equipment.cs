@@ -4,7 +4,6 @@
     {
         public Equipment()
         {
-
         }
 
         public Equipment(string msg)
