@@ -18,6 +18,7 @@ namespace Final_Project.Controllers
             _equipmentRepo = equipmentRepo;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
@@ -28,13 +29,11 @@ namespace Final_Project.Controllers
             var project = _projectsRepo.GetProjectById(pid);
             return View(project);
         }
+
+        [Authorize]
         public IActionResult YourProjects()
         {
             var uid = HttpContext.Session.GetString("UID");
-            if (uid == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
             return View();
         }
 
@@ -67,6 +66,10 @@ namespace Final_Project.Controllers
         public IActionResult Edit(string pid)
         {
             var project = _projectsRepo.GetProjectById(pid);
+            if (project.PI != HttpContext.Session.GetString("UID"))
+            {
+                return RedirectToAction("Project", new { pid = pid });
+            }
             return View(project);
         }
 
@@ -104,12 +107,14 @@ namespace Final_Project.Controllers
                 return RedirectToAction("Project", "Projects", new { pid = project.PID });
             }
         }
+
         [Authorize]
         public IActionResult GetProjectTargets(string pid, string uid)
         {
             var projects = _projectsRepo.GetTargetsByProject(pid, uid);
             return Json(projects);
         }
+
         [Authorize]
         public IActionResult GetRecommendedProjects()
         {
@@ -117,6 +122,7 @@ namespace Final_Project.Controllers
             var projects = _projectsRepo.GetRecommendedProjects(uid);
             return Json(projects);
         }
+
         [Authorize]
         public IActionResult GetProjectsByUsername()
         {
@@ -124,6 +130,7 @@ namespace Final_Project.Controllers
             var projects = _projectsRepo.GetProjectsByUsername(username);
             return Json(projects);
         }
+
         public IActionResult GetYourProjects()
         {
             var uid = HttpContext.Session.GetString("UID");
