@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="wrapper">
+    <div class="profile-background">
+        <div class="filter-black"></div>
+    </div>
+    <div class="profile-content section-nude">
+        <div class="container-fluid">
+            <div id="app_projects" class="row owner">
+                <div class="col-md-offset-2 col-md-8">
+                    <div class="Equipment Schedule">
+                        <h4>Detailed Schedule<br /></h4>
+                    </div>
+                    <table class="table2">
+                        <tr>
+                            <th>Equipment ID-Site</th>
+                            <th>Project ID-Title</th>
+                            <th>Target ID-Name</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                        </tr>
+                        <tr v-for="sched in schedule">
+                            <td>{{sched[0]}}-{{sched[1]}}</td>
+                            <td>{{sched[2]}}-{{sched[3]}}</td>
+                            <td>{{sched[3]}}-{{sched[4]}}</td>
+                            <td>{{sched[6]}}</td>
+                            <td>{{sched[7]}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer-demo section-nude">
+    <div class="container">
+        <div class="copyright text-center">
+            &copy; 2020 - Final_Project
+        </div>
+    </div>
+</footer>
+
+<script>
+    fetch('@Url.Action("GetDetailedSchedule", "UserEquipments")')
+        .then(function (response) {
+            response.json().then(function (data) {
+                app_projects._data.schedule = data;
+                console.log(app_projects._data.schedule);
+            });
+        });
+
+    var app_projects = new Vue({
+        el: '#app_projects',
+        data: {
+            schedule: null,
+        }
+    });
+</script>

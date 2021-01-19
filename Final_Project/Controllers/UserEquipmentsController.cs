@@ -79,6 +79,15 @@ namespace Final_Project.Controllers
             var schedule = _equipmentRepo.GetEquipmentSchedule(username);
             return Json(schedule);
         }
-
+        public IActionResult DetailedSchedule()
+        {
+            return View();
+        }
+        public IActionResult GetDetailedSchedule()
+        {
+            var username = HttpContext.Session.GetString("UserName");
+            var schedule = _equipmentRepo.GetDetailedSchedule(username);
+            return Json(schedule);
+        }
     }
 }
