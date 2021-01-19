@@ -31,53 +31,54 @@
 </head>
 <body class="section-nude">
     <!--id="register-navbar"-->
-    <nav class="navbar navbar-ct-transparent navbar-fixed-top" data-spy="affix" data-offset-top="150" role="navigation-demo">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
+    @{
+        if (account != null)
+        {
+            <nav class="navbar navbar-ct-transparent navbar-fixed-top" data-spy="affix" data-offset-top="150" role="navigation-demo">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="navigation-example-2">
-                <ul class="nav navbar-nav">
-                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")"><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-controller="UserRelated" asp-action="Index">Suggested Users</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a asp-controller="Projects" asp-action="YourProjects">Your Projects</a></li>
-                            <li><a asp-controller="Projects" asp-action="Project" asp-route-pid="1">View Detail Projects</a></li>
-                            <li><a asp-controller="Projects" asp-action="Add">Create New Project</a></li>
-                            <li><a asp-controller="Projects" asp-action="Index">Suggested Projects</a></li>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="navigation-example-2">
+                        <ul class="nav navbar-nav">
+                            <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a asp-controller="UserRelated" asp-action="Index">Suggested Users</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a asp-controller="Projects" asp-action="YourProjects">Your Projects</a></li>
+                                    <li><a asp-controller="Projects" asp-action="Project" asp-route-pid="1">View Detail Projects</a></li>
+                                    <li><a asp-controller="Projects" asp-action="Add">Create New Project</a></li>
+                                    <li><a asp-controller="Projects" asp-action="Index">Suggested Projects</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "UserEquipments" ? "active" : "")"><a asp-controller="UserEquipments" asp-action="Index">Equipments</a></li>
+
                         </ul>
-                    </li>
+                        <ul class="nav navbar-nav navbar-right">
+                            <!-- <li><a asp-controller="Home" asp-action="Login">Login</a></li> -->
+                            <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "User" ? "active" : "")"><a asp-controller="User" asp-action="Index">Profile</a></li>
 
-                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "UserEquipments" ? "active" : "")"><a asp-controller="UserEquipments" asp-action="Index">Equipments</a></li>
+                            <!--<li><a asp-controller="Home" asp-action="Login">Login</a></li>-->
 
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- <li><a asp-controller="Home" asp-action="Login">Login</a></li> -->
-                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "User" ? "active" : "")"><a asp-controller="User" asp-action="Index">Profile</a></li>
-                    @{
-                        if (account == null)
-                        {
-                            <li><a asp-controller="Home" asp-action="Login">Login</a></li>
-                        }
-                        else
-                        {
                             <li><a asp-controller="Home" asp-action="Logout">Logout</a></li>
-                        }
-                    }
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-->
-    </nav>
+
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-->
+            </nav>
+        }
+
+    }
     <partial name="_CookieConsentPartial" />
 
     @RenderBody()
