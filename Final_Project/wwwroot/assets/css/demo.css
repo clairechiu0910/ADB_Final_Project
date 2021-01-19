@@ -109,10 +109,12 @@
 .txt-gray{
     color: #ddd !important;
 }
-.footer-demo{
+.footer-demo {
     background-attachment: fixed;
-    position: relative;
+    position: absolute;
     line-height: 20px;
+    bottom: 0px;
+    width: 100%;
 }
 .footer-demo nav > ul {
   list-style: none;

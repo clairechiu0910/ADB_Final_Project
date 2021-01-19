@@ -4,7 +4,7 @@
 }
 
 <div class="wrapper">
-    <div class="equipment-background">
+    <div class="stars-background">
         <div class="filter-black"></div>
     </div>
     <div class="profile-content section-nude">
@@ -18,6 +18,7 @@
                 <!--<div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-left">-->
                 <div id="app_user_equipments">
                     <h5>User Equipment Details<br /></h5>
+
                     <ul>
                         <li>
                             # If low_dec < 0, the observable declination range is +90 ~ low_dec.
@@ -26,10 +27,17 @@
                             # If low_dec > 0, the observable declination range is low_dec ~ -90.
                         </li>
                     </ul>
-                    <button v-on:click="Compute()" class="btn btn-fill">Compute Declination</button>
-                    <h5>Equipment Details<br /></h5>
-                    <button style="margin-bottom:10px" v-on:click="Add()" class="btn btn-fill btn-success text">Add New Equipment</button>
-
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Equipment Details<br /></h5>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <button v-on:click="Compute()" class="btn btn-fill">Compute Declination</button>
+                            <button v-on:click="Add()" class="btn btn-fill btn-success text">Add New Equipment</button>
+                        </div>
+                    </div>
+                    <br />
                     <div style="overflow-x:auto;">
                         <table class="table2">
                             <tr>
@@ -37,6 +45,7 @@
                                 <th>EID</th>
 
                                 <th>Site</th>
+                                <th>Declination Limit</th>
                                 <th>Longtitude</th>
                                 <th>Latitude</th>
                                 <th>Altitude</th>
@@ -46,7 +55,6 @@
                                 <th>Water_vapor</th>
                                 <th>Light_pollution(m/sas)</th>
 
-                                <th>Declination Limit</th>
 
                                 <th>Aperture</th>
                                 <th>FoV</th>
@@ -72,10 +80,11 @@
                             </tr>
 
                             <tr v-for="item in equipments">
-                                <td><button v-on:click="Edit(item.eid)" class="btn btn-warning btn-sm">Edit</button></td>
+                                <td><button v-on:click="Edit(item.eid)" class="btn btn-fill btn-info btn-sm">Edit</button></td>
                                 <td>{{item.eid}}</td>
 
                                 <td>{{item.site}}</td>
+                                <td class="text-right number">{{item.declinationLimit}}</td>
                                 <td class="text-right number">{{item.longitude}}</td>
                                 <td class="text-right number">{{item.latitude}}</td>
                                 <td class="text-right number">{{item.altitude}}</td>
@@ -85,7 +94,6 @@
                                 <td class="text-right number">{{item.waterVapor}}</td>
                                 <td class="text-right number">{{item.lightPollution}}</td>
 
-                                <td class="text-right number">{{item.declinationLimit}}</td>
 
                                 <td class="text-right number">{{item.aperture}}</td>
                                 <td class="text-right number">{{item.foV}}</td>
@@ -108,8 +116,8 @@
                         </table>
                     </div>
                 </div>
-            </div>
-        </div>
+                        </div>
+                    </div>
     </div>
 </div>
 <footer class="footer-demo section-nude">
