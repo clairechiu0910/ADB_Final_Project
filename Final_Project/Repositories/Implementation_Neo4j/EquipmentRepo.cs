@@ -3,9 +3,7 @@ using Final_Project.Repositories.Interface;
 using Microsoft.Extensions.Configuration;
 using Neo4j.Driver;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
-using System.Diagnostics;
 
 namespace Final_Project.Repositories.Implementation_Neo4j
 {
@@ -33,10 +31,45 @@ namespace Final_Project.Repositories.Implementation_Neo4j
         public List<Equipment> GetUserEquipment(string username)
         {
             var result = Session.Run(@"MATCH p = (u:User {username: $username})-[r:User_To_Equipment]->(e:Equipment)
-                                       RETURN COALESCE(e.EID,'') + ',' + COALESCE(e.aperture,'') + ',' + COALESCE(e.FoV,'') + ',' + COALESCE(e.pixel_scale,'') + ',' + COALESCE(e.tracking_accuracy,'') + ',' + 
-                                       COALESCE(e.limiting_magnitude,'') + ',' + COALESCE(e.elevation_limit,'') + ',' + COALESCE(e.mount_type,'') + ',' + COALESCE(e.camera_t1,'') + ',' + COALESCE(e.camera_t2,'') + ',' + 
-                                       COALESCE(e.Johnson_B,'') + ',' + COALESCE(e.Johnson_V,'') + ',' + COALESCE(e.Johnson_R,'') + ',' + COALESCE(e.SDSS_u,'') + ',' + COALESCE(e.SDSS_g,'') + ',' + 
-                                       COALESCE(e.SDSS_r,'') + ',' + COALESCE(e.SDSS_i,'') + ',' + COALESCE(e.SDSS_z,'') as msg",
+                                       RETURN 
+                                       COALESCE(e.UID,'') + ',' + 
+                                       COALESCE(e.EID,'') + ',' + 
+                                       COALESCE(e.UhaveE_ID,'') + ',' + 
+
+                                       COALESCE(e.site,'') + ',' + 
+                                       COALESCE(e.longitude,'') + ',' + 
+                                       COALESCE(e.latitude,'') + ',' + 
+                                       COALESCE(e.altitude,'') + ',' + 
+
+                                       COALESCE(e.time_zone,'') + ',' + 
+                                       COALESCE(e.daylight_saving,'') + ',' + 
+                                       COALESCE(e.water_vapor,'') + ',' + 
+                                       COALESCE(e.light_pollution,'') + ',' + 
+                                        
+                                       COALESCE(e.aperture,'') + ',' + 
+                                       COALESCE(e.FoV,'') + ',' + 
+                                       COALESCE(e.pixel_scale,'') + ',' + 
+                                       COALESCE(e.tracking_accuracy,'') + ',' + 
+
+                                       COALESCE(e.limiting_magnitude,'') + ',' + 
+                                       COALESCE(e.elevation_limit,'') + ',' + 
+                                       COALESCE(e.mount_type,'') + ',' + 
+
+                                       COALESCE(e.camera_t1,'') + ',' + 
+                                       COALESCE(e.camera_t2,'') + ',' + 
+                                       
+                                       COALESCE(e.Johnson_B,'') + ',' + 
+                                       COALESCE(e.Johnson_V,'') + ',' + 
+                                       COALESCE(e.Johnson_R,'') + ',' + 
+
+                                       COALESCE(e.SDSS_u,'') + ',' + 
+                                       COALESCE(e.SDSS_g,'') + ',' + 
+                                       COALESCE(e.SDSS_r,'') + ',' + 
+                                       COALESCE(e.SDSS_i,'') + ',' + 
+                                       COALESCE(e.SDSS_z,'') + ',' + 
+
+                                       COALESCE(r.declination_limit,'')    
+                                       as msg",
                                       new { username });
 
             var equipmentsList = new List<Equipment>();
@@ -79,7 +112,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             });
 
             var targets = Session.Run(@"MATCH p = (a:Project{PID:$PID})-[:Project_To_Target]->(t:Target)
-                                       RETURN COALESCE(t.TID,'') + ',' + COALESCE(t.Name,'') + ',' + COALESCE(t.RA,'') + ',' + COALESCE(t.Dec,'') as msg", 
+                                       RETURN COALESCE(t.TID,'') + ',' + COALESCE(t.Name,'') + ',' + COALESCE(t.RA,'') + ',' + COALESCE(t.Dec,'') as msg",
                                        new { PID });
 
             var targetList = new List<Target>();
@@ -94,9 +127,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             {
                 foreach (Target targ in targetList)
                 {
-
                     createInterestRelationship(targ.TID, PID, equipmentsList, elevLimit, targ, i);
-
                 }
             }
 
@@ -116,7 +147,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                 var msg = record["msg"].ToString();
                 var newEquipment = new UHaveE(msg);
                 equipmentsList.Add(newEquipment);
-                elevLimit.  Add(record["elev_limit"].ToString());
+                elevLimit.Add(record["elev_limit"].ToString());
             }
 
             equipmentsList.Sort(delegate (UHaveE x, UHaveE y)
@@ -126,7 +157,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
 
             var targets = Session.Run(@"MATCH p = (a:Project{PID:$PID})-[:Project_To_Target]->(t:Target{TID:$TID})
                                        RETURN COALESCE(t.TID,'') + ',' + COALESCE(t.Name,'') + ',' + COALESCE(t.RA,'') + ',' + COALESCE(t.Dec,'') as msg",
-                                       new { PID,TID });
+                                       new { PID, TID });
 
             var targetList = new List<Target>();
 

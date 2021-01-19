@@ -26,53 +26,41 @@
                             # If low_dec > 0, the observable declination range is low_dec ~ -90.
                         </li>
                     </ul>
-                    <div style="overflow-x:auto;">
-                        <table class="table2">
-                            <tr>
-                                <th>EID</th>
-                                <th>Site</th>
-                                <th>Longtitude</th>
-                                <th>Latitude</th>
-                                <th>Altitude</th>
-                                <th>Time_zone</th>
-                                <th>Daylight_saving</th>
-                                <th>Water_vapor</th>
-                                <th>Light_pollution(m/sas)</th>
-                                <th>Declination Limit</th>
-                            </tr>
-                            <tr v-for="item_1 in uHaveE">
-                                <td>{{item_1.eid}}</td>
-                                <td>{{item_1.site}}</td>
-                                <td class="text-right number">{{item_1.longitude}}</td>
-                                <td class="text-right number">{{item_1.latitude}}</td>
-                                <td class="text-right number">{{item_1.altitude}}</td>
-                                <td>{{item_1.timeZone}}</td>
-                                <td>{{item_1.daylightSaving}}</td>
-                                <td class="text-right number">{{item_1.waterVapor}}</td>
-                                <td class="text-right number">{{item_1.lightPollution}}</td>
-                                <td class="text-right number">{{item_1.declinationLimit}}</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <br />
                     <button onclick="Compute()" class="btn btn-fill">Compute Declination</button>
                     <h5>Equipment Details<br /></h5>
                     <div style="overflow-x:auto;">
                         <table class="table2">
                             <tr>
                                 <th>EID</th>
+
+                                <th>Site</th>
+                                <th>Longtitude</th>
+                                <th>Latitude</th>
+                                <th>Altitude</th>
+
+                                <th>Time_zone</th>
+                                <th>Daylight_saving</th>
+                                <th>Water_vapor</th>
+                                <th>Light_pollution(m/sas)</th>
+
+                                <th>Declination Limit</th>
+
                                 <th>Aperture</th>
                                 <th>FoV</th>
                                 <th>Pixel scale ("/pix)</th>
                                 <th>Tracking accuracy</th>
+
                                 <th>Limiting magnitude (mag)</th>
                                 <th>Elevation limit (deg)</th>
                                 <th>Mount type (german, fork, theodolite)</th>
+
                                 <th>Camera type (colored, mono)</th>
                                 <th>Camera type (cooled, uncooled)	</th>
+
                                 <th>Johnson B</th>
                                 <th>Johnson V</th>
                                 <th>Johnson R</th>
+
                                 <th>SDSS u</th>
                                 <th>SDSS g</th>
                                 <th>SDSS r</th>
@@ -81,6 +69,19 @@
                             </tr>
                             <tr v-for="item_1 in equipments">
                                 <td>{{item_1.eid}}</td>
+
+                                <td>{{item_1.site}}</td>
+                                <td class="text-right number">{{item_1.longitude}}</td>
+                                <td class="text-right number">{{item_1.latitude}}</td>
+                                <td class="text-right number">{{item_1.altitude}}</td>
+
+                                <td>{{item_1.timeZone}}</td>
+                                <td>{{item_1.daylightSaving}}</td>
+                                <td class="text-right number">{{item_1.waterVapor}}</td>
+                                <td class="text-right number">{{item_1.lightPollution}}</td>
+
+                                <td class="text-right number">{{item_1.declinationLimit}}</td>
+
                                 <td class="text-right number">{{item_1.aperture}}</td>
                                 <td class="text-right number">{{item_1.foV}}</td>
                                 <td class="text-right number">{{item_1.pixelScale}}</td>
@@ -123,21 +124,13 @@
             });
         });
 
-    fetch('@Url.Action("GetUHaveE", "UHaveE")')
-        .then(function (response) {
-            response.json().then(function (data) {
-                app_user_equipments._data.uHaveE = data;
-                console.log(app_user_equipments._data.uHaveE);
-            });
-        });
-
     var app_user_equipments = new Vue({
         el: '#app_user_equipments',
         data: {
             equipments: null,
-            uHaveE: null
         }
     });
+
     function Compute() {
         console.log("in join");
         location.href = '@Url.Action("Compute", "UHaveE")';

@@ -8,7 +8,6 @@ namespace Final_Project.Repositories.Interface
 {
     public interface IUHaveERepo
     {
-        List<UHaveE> GetUHaveE(string username);
         void ComputeDeclination(string username);
     }
 }

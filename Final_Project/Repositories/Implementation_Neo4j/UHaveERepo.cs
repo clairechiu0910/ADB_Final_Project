@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Final_Project.Models;
+using Final_Project.Repositories.Interface;
 using Microsoft.Extensions.Configuration;
 using Neo4j.Driver;
-using Final_Project.Models;
-using Final_Project.Repositories.Interface;
+using System.Collections.Generic;
 
 namespace Final_Project.Repositories.Implementation_Neo4j
 {
@@ -17,6 +14,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
         readonly string astroPath;
         readonly string decPath;
         private readonly AstroCalculations astro;
+
         public UHaveERepo(IConfiguration configuration)
         {
             var url = configuration.GetValue<string>("Database:Url");
@@ -32,27 +30,6 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             astro = new AstroCalculations(pythonPath, astroPath, decPath);
         }
 
-        public List<UHaveE> GetUHaveE(string username)
-        {
-            var result = Session.Run(@"MATCH p = ({username: $username})-[:User_To_Equipment]->(r:Equipment)
-                                       RETURN r.UhaveE_ID +','+ r.UID +','+ r.EID +','+ r.altitude+','+r.daylight_saving+','+r.latitude+','+r.longitude+','+r.site+','+r.time_zone+','+r.water_vapor +','+ r.light_pollution + ',' + COALESCE(r.declination_limit,'') as msg",
-                                       new { username });
-
-            var uHaveEList = new List<UHaveE>();
-
-            foreach (var record in result)
-            {
-                var msg = record["msg"].ToString();
-                uHaveEList.Add(new UHaveE(msg));
-            }
-
-            uHaveEList.Sort(delegate (UHaveE x, UHaveE y)
-            {
-                return y.EID.CompareTo(x.EID);
-            });
-
-            return uHaveEList;
-        }
         public void ComputeDeclination(string username)
         {
             var result = Session.Run(@"MATCH p = (u:User {username: $username})-[r:User_To_Equipment]->(e:Equipment)

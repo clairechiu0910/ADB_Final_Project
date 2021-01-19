@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Final_Project.Repositories.Interface;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
-using Final_Project.Repositories.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Final_Project.Controllers
 {
@@ -18,12 +13,6 @@ namespace Final_Project.Controllers
             _uHaveERepo = uHaveERepo;
         }
 
-        public IActionResult GetUHaveE()
-        {
-            var username = HttpContext.Session.GetString("UserName");
-            var uHaveEList = _uHaveERepo.GetUHaveE(username);
-            return Json(uHaveEList);
-        }
         public IActionResult Compute()
         {
             var username = HttpContext.Session.GetString("UserName");
