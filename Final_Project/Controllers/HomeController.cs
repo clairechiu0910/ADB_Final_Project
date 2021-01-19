@@ -2,6 +2,7 @@
 using Final_Project.Repositories.Interface;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -22,6 +23,7 @@ namespace Final_Project.Controllers
             _userRepo = userRepo;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
