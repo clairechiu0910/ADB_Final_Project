@@ -33,7 +33,7 @@
                     <div style="overflow-x:auto;">
                         <table class="table2">
                             <tr>
-                                <th></th>
+                                <th>Edit</th>
                                 <th>EID</th>
 
                                 <th>Site</th>
@@ -72,7 +72,7 @@
                             </tr>
 
                             <tr v-for="item in equipments">
-                                <td><button v-on:click="Edit(item.eid)">Edit</button></td>
+                                <td><button v-on:click="Edit(item.eid)" class="btn btn-warning btn-sm">Edit</button></td>
                                 <td>{{item.eid}}</td>
 
                                 <td>{{item.site}}</td>
