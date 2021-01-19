@@ -8,67 +8,64 @@
     <div class="profile-content section-nude">
         <div class="container">
             <div class="row owner">
-                <div id="app_targets">
-                    <h4>Select Targets</h4>
+                <h4>Select Targets</h4>
 
+                <div class="row">
                     <form asp-controller="Targets" asp-action="SelectTargets" method="post" enctype="multipart/form-data" class="register-form">
                         <input asp-for="PID" type="hidden" class="form-control" value="@Model.PID">
-
+                        <div class="col-sm-3">
+                            <div class="form-group has-success">
+                                <span>RA_Lower</span>
+                                <input asp-for="RA_Lower" type="number" class="form-control" value="@Model.RA_Lower">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group has-success">
+                                <span>RA_Upper</span>
+                                <input asp-for="RA_Upper" type="number" class="form-control" value="@Model.RA_Upper">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group has-success">
+                                <span>DEC_Lower</span>
+                                <input asp-for="DEC_Lower" type="number" class="form-control" value="@Model.DEC_Lower">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group has-success">
+                                <span>DEC_Upper</span>
+                                <input asp-for="DEC_Upper" type="number" class="form-control" value="@Model.DEC_Upper">
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-3">
-                                <div class="form-group has-success">
-                                    <span>RA_Lower</span>
-                                    <input asp-for="RA_Lower" type="number" class="form-control" value="@Model.RA_Lower">
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group has-success">
-                                    <span>RA_Upper</span>
-                                    <input asp-for="RA_Upper" type="number" class="form-control" value="@Model.RA_Upper">
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group has-success">
-                                    <span>DEC_Lower</span>
-                                    <input asp-for="DEC_Lower" type="number" class="form-control" value="@Model.DEC_Lower">
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group has-success">
-                                    <span>DEC_Upper</span>
-                                    <input asp-for="DEC_Upper" type="number" class="form-control" value="@Model.DEC_Upper">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <button v-on:click="GetTargetsInRange()" class="btn btn-success" style="margin-bottom:3%">Search</button>
-                                </div>
-                            </div>
-
-                            <div style="overflow-x:auto;">
-                                <table class="table2" style="table-layout:fixed">
-                                    <tr class="d-flex">
-                                        <th></th>
-                                        <th>TID</th>
-                                        <th>Name</th>
-                                        <th>RA</th>
-                                        <th>Dec</th>
-                                    </tr>
-                                    @foreach (var item in Model.TargetsInRange)
-                                    {
-                                        <tr>
-                                            <td><button on-click="Join(@item.TID)" class="btn btn-warning">Join</button></td>
-                                            <td style="width:20px!important;">@item.TID</td>
-                                            <td>@item.Name</td>
-                                            <td class="text-right number">@item.RA</td>
-                                            <td class="text-right number">@item.Dec</td>
-                                        </tr>
-                                    }
-
-                                </table>
+                                <button v-on:click="GetTargetsInRange()" class="btn btn-success" style="margin-bottom:3%">Search</button>
                             </div>
                         </div>
                     </form>
+
+                    <div style="overflow-x:auto;">
+                        <table class="table2" style="table-layout:fixed">
+                            <tr class="d-flex">
+                                <th></th>
+                                <th>TID</th>
+                                <th>Name</th>
+                                <th>RA</th>
+                                <th>Dec</th>
+                            </tr>
+                            @foreach (var item in Model.TargetsInRange)
+                            {
+                                <tr>
+                                    <td><button onclick="Join(@item.TID)" class="btn btn-warning">Join</button></td>
+                                    <td style="width:20px!important;">@item.TID</td>
+                                    <td>@item.Name</td>
+                                    <td class="text-right number">@item.RA</td>
+                                    <td class="text-right number">@item.Dec</td>
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -84,6 +81,6 @@
 
 <script>
     function Join(tid) {
-        console.log("Join: " + tid);
+        console.log("Join " + tid);
     }
 </script>
