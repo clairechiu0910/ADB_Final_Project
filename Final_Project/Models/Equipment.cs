@@ -4,6 +4,37 @@
     {
         public Equipment()
         {
+            Site = "Site Example";
+            Longitude = "0";
+            Latitude = "0";
+            Altitude = "0";
+
+            TimeZone = "UTC+0";
+            DaylightSaving = "n";
+            WaterVapor = "0";
+            LightPollution = "0";
+
+            Aperture = "0";
+            FoV = "0";
+            PixelScale = "0";
+            TrackingAccuracy = "0";
+
+            LimitingMagnitude = "0";
+            ElevationLimit = "0";
+            MountType = "german";
+
+            CameraType_1 = "mono";
+            CameraType_2 = "cooled";
+
+            Johnson_B = "n";
+            Johnson_V = "n";
+            Johnson_R = "n";
+
+            SDSS_u = "n";
+            SDSS_g = "n";
+            SDSS_r = "n";
+            SDSS_i = "n";
+            SDSS_z = "n";
         }
 
         public Equipment(string msg)
