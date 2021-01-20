@@ -50,13 +50,14 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             var result = Session.Run(@"CREATE (u:User) 
                                        SET u.UID = $UID, u.username = $username, u.password = $password, u.name = $name, u.email = $email, u.affiliation = $affiliation, u.title = $title, u.country = $country
                                        RETURN u.username + ' Create'",
-                                       new {
+                                       new
+                                       {
                                            UID = user.UID,
-                                           username =user.Username,
+                                           username = user.Username,
                                            password = user.Password,
                                            name = user.Name,
                                            email = user.Email,
-                                           country = user.Country, 
+                                           country = user.Country,
                                            title = user.Title,
                                            affiliation = user.Affiliation
                                        });
@@ -90,13 +91,13 @@ namespace Final_Project.Repositories.Implementation_Neo4j
         {
             try
             {
-            var ifexist = Session.Run(@"MATCH (u:User {username:$username})
+                var ifexist = Session.Run(@"MATCH (u:User {username:$username})
                                         RETURN EXISTS(u.username)",
-                                     new
-                                     {
-                                         username = username
-                                     }).Single()[0].As<bool>();
-            return ifexist;
+                                         new
+                                         {
+                                             username = username
+                                         }).Single()[0].As<bool>();
+                return ifexist;
             }
             catch (Exception e)
             {

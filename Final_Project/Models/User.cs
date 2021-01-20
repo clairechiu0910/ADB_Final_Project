@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Final_Project.Models
+﻿namespace Final_Project.Models
 {
     public class User
     {
