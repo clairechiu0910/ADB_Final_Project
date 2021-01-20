@@ -86,5 +86,12 @@ namespace Final_Project.Controllers
             manager.RemovePrivateData();
             return Json(manager);
         }
+
+        public IActionResult GetRelatedUser()
+        {
+            var username = HttpContext.Session.GetString("UserName");
+            var relatedUser = _userRepo.GetRelatedUser(username);
+            return Json(relatedUser);
+        }
     }
 }
