@@ -221,3 +221,7 @@ tr:nth-child(odd):hover {
     position: relative;
     margin-top: -110px;
 }
+
+.wrapper{
+    padding-bottom: 150px;
+}

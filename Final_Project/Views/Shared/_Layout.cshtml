@@ -29,7 +29,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
 </head>
-<body class="section-nude">
+<body class="section-nude" style="position:relative;">
     <!--id="register-navbar"-->
     @{
         if (account != null)
@@ -48,26 +48,26 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="navigation-example-2">
-                            <ul class="nav navbar-nav">
-                                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")"><a asp-controller="Home" asp-action="Index">Home</a></li>
-                                <li><a asp-controller="UserRelated" asp-action="Index">Suggested Users</a></li>
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a asp-controller="Projects" asp-action="Index">Recommended Projects</a></li>
-                                        <li><a asp-controller="Projects" asp-action="YourProjects">Your Projects</a></li>
-                                        <li><a asp-controller="Projects" asp-action="Add">Create New Project</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Equipment<span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "UserEquipments" ? "active" : "")"><a asp-controller="UserEquipments" asp-action="Index">My Equipments</a></li>
-                                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "UserEquipments" ? "active" : "")"><a asp-controller="UserEquipments" asp-action="EquipmentSchedule">Equipment Schedule</a></li>
-                                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "UserEquipments" ? "active" : "")"><a asp-controller="UserEquipments" asp-action="DetailedSchedule">Detailed Eq. Schedule</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                        <ul class="nav navbar-nav">
+                            <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a asp-controller="UserRelated" asp-action="Index">Suggested Users</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a asp-controller="Projects" asp-action="Index">Recommended Projects</a></li>
+                                    <li><a asp-controller="Projects" asp-action="YourProjects">Your Projects</a></li>
+                                    <li><a asp-controller="Projects" asp-action="Add">Create New Project</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Equipment<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "UserEquipments" ? "active" : "")"><a asp-controller="UserEquipments" asp-action="Index">My Equipments</a></li>
+                                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "UserEquipments" ? "active" : "")"><a asp-controller="UserEquipments" asp-action="EquipmentSchedule">Equipment Schedule</a></li>
+                                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "UserEquipments" ? "active" : "")"><a asp-controller="UserEquipments" asp-action="DetailedSchedule">Detailed Eq. Schedule</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <!-- <li><a asp-controller="Home" asp-action="Login">Login</a></li> -->
                             <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "User" ? "active" : "")"><a asp-controller="User" asp-action="Index">Profile</a></li>
@@ -88,6 +88,13 @@
     @RenderBody()
 
 
+    <footer class="footer-demo section-nude">
+        <div class="container">
+            <div class="copyright text-center">
+                &copy; 2020 - Final_Project
+            </div>
+        </div>
+    </footer>
     <script src="~/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="~/assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
 
@@ -103,4 +110,5 @@
 
     @RenderSection("Scripts", required: false)
 </body>
+
 </html>
