@@ -62,6 +62,18 @@
   width: 100%;
   z-index: 1; }
 
+    .stars-background .filter-black::after {
+        background-color: rgba(0, 0, 0, 0.5);
+        content: "";
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
 .register-background .container {
   margin-top: 11%;
   position: relative;
@@ -99,13 +111,6 @@
 .register-card .forgot {
   text-align: center; }
 
-.profile-background {
-  background-image: url("../paper_img/star_gaze.jpg");
-  background-position: center center;
-  background-size: cover;
-  height: 300px;
-  position: relative;
-  margin-top: -110px; }
   
   .equipment-background {
   background-image: url("../paper_img/equipment.jpg");
@@ -123,19 +128,42 @@
   position: relative;
   margin-top: -110px; }
 
+.profile-background {
+    background-image: url("../paper_img/star_gaze.jpg");
+    background-position: center center;
+    background-size: cover;
+    height: 350px;
+    position: relative;
+    /*margin-top: -110px;*/
+}
 .profile-background .filter-black::after {
   background-color: rgba(0, 0, 0, 0.5);
   content: "";
   display: block;
-  height: 300px;
+  height: 350px;
   left: 0;
   position: absolute;
   top: 0;
   width: 100%;
   z-index: 1; }
 
+    .profile-background h3 {
+        position: absolute;
+        bottom: 100px;
+        width: 100%;
+        color: #f2f2f2;
+        z-index: 2;
+        font-size: 3.3em;
+        text-align:center;
+    }
+
+.content-container{
+    margin-top: 25px;
+}
+
 .profile-content {
-  position: relative; }
+    position: relative;
+}
 
 .owner .avatar {
   margin-top: -85px;

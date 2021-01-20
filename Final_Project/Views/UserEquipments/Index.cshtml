@@ -3,9 +3,9 @@
     var username = Context.Session.GetString("UserName");
 }
 
-<div class="wrapper">
-    <div class="stars-background">
-        <div class="filter-black"></div>
+<div id="app_user_equipments" class="wrapper">
+    <div class="profile-background">
+        <div class="filter-black"><h3>Equipments</h3></div>
     </div>
     <div class="profile-content section-nude">
         <div class="container">
@@ -14,39 +14,39 @@
                     <h4>UserName: @username<br /></h4>
                 </div>
 
-                <div id="app_user_equipments">
-                    <h5>User Equipment Details<br /></h5>
+                <h5>User Equipment Details<br /></h5>
 
-                    <ul>
-                        <li>
-                            # If low_dec < 0, the observable declination range is +90 ~ low_dec.
-                        </li>
-                        <li>
-                            # If low_dec > 0, the observable declination range is low_dec ~ -90.
-                        </li>
-                    </ul>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>Equipment Details<br /></h5>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <button v-on:click="Compute()" class="btn btn-fill">Compute Declination</button>
-                            <button v-on:click="Add()" class="btn btn-fill btn-success text">Add New Equipment</button>
-                        </div>
+                <ul>
+                    <li>
+                        # If low_dec < 0, the observable declination range is +90 ~ low_dec.
+                    </li>
+                    <li>
+                        # If low_dec > 0, the observable declination range is low_dec ~ -90.
+                    </li>
+                </ul>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Equipment Details<br /></h5>
                     </div>
-                    <hr />
-                    <template v-for="item in equipments">
-                        <a data-toggle="collapse" :href="'#collapseExample-'+item.eid" role="button" aria-expanded="false" aria-controls="collapseExample">
-                            <div class="row">
-                                <div class="col-md-9 col-xs-8">
-                                    <h3>{{item.site}}</h3>
-                                </div>
-                                <div class="col-md-3 col-xs-4">
-                                    <button v-on:click="Edit(item.eid)" class="btn btn-fill btn-info btn-sm" style="margin-top:30px; margin-bottom:3px">Edit</button>
-                                </div>
+                    <div class="col-md-6 text-right">
+                        <button v-on:click="Compute()" class="btn btn-fill">Compute Declination</button>
+                        <button v-on:click="Add()" class="btn btn-fill btn-success text">Add New Equipment</button>
+                    </div>
+                </div>
+                <hr />
+                <template v-for="item in equipments">
+                    <a data-toggle="collapse" :href="'#collapseExample-'+item.eid" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="row">
+                            <div class="col-md-9 col-xs-8">
+                                <h3>{{item.site}}</h3>
                             </div>
-                            <div class="row">
+                            <div class="col-md-3 col-xs-4 text-right">
+                                <button v-on:click="Edit(item.eid)" class="btn btn-fill btn-info btn-sm" style="margin-top:30px; margin-bottom:3px">Edit</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                 <span class="label label-default">Longtitude</span>
                                 <small>{{item.longitude}}</small>
                                 <span class="label label-default">Latitude</span>
@@ -56,50 +56,51 @@
                                 <span class="label label-default">Declination Limit</span>
                                 <small>{{item.altitude}}</small>
                             </div>
-                        </a>
-                        <div class="collapse" :id="'collapseExample-'+item.eid">
-                            <div class="card card-body">
-                                <hr />
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <h6>Time_zone: {{item.timeZone}}</h6>
-                                        <h6>Daylight_saving: {{item.daylightSaving}}</h6>
-                                        <h6>Water_vapor: {{item.waterVapor}}</h6>
-                                        <h6>Water_vapor: {{item.waterVapor}}</h6>
-                                        <h6>Light_pollution(m/sas): {{item.waterVapor}}</h6>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <h6>
-                                            Aperture: {{item.aperture}}
-                                        </h6>
-                                        <h6>FoV: {{item.foV}}</h6>
-                                        <h6>Pixel scale ("/pix): {{item.pixelScale}}</h6>
-                                        <h6>Tracking accuracy: {{item.trackingAccuracy}}</h6>
+                        </div>
+                    </a>
+                    <div class="collapse" :id="'collapseExample-'+item.eid">
+                        <div class="card card-body">
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6>Time_zone: {{item.timeZone}}</h6>
+                                    <h6>Daylight_saving: {{item.daylightSaving}}</h6>
+                                    <h6>Water_vapor: {{item.waterVapor}}</h6>
+                                    <h6>Water_vapor: {{item.waterVapor}}</h6>
+                                    <h6>Light_pollution(m/sas): {{item.waterVapor}}</h6>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h6>
+                                        Aperture: {{item.aperture}}
+                                    </h6>
+                                    <h6>FoV: {{item.foV}}</h6>
+                                    <h6>Pixel scale ("/pix): {{item.pixelScale}}</h6>
+                                    <h6>Tracking accuracy: {{item.trackingAccuracy}}</h6>
 
-                                        <h6>Limiting magnitude (mag): {{item.limitingMagnitude}}</h6>
-                                        <h6>Elevation limit (deg): {{item.elevationLimit}}</h6>
-                                        <h6>Mount type (german, fork, h6eodolite): {{item.mountType}}</h6>
+                                    <h6>Limiting magnitude (mag): {{item.limitingMagnitude}}</h6>
+                                    <h6>Elevation limit (deg): {{item.elevationLimit}}</h6>
+                                    <h6>Mount type (german, fork, h6eodolite): {{item.mountType}}</h6>
 
-                                        <h6>Camera type (colored, mono): {{item.cameraType_1}}</h6>
-                                        <h6>Camera type (cooled, uncooled): {{item.cameraType_2}}</h6>
-                                    </div>
-                                    <div>
-                                        <h6>Johnson B: {{item.johnson_B}}</h6>
-                                        <h6>Johnson V: {{item.johnson_V}}</h6>
-                                        <h6>Johnson R: {{item.johnson_R}}</h6>
+                                    <h6>Camera type (colored, mono): {{item.cameraType_1}}</h6>
+                                    <h6>Camera type (cooled, uncooled): {{item.cameraType_2}}</h6>
+                                </div>
+                                <div>
+                                    <h6>Johnson B: {{item.johnson_B}}</h6>
+                                    <h6>Johnson V: {{item.johnson_V}}</h6>
+                                    <h6>Johnson R: {{item.johnson_R}}</h6>
 
-                                        <h6>SDSS u: {{item.sdsS_u}}</h6>
-                                        <h6>SDSS g: {{item.sdsS_g}}</h6>
-                                        <h6>SDSS r: {{item.sdsS_r}}</h6>
-                                        <h6>SDSS i: {{item.sdsS_i}}</h6>
-                                        <h6>SDSS z: {{item.sdsS_z}}</h6>
-                                    </div>
+                                    <h6>SDSS u: {{item.sdsS_u}}</h6>
+                                    <h6>SDSS g: {{item.sdsS_g}}</h6>
+                                    <h6>SDSS r: {{item.sdsS_r}}</h6>
+                                    <h6>SDSS i: {{item.sdsS_i}}</h6>
+                                    <h6>SDSS z: {{item.sdsS_z}}</h6>
                                 </div>
                             </div>
                         </div>
-                        <hr />
-                    </template>
-                </div>
+                    </div>
+                    <hr />
+                </template>
+
             </div>
         </div>
     </div>

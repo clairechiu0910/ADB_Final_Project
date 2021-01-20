@@ -1,14 +1,19 @@
-﻿<div class="wrapper">
-    <div class="profile-background">
-        <div class="filter-black"></div>
+﻿<div id="app_projects"  class="wrapper">
+    <div class="profile-background container-fluid align-bottom text-center text-white">
+        <div class="filter-black row">
+
+        </div>
+            <h3 v-if="join_projects.length === 0" class="text-center">You haven't joined any projects yet.</h3>
+            <h3 v-else="join_projects.length === 0" class="text-center">Joined Projects</h3>
+        
     </div>
-    <div id="app_projects" class="container-fluid">
+    <div class="container-fluid content-container">
         <template v-if="!IsLogin()">
             <h3 v-if="join_projects === null" class="text-center">Please login to get your projects details.</h3>
         </template>
         <template v-if="IsLogin()">
-            <h3 v-if="join_projects.length === 0" class="text-center">You haven't joined any projects yet.</h3>
-            <h4 v-else="join_projects.length === 0" class="text-center">Projects you have joined.</h4>
+            <!--<h3 v-if="join_projects.length === 0" class="text-center">You haven't joined any projects yet.</h3>-->
+            <!--<h3 v-else="join_projects.length === 0" class="text-center">Joined Projects</h3>-->
             <div id="my-tab-content" class="tab-content">
                 <div class="tab-pane active" id="follows">
                     <div class="row">
