@@ -100,6 +100,7 @@
                                 <th>RA</th>
                                 <th>Dec</th>
                                 <th>Comptability<br />Score</th>
+                                <th>Viewable</th>
                                 <th>Interest</th>
                             </tr>
                             <tr v-for="target in targets" :key="target.tid">
@@ -108,6 +109,8 @@
                                 <td class="text-right number">{{target.ra}}</td>
                                 <td class="text-right number">{{target.dec}}</td>
                                 <td class="text-right number">{{target.score}}</td>
+                                <td v-if="target.end===''" class="text-right number">{{target.start}}</td>
+                                <td v-if="target.end!=''" class="text-right number">{{target.start}} - <br />{{target.end}}</td>
                                 <td>
                                     <button v-on:click="InterestTarget(target.tid)" class="btn btn-success">Interested</button>
                                 </td>

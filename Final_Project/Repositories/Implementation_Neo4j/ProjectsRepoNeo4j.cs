@@ -196,17 +196,44 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                                         RETURN t, e, total
                                         ",
             new { PID, UID });
+
+            List<string[]> output = new List<string[]>();
+
+            var schedule = Session.Run(@"MATCH (u:User{UID:$uid})-[:User_To_Equipment]-(e:Equipment)-[r:Interested {PID:$pid}]-(t:Target)
+                                            WHERE r.start <> 'nan'
+                                            WITH e,r,t
+                                            WHERE datetime() < datetime(r.end)
+                                            RETURN t.TID + ',' + datetime(r.start) + ',' + datetime(r.end) as msg
+                                            ORDER BY datetime(r.start) ASC",
+                                        new { pid, uid });
+            foreach (var record in schedule)
+            {
+                output.Add(record["msg"].ToString().Split(","));
+            }
+
             var targets = Session.Run(@"MATCH p = (a:Project{PID:$PID})-[:Project_To_Target]->(t:Target)<-[s:Score]-(e:Equipment)-[:User_To_Equipment]-(u:User{UID:$UID})
                                         WITH DISTINCT(t), MAX(s.total) as total_score
                                         RETURN COALESCE(t.TID, '') + ',' + COALESCE(t.Name, '') + ',' + COALESCE(t.RA, '') + ',' + COALESCE(t.Dec, '') as msg, total_score
                                         ORDER BY total_score DESC",
-                           new { PID, UID });
+               new { PID, UID });
             var targetList = new List<Target>();
+
             foreach (var record in targets)
             {
+
                 var msg = record["msg"].ToString();
+                string start = "No viewing time", end = "";
+                foreach (string[] arr in output)
+                {
+                    if (arr[0] == msg.Split(',')[0])
+                    {
+                        start = DateTime.Parse(arr[1]).ToString("dd/MM/yyyy hh:mm tt");
+                        end = DateTime.Parse(arr[2]).ToString("dd/MM/yyyy hh:mm tt");
+                        break;
+                    }
+                }
                 var targetscore = record["total_score"].ToString();
-                var newTarget = new Target(msg, targetscore);
+                var newTarget = new Target(msg, targetscore,start,end);
                 targetList.Add(newTarget);
             }
             return targetList;
