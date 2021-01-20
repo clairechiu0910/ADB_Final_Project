@@ -115,6 +115,7 @@
     line-height: 20px;
     bottom: 0px;
     width: 100%;
+    display:none;
 }
 .footer-demo nav > ul {
   list-style: none;

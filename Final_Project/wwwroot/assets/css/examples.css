@@ -227,6 +227,21 @@ tr:nth-child(odd):hover {
 }
 
 .project-cards {
-    box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.2);
-    padding: 25px;
+    padding: 25px 25px;
 }
+.card-inner {
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.2);
+    padding:10px;
+}
+.card-inner h4{
+    margin:0px;
+}
+.card-inner div{
+    margin: 10px 0px;
+}
+.card-inner button{
+    border-radius:5px;
+}
+    .card-inner p {
+        font-family: revert;
+    }

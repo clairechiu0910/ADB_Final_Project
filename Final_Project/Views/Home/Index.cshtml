@@ -17,26 +17,33 @@
             <div id="my-tab-content" class="tab-content">
                 <div class="tab-pane active" id="follows">
                     <div class="row">
-                        <div class="col-md-6 col-md-offset-3">
-                            <ul class="list-unstyled follows">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="row">
                                 <template v-for="item in join_projects">
-                                    <li>
-                                        <div class="row">
-                                            <h3>{{item.title}}</h3>
-                                            <div class="col-md-9 col-xs-8">
+                                    <div class="col-md-4 project-cards">
+                                        <div class="row card-inner">
+                                            <div class="col-md-12 col-xs-12">
                                                 <span class="label label-default">{{item.project_type}}</span>
-                                                <small>{{item.description}}</small>
                                             </div>
-                                            <div class="col-md-3 col-xs-4">
-                                                <div class="text-right text">
-                                                    <button v-on:click="ViewProject(item.pid)" class="btn btn-xs">View Project Detail</button>
+                                            <div class="col-md-12 col-xs-12">
+                                                <h4>{{item.title}}</h4>
+                                                <!--<span class="label label-default">Compatibility Score</span>-->
+                                                <small>Compatibility Score: <b>{{item.score}}</b></small>
+                                            </div>
+                                            <div class="col-md-12 col-xs-12">
+                                                <!--<span class="label label-default">Description</span><br />-->
+                                                <br />
+                                                <p>The project description is to {{item.description}}.</p>
+                                            </div>
+                                            <div class="col-md-12 col-xs-12">
+                                                <div class="text-left text">
+                                                    <button v-on:click="ViewProject(item.pid)" class="btn btn-fill btn-primary btn-xs">View Project Detail</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </li>
-                                    <hr />
+                                    </div>
                                 </template>
-                            </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
