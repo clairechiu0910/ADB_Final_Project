@@ -259,11 +259,6 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             throw new NotImplementedException();
         }
 
-        public void RemoveTargetFromProject(string pid, string tid)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Target> GetTargetsInRange(int RA_Lower, int RA_Upper, int DEC_Lower, int DEC_Upper)
         {
             var result = Session.Run(@"MATCH (n:Target) 
