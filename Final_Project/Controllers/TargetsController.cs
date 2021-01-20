@@ -35,11 +35,5 @@ namespace Final_Project.Controllers
             _projectsRepo.AddTargetToProject(pid, tid);
             return RedirectToAction("Project", "Projects", new { pid = pid });
         }
-
-        public IActionResult Remove(string pid, string tid)
-        {
-            _projectsRepo.RemoveTargetFromProject(pid, tid);
-            return RedirectToAction("Project", "Projects", new { pid = pid });
-        }
     }
 }

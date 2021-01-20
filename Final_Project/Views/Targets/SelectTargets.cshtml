@@ -82,5 +82,7 @@
 <script>
     function Join(tid) {
         console.log("Join " + tid);
+        @*location.href = '@Url.Action("AddTargetToProject", "Targets", new { pid = Model.PID, tid = "TID" })'.replace("TID", tid);*@
+        location.href = '@Html.Raw(Url.Action("AddTargetToProject", "Targets", new { pid = Model.PID, tid = "TID" }))'.replace("TID", tid);
     }
 </script>

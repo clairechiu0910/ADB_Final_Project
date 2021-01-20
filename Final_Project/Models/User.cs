@@ -1,12 +1,14 @@
-﻿using System;
-
-namespace Final_Project.Models
+﻿namespace Final_Project.Models
 {
     public class User
     {
         public User()
         {
-
+            Name = "Your Name";
+            Email = "Your Email";
+            Affiliation = "Your Affiliation";
+            Title = "Your Title";
+            Country = "Taiwan";
         }
 
         public User(string msg)

@@ -17,7 +17,6 @@ namespace Final_Project.Repositories.Interface
 
         //With Targets
         void AddTargetToProject(string pid, string tid);
-        void RemoveTargetFromProject(string pid, string tid);
         List<Target> GetTargetsInRange(int RA_Lower, int RA_Upper, int DEC_Lower, int DEC_Upper);
     }
 }

@@ -4,7 +4,33 @@
     {
         public Project()
         {
+            Title = "New Project";
+            Project_type = "regular";
+            Description = "Description";
 
+            ApertureUpperLimit = "1000";
+            ApertureLowerLimit = "0";
+
+            FoVUpperLimit = "1000";
+            FoVLowerLimit = "0";
+
+            PixelScaleUpperLimit = "1000";
+            PixelScaleLowerLimit = "0";
+
+            MountType = "german";
+
+            CameraType_1 = "mono";
+            CameraType_2 = "cooled";
+
+            Johnson_B = "n";
+            Johnson_V = "n";
+            Johnson_R = "n";
+
+            SDSS_u = "n";
+            SDSS_g = "n";
+            SDSS_r = "n";
+            SDSS_i = "n";
+            SDSS_z = "n";
         }
 
         public Project(string msg)

@@ -253,15 +253,38 @@ namespace Final_Project.Repositories.Implementation_Neo4j
             var msg = result.Single()[0].As<string>();
             return Int32.Parse(msg);
         }
-
         public void AddTargetToProject(string pid, string tid)
         {
-            throw new NotImplementedException();
-        }
+            var PhaveT_ID = Session.Run(@"MATCH p=()-[r:Project_To_Target]->() 
+                                          RETURN count(p)").Single()[0].As<string>();
+            var project = GetProjectById(pid);
 
-        public void RemoveTargetFromProject(string pid, string tid)
-        {
-            throw new NotImplementedException();
+
+            var result = Session.Run(@"MATCH(a:Project), (b:Target)
+                                       WHERE a.PID = $PID AND b.TID = $TID
+                                       MERGE(a) -
+                                                [r: Project_To_Target
+                                                    {
+                                                        PID: $PID, TID: $TID, PhaveT_ID: $PhaveT_ID, 
+                                                        Johnson_B: $Johnson_B, Johnson_R: $Johnson_R, Johnson_V: $Johnson_V, 
+                                                        SDSS_g: $SDSS_g, SDSS_i: $SDSS_i, SDSS_r: $SDSS_r, SDSS_u: $SDSS_u, SDSS_z: $SDSS_z
+                                                    }
+                                                ] 
+                                                -> (b)",
+                                                new
+                                                {
+                                                    PID = pid,
+                                                    TID = tid,
+                                                    PhaveT_ID = PhaveT_ID,
+                                                    Johnson_B = project.Johnson_B,
+                                                    Johnson_R = project.Johnson_R,
+                                                    Johnson_V = project.Johnson_V,
+                                                    SDSS_g = project.SDSS_g,
+                                                    SDSS_i = project.SDSS_i,
+                                                    SDSS_r = project.SDSS_r,
+                                                    SDSS_u = project.SDSS_u,
+                                                    SDSS_z = project.SDSS_z
+                                                });
         }
 
         public List<Target> GetTargetsInRange(int RA_Lower, int RA_Upper, int DEC_Lower, int DEC_Upper)
