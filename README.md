@@ -9,7 +9,10 @@ A website to manage user, projects, target, equipments of star observing.
 ### Restore Nro4j Graph Database
 1. Create a new database in neo4j.
 2. Open terminal (manage >> open terminal)
-3. .\bin\neo4j-admin load --from=[path of database_v2.dump in this project] --database=neo4j --force
+3. Execute this
+```
+.\bin\neo4j-admin load --from=[path of database_v2.dump in this project] --database=neo4j --force
+```
 
 ### Python Environment
 1. Install module
