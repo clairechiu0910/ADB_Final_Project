@@ -225,3 +225,8 @@ tr:nth-child(odd):hover {
 .wrapper{
     padding-bottom: 150px;
 }
+
+.project-cards {
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.2);
+    padding: 25px;
+}
