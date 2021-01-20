@@ -88,6 +88,8 @@ namespace Final_Project.Repositories.Implementation_Neo4j
         }
         public bool IfUserNameExist(string username)
         {
+            try
+            {
             var ifexist = Session.Run(@"MATCH (u:User {username:$username})
                                         RETURN EXISTS(u.username)",
                                      new
@@ -95,6 +97,11 @@ namespace Final_Project.Repositories.Implementation_Neo4j
                                          username = username
                                      }).Single()[0].As<bool>();
             return ifexist;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         public List<User> GetRelatedUser(string username)
