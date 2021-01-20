@@ -5,6 +5,7 @@ using Neo4j.Driver;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System;
 
 namespace Final_Project.Repositories.Implementation_Neo4j
 {
@@ -542,19 +543,24 @@ namespace Final_Project.Repositories.Implementation_Neo4j
 
             List<string[]> output = new List<string[]>();
 
-                var schedule = Session.Run(@"MATCH (u:User{username:$username})-[:User_To_Equipment]-(e:Equipment)-[r:Interested]-(t:Target), (p:Project)
+            var schedule = Session.Run(@"MATCH (u:User{username:$username})-[:User_To_Equipment]-(e:Equipment)-[r:Interested]-(t:Target), (p:Project)
                                             WHERE r.start <> 'nan'
                                             AND p.PID = r.PID
                                             WITH e,r,t,p
                                             WHERE datetime() < datetime(r.end)
                                             RETURN e.EID + ',' + e.site + ',' + p.PID + ',' + p.title + ',' + t.TID + ',' + t.Name + ',' + datetime(r.start) + ',' + datetime(r.end) as msg
                                             ORDER BY datetime(r.start) ASC",
-                                            new { username });
-                foreach (var record in schedule)
-                {
-                output.Add(record["msg"].ToString().Split(","));   
-                }
-   
+                                        new { username });
+            foreach (var record in schedule)
+            {
+                output.Add(record["msg"].ToString().Split(","));
+            }
+            foreach (string[] fixdate in output)
+            {
+                fixdate[6] = DateTime.Parse(fixdate[6]).ToString("dd/MM/yyyy hh:mm tt");
+                fixdate[7] = DateTime.Parse(fixdate[7]).ToString("dd/MM/yyyy hh:mm tt");
+            }
+
             return output;
         }
     }

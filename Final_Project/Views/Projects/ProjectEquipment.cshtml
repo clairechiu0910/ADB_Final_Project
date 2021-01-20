@@ -9,90 +9,78 @@
         <div class="filter-black"></div>
     </div>
     <div class="profile-content section-nude">
-        <div class="container-fluid">
+        <div class="container">
             <div id="app_projects" class="row owner">
                 <div class="col-md-offset-2 col-md-8">
                     <div class="Equipment Schedule">
                         <h4>@Model.Title<br /></h4>
                         <h5>Equipments<br /></h5>
                     </div>
-                    <div style="overflow-x:auto;">
-                        <table class="table2">
-                            <tr>
-                                <th>Edit</th>
-                                <th>EID</th>
+                    <template v-for="item in equipments">
+                        <a data-toggle="collapse" :href="'#collapseExample-'+item.eid" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <div class="row">
+                                <div class="col-md-9 col-xs-8">
+                                    <h3>{{item.site}}</h3>
+                                </div>
+                                <div class="col-md-3 col-xs-4 text-right">
+                                    <!--<button v-on:click="Edit(item.eid)" class="btn btn-fill btn-info btn-sm" style="margin-top:30px; margin-bottom:3px">Edit</button>-->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span class="label label-default">Longtitude</span>
+                                    <small>{{item.longitude}}</small>
+                                    <span class="label label-default">Latitude</span>
+                                    <small>{{item.latitude}}</small>
+                                    <span class="label label-default">Altitude</span>
+                                    <small>{{item.altitude}}</small>
+                                    <span class="label label-default">Declination Limit</span>
+                                    <small>{{item.altitude}}</small>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="collapse" :id="'collapseExample-'+item.eid">
+                            <div class="card card-body">
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h6>Time_zone: {{item.timeZone}}</h6>
+                                        <h6>Daylight_saving: {{item.daylightSaving}}</h6>
+                                        <h6>Water_vapor: {{item.waterVapor}}</h6>
+                                        <h6>Water_vapor: {{item.waterVapor}}</h6>
+                                        <h6>Light_pollution(m/sas): {{item.waterVapor}}</h6>                                        <h6>Johnson B: {{item.johnson_B}}</h6>
+                                        <h6>Johnson V: {{item.johnson_V}}</h6>
+                                        <h6>Johnson R: {{item.johnson_R}}</h6>
 
-                                <th>Site</th>
-                                <th>Longtitude</th>
-                                <th>Latitude</th>
-                                <th>Altitude</th>
+                                        <h6>SDSS u: {{item.sdsS_u}}</h6>
+                                        <h6>SDSS g: {{item.sdsS_g}}</h6>
+                                        <h6>SDSS r: {{item.sdsS_r}}</h6>
+                                        <h6>SDSS i: {{item.sdsS_i}}</h6>
+                                        <h6>SDSS z: {{item.sdsS_z}}</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h6>
+                                            Aperture: {{item.aperture}}
+                                        </h6>
+                                        <h6>FoV: {{item.foV}}</h6>
+                                        <h6>Pixel scale ("/pix): {{item.pixelScale}}</h6>
+                                        <h6>Tracking accuracy: {{item.trackingAccuracy}}</h6>
 
-                                <th>Time_zone</th>
-                                <th>Daylight_saving</th>
-                                <th>Water_vapor</th>
-                                <th>Light_pollution(m/sas)</th>
+                                        <h6>Limiting magnitude (mag): {{item.limitingMagnitude}}</h6>
+                                        <h6>Elevation limit (deg): {{item.elevationLimit}}</h6>
+                                        <h6>Mount type (german, fork, h6eodolite): {{item.mountType}}</h6>
 
-                                <th>Declination Limit</th>
+                                        <h6>Camera type (colored, mono): {{item.cameraType_1}}</h6>
+                                        <h6>Camera type (cooled, uncooled): {{item.cameraType_2}}</h6>
+                                    </div>
+                                    <div>
 
-                                <th>Aperture</th>
-                                <th>FoV</th>
-                                <th>Pixel scale ("/pix)</th>
-                                <th>Tracking accuracy</th>
-
-                                <th>Limiting magnitude (mag)</th>
-                                <th>Elevation limit (deg)</th>
-                                <th>Mount type (german, fork, theodolite)</th>
-
-                                <th>Camera type (colored, mono)</th>
-                                <th>Camera type (cooled, uncooled)</th>
-
-                                <th>Johnson B</th>
-                                <th>Johnson V</th>
-                                <th>Johnson R</th>
-
-                                <th>SDSS u</th>
-                                <th>SDSS g</th>
-                                <th>SDSS r</th>
-                                <th>SDSS i</th>
-                                <th>SDSS z</th>
-                            </tr>
-
-                            <tr v-for="item in equipments">
-                                <td><button v-on:click="Edit(item.eid)" class="btn btn-warning btn-sm">Edit</button></td>
-                                <td>{{item.eid}}</td>
-
-                                <td>{{item.site}}</td>
-                                <td class="text-right number">{{item.longitude}}</td>
-                                <td class="text-right number">{{item.latitude}}</td>
-                                <td class="text-right number">{{item.altitude}}</td>
-
-                                <td>{{item.timeZone}}</td>
-                                <td>{{item.daylightSaving}}</td>
-                                <td class="text-right number">{{item.waterVapor}}</td>
-                                <td class="text-right number">{{item.lightPollution}}</td>
-
-                                <td class="text-right number">{{item.declinationLimit}}</td>
-
-                                <td class="text-right number">{{item.aperture}}</td>
-                                <td class="text-right number">{{item.foV}}</td>
-                                <td class="text-right number">{{item.pixelScale}}</td>
-                                <td class="text-right number">{{item.trackingAccuracy}}</td>
-                                <td class="text-right number">{{item.limitingMagnitude}}</td>
-                                <td class="text-right number">{{item.elevationLimit}}</td>
-                                <td>{{item.mountType}}</td>
-                                <td>{{item.cameraType_1}}</td>
-                                <td>{{item.cameraType_2}}</td>
-                                <td>{{item.johnson_B}}</td>
-                                <td>{{item.johnson_V}}</td>
-                                <td>{{item.johnson_R}}</td>
-                                <td>{{item.sdsS_u}}</td>
-                                <td>{{item.sdsS_g}}</td>
-                                <td>{{item.sdsS_r}}</td>
-                                <td>{{item.sdsS_i}}</td>
-                                <td>{{item.sdsS_z}}</td>
-                            </tr>
-                        </table>
-                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </template>
                 </div>
                 
             </div>
