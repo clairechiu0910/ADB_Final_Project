@@ -1,9 +1,4 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-
-<div class="wrapper">
+﻿<div class="wrapper">
     <div class="profile-background">
         <div class="filter-black"></div>
     </div>
@@ -36,13 +31,6 @@
         </div>
     </div>
 </div>
-<footer class="footer-demo section-nude">
-    <div class="container">
-        <div class="copyright text-center">
-            &copy; 2020 - Final_Project
-        </div>
-    </div>
-</footer>
 
 <script>
     fetch('@Url.Action("GetEquipmentSchedule", "UserEquipments")')
