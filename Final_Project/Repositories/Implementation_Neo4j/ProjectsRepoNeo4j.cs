@@ -43,7 +43,7 @@ namespace Final_Project.Repositories.Implementation_Neo4j
 
         public List<Project> GetYourProjects(string uid)
         {
-            var result = Session.Run(@"MATCH (u:User {UID: $uid})-[r:User_Manage_Project]->(p:Project)
+            var result = Session.Run(@"MATCH (p: Project {PI:$uid})
                                        RETURN p.PID + ',' + p.title + ',' + p.project_type
                                         + ',' +  p.PI + ',' + p.description + ',' + p.aperture_upper_limit
                                         + ',' + p.aperture_lower_limit + ',' + p.FoV_upper_limit + ',' + p.FoV_lower_limit + ',' + p.pixel_scale_upper_limit + ',' + p.pixel_scale_lower_limit
