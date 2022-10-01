@@ -18,8 +18,8 @@ As a user of our website, they have the ability to:
   - View project equipments
   
 ### User Interface
-Our system is provided in web-based interfaces, some of our webpages are as shown in this ppt slide.
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQgUun_oSeoFLRedu_tHOmIP12ciMSkz6Nob4IwTZ9y5ycoBgubJLDGUK3PI8-NhuZsAp7uCcba8suw/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+Our system is provided in web-based interfaces, some of our webpages are as shown in this [ppt slide](https://drive.google.com/file/d/1v5peCg5iic34DbAavUgmt0A1CmtoN9e6/view?usp=sharing).
+
 
 
 ## Set up
